@@ -1,26 +1,34 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import { faker } from "@faker-js/faker";
-import Avatar from "@mui/material/Avatar";
 
 export default function ButtonAppBar() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <Avatar
-            className="mx-2"
-            alt="Remy Sharp"
-            src={faker.image.avatar()}
-          />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            ProfesioHub
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-12">
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <img
+                src={faker.image.avatar()}
+                alt="logo"
+                style={{
+                  height: "50px",
+                  width: "50px",
+                  borderRadius: "50%",
+                  marginRight: "10px",
+                }}
+              />
+              <h3>ProfesioHub</h3>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
   );
 }
