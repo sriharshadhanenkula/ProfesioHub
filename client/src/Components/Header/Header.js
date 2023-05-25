@@ -1,12 +1,16 @@
 import * as React from "react";
-import { faker } from "@faker-js/faker";
+import myLogo from "../../assets/logo.jpg";
+import "./myHeader.css";
 
 export default function ButtonAppBar() {
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-12">
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <nav
+            className="navbar navbar-expand-lg "
+            style={{ backgroundColor: "#f0f4f7" }}
+          >
             <div
               style={{
                 display: "flex",
@@ -15,7 +19,7 @@ export default function ButtonAppBar() {
               }}
             >
               <img
-                src={faker.image.avatar()}
+                src={myLogo}
                 alt="logo"
                 style={{
                   height: "50px",
@@ -24,7 +28,8 @@ export default function ButtonAppBar() {
                   marginRight: "10px",
                 }}
               />
-              <h3>ProfesioHub</h3>
+
+              <h1 className="logo-text">ProfesioHub</h1>
             </div>
           </nav>
         </div>

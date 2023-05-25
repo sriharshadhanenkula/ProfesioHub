@@ -28,10 +28,14 @@ function LoginPage() {
                 padding: "60px",
                 display: "flex",
                 flexDirection: "column",
+                paddingTop: "50px",
               }}
             >
               <div>
-                <h1 className="text-center" style={{ fontSize: "28px" }}>
+                <h1
+                  className="text-center"
+                  style={{ fontSize: "26px", fontFamily: "open sans" }}
+                >
                   Welcome to your professional community
                 </h1>
                 <Form className="mt-5">
@@ -62,9 +66,9 @@ function LoginPage() {
                     </p>
                   </div>
                   <Button
-                    variant="primary"
                     type="submit"
                     className="w-100 mt-3"
+                    variant="primary"
                     onClick={() => {
                       navigate("/");
                     }}

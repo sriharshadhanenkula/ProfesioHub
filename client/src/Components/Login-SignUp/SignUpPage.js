@@ -43,7 +43,7 @@ function SignUpPage() {
               <div>
                 <h1
                   className="text-center"
-                  style={{ fontSize: "28px", width: "100%" }}
+                  style={{ fontSize: "26px", fontFamily: "open sans" }}
                 >
                   Make the most of your professional life
                 </h1>
