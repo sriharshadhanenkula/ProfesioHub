@@ -213,7 +213,7 @@ export default function MainHeading() {
                 sx={{ display: { xs: "none", sm: "block" } }}
               >
                 <img
-                  style={{ height: "50px", width: "50px", borderRadius: "50%" }}
+                  style={{ height: "40px", width: "40px", borderRadius: "50%" }}
                   src={logo}
                   alt="logo"
                 />

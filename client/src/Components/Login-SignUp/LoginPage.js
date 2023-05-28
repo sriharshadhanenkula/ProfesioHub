@@ -4,9 +4,50 @@ import "./LoginPage.css";
 import Header from "../Header/Header";
 import myLoginImage from "../../assets/login-img-1.jpg";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function LoginPage() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onClickSubmit = async (e) => {
+    e.preventDefault();
+
+    if (email === "" || password === "") {
+      toast.error("Please fill all the fields!");
+      return;
+    }
+
+    const data = {
+      email: email,
+      password: password,
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const res = await axios.post(
+      "http://localhost:5000/users/login",
+      data,
+      config
+    );
+
+    if (res.status === 200 && res.data === "Login successful") {
+      navigate("/");
+    } else if (res.status === 200 && res.data === "Incorrect password") {
+      toast.error("Incorrect password");
+    } else if (res.status === 203) {
+      toast.error("User not found");
+    }
+  };
+
   return (
     <>
       <Header />
@@ -45,6 +86,7 @@ function LoginPage() {
                       type="email"
                       placeholder="Enter email"
                       required
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -53,6 +95,7 @@ function LoginPage() {
                       type="password"
                       placeholder="Enter password"
                       required
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </Form.Group>
                   <div className="mt-3">
@@ -69,24 +112,24 @@ function LoginPage() {
                     type="submit"
                     className="w-100 mt-3"
                     variant="primary"
-                    onClick={() => {
-                      navigate("/");
-                    }}
+                    onClick={onClickSubmit}
                   >
                     Submit
                   </Button>
+                  <ToastContainer />
                 </Form>
               </div>
 
               <div className="mt-5">
                 <p className="text-center">
-                  New to ProfesioHub?{" "}
-                  <a
-                    href="/signup"
-                    style={{ textDecoration: "none", color: "black" }}
+                  New to ProfesioHub?
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => navigate("/signup")}
                   >
+                    {" "}
                     Join Now
-                  </a>
+                  </span>
                 </p>
               </div>
             </div>

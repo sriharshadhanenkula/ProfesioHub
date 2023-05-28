@@ -16,24 +16,25 @@ function HomePage() {
       >
         <div
           style={{
-            width: "25%",
+            width: "20%",
             backgroundColor: "white",
-            marginTop: "16px",
+            marginTop: "30px",
             borderRadius: "10px",
+            maxHeight: "70vh",
           }}
         >
           <p>Profile Details</p>
         </div>
-        <div style={{ width: "50%" }}>
+        <div style={{ width: "50%", margin: "30px", marginTop: "30px" }}>
           <UserFeed />
         </div>
         <div
           style={{
-            width: "25%",
+            width: "30%",
             backgroundColor: "white",
-
             borderRadius: "10px",
-            marginTop: "16px",
+            maxHeight: "70vh",
+            marginTop: "30px",
           }}
         >
           <p>Promotions</p>

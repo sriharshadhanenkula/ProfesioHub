@@ -38,6 +38,8 @@ function AddPost() {
             width: "100%",
             textAlign: "left",
             fontWeight: "400",
+            fontSize: "12px",
+            fontFamily: "open sans",
           }}
         >
           What's on your mind?
@@ -61,10 +63,12 @@ function AddPost() {
             border: "none",
             fontWeight: "500",
             fontFamily: "open sans",
-            fontSize: "14px",
+            fontSize: "8px",
           }}
         >
-          <PhotoIcon style={{ color: "blue", marginRight: "5px" }} />
+          <PhotoIcon
+            style={{ color: "blue", marginRight: "5px", fontSize: "20px" }}
+          />
           Photo
         </Button>
         <Button
@@ -77,10 +81,12 @@ function AddPost() {
             border: "none",
             fontWeight: "500",
             fontFamily: "open sans",
-            fontSize: "14px",
+            fontSize: "8px",
           }}
         >
-          <OndemandVideoIcon style={{ color: "green", marginRight: "5px" }} />
+          <OndemandVideoIcon
+            style={{ color: "green", marginRight: "5px", fontSize: "20px" }}
+          />
           Video
         </Button>
         <Button
@@ -93,10 +99,12 @@ function AddPost() {
             border: "none",
             fontWeight: "500",
             fontFamily: "open sans",
-            fontSize: "14px",
+            fontSize: "8px",
           }}
         >
-          <EventIcon style={{ color: "brown", marginRight: "5px" }} />
+          <EventIcon
+            style={{ color: "brown", marginRight: "5px", fontSize: "20px" }}
+          />
           Event
         </Button>
         <Button
@@ -109,10 +117,12 @@ function AddPost() {
             border: "none",
             fontWeight: "500",
             fontFamily: "open sans",
-            fontSize: "14px",
+            fontSize: "8px",
           }}
         >
-          <NewspaperIcon style={{ color: "red", marginRight: "5px" }} />
+          <NewspaperIcon
+            style={{ color: "red", marginRight: "5px", fontSize: "20px" }}
+          />
           Write article
         </Button>
       </div>

@@ -4,9 +4,10 @@ import UserPost from "./UserPost";
 
 function UserFeed() {
   return (
-    <div style={{ margin: "14px", marginTop: "16px" }}>
+    <div>
       <AddPost />
 
+      <UserPost />
       <UserPost />
     </div>
   );
