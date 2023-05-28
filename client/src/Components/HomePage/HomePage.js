@@ -18,21 +18,22 @@ function HomePage() {
           style={{
             width: "25%",
             backgroundColor: "white",
-            marginTop: "14px",
-            borderRadius: "6px",
+            marginTop: "16px",
+            borderRadius: "10px",
           }}
         >
           <p>Profile Details</p>
         </div>
-        <div style={{ width: "50%", marginTop: "14px" }}>
+        <div style={{ width: "50%" }}>
           <UserFeed />
         </div>
         <div
           style={{
             width: "25%",
             backgroundColor: "white",
-            marginTop: "14px",
-            borderRadius: "6px",
+
+            borderRadius: "10px",
+            marginTop: "16px",
           }}
         >
           <p>Promotions</p>

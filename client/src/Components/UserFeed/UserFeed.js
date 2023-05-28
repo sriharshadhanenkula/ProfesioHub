@@ -1,6 +1,15 @@
 import React from "react";
+import AddPost from "./AddPost";
+import UserPost from "./UserPost";
+
 function UserFeed() {
-  return <h1>Sree</h1>;
+  return (
+    <div style={{ margin: "14px", marginTop: "16px" }}>
+      <AddPost />
+
+      <UserPost />
+    </div>
+  );
 }
 
 export default UserFeed;

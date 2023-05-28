@@ -241,7 +241,16 @@ export default function MainHeading() {
                   }}
                 >
                   <HomeIcon />
-                  <Typography sx={{ fontSize: "12px" }}>Home</Typography>
+                  <Typography
+                    sx={{
+                      fontSize: "12px",
+                      fontFamily: "open sans",
+                      fontWeight: "500",
+                      color: "#011e3b",
+                    }}
+                  >
+                    Home
+                  </Typography>
                 </IconButton>
                 <IconButton
                   size="large"
@@ -257,7 +266,14 @@ export default function MainHeading() {
                     }}
                   >
                     <PeopleIcon />
-                    <Typography sx={{ fontSize: "12px" }}>
+                    <Typography
+                      sx={{
+                        fontSize: "12px",
+                        fontFamily: "open sans",
+                        fontWeight: "500",
+                        color: "#011e3b",
+                      }}
+                    >
                       My Network
                     </Typography>
                   </Badge>
@@ -276,7 +292,16 @@ export default function MainHeading() {
                     }}
                   >
                     <WorkIcon />
-                    <Typography sx={{ fontSize: "12px" }}>Jobs</Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "12px",
+                        fontFamily: "open sans",
+                        fontWeight: "500",
+                        color: "#011e3b",
+                      }}
+                    >
+                      Jobs
+                    </Typography>
                   </Badge>
                 </IconButton>
                 <IconButton
@@ -293,7 +318,16 @@ export default function MainHeading() {
                     }}
                   >
                     <CommentIcon />
-                    <Typography sx={{ fontSize: "12px" }}>Messaging</Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "12px",
+                        fontFamily: "open sans",
+                        fontWeight: "500",
+                        color: "#011e3b",
+                      }}
+                    >
+                      Messaging
+                    </Typography>
                   </Badge>
                 </IconButton>
                 <IconButton
@@ -312,7 +346,14 @@ export default function MainHeading() {
                     }}
                   >
                     <NotificationsIcon />
-                    <Typography sx={{ fontSize: "12px" }}>
+                    <Typography
+                      sx={{
+                        fontSize: "12px",
+                        fontFamily: "open sans",
+                        fontWeight: "500",
+                        color: "#011e3b",
+                      }}
+                    >
                       Notifications
                     </Typography>
                   </Badge>
@@ -333,7 +374,16 @@ export default function MainHeading() {
                   }}
                 >
                   <AccountCircle />
-                  <Typography sx={{ fontSize: "12px" }}>Me</Typography>
+                  <Typography
+                    sx={{
+                      fontSize: "12px",
+                      fontFamily: "open sans",
+                      fontWeight: "500",
+                      color: "#011e3b",
+                    }}
+                  >
+                    Me
+                  </Typography>
                 </IconButton>
               </Box>
               <Box sx={{ display: { xs: "flex", md: "none" } }}>
