@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const mongoose = require("mongoose");
 const userSchema = require("../models/users");
-const { use } = require(".");
+const { use } = require("./posts");
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
@@ -39,11 +39,29 @@ router.post("/login", async function (req, res, next) {
   const isPresent = await userSchema.findOne({ email: email });
 
   if (isPresent) {
+    const myData = {
+      message: "",
+      email: isPresent.email,
+    };
     if (isPresent.password === password) {
-      res.status(200).send("Login successful");
+      myData.message = "Login successful";
+      res.status(200).send(myData);
     } else {
-      res.status(200).send("Incorrect password");
+      myData.message = "Incorrect password";
+      res.status(200).send(myData);
     }
+  } else {
+    res.status(203).send("User not found");
+  }
+});
+
+router.post("/getUserDetails", async function (req, res, next) {
+  const { email } = req.body;
+
+  const isPresent = await userSchema.findOne({ email: email });
+
+  if (isPresent) {
+    res.status(200).send(isPresent);
   } else {
     res.status(203).send("User not found");
   }

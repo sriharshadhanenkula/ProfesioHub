@@ -8,9 +8,12 @@ import axios from "axios";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useCookies } from "react-cookie";
 
 function LoginPage() {
   const navigate = useNavigate();
+  const [, setCookie] = useCookies(["userEmail"]);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -39,9 +42,14 @@ function LoginPage() {
       config
     );
 
-    if (res.status === 200 && res.data === "Login successful") {
+    if (res.status === 200 && res.data.message === "Login successful") {
+      setCookie("userEmail", res.data.email, { path: "/" });
+      //console.log(cookies.userEmail);
       navigate("/");
-    } else if (res.status === 200 && res.data === "Incorrect password") {
+    } else if (
+      res.status === 200 &&
+      res.data.message === "Incorrect password"
+    ) {
       toast.error("Incorrect password");
     } else if (res.status === 203) {
       toast.error("User not found");

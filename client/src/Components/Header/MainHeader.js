@@ -1,5 +1,4 @@
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -24,54 +23,49 @@ import CommentIcon from "@mui/icons-material/Comment";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
 import "./myHeader.css";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.black, 0.1),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.black, 0.15),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
+import { useCookies } from "react-cookie";
+import { useEffect } from "react";
+import { useState } from "react";
+import axios from "axios";
 
 export default function MainHeading() {
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [cookies] = useCookies(["userEmail"]);
+
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    const userEmail = cookies.userEmail;
+
+    if (userEmail === undefined) {
+      navigate("/login");
+    } else {
+      const data = {
+        email: userEmail,
+      };
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      axios
+        .post("http://localhost:5000/users/getUserDetails", data, config)
+        .then((res) => {
+          if (res.status === 200) {
+            setUserData(res.data);
+          } else {
+            navigate("/login");
+          }
+        });
+    }
+  }, [cookies.userEmail, navigate]);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -113,7 +107,9 @@ export default function MainHeading() {
           src={faker.image.avatar()}
           alt="avatar"
         />
-        <Typography>Sri Harsha</Typography>
+        <Typography>
+          {userData.firstName} {userData.lastName}
+        </Typography>
         <Typography>Student</Typography>
       </MenuItem>
 
@@ -218,15 +214,70 @@ export default function MainHeading() {
                   alt="logo"
                 />
               </Typography>
-              <Search>
-                <SearchIconWrapper>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  backgroundColor: "red",
+                }}
+              />
+              <Box
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginLeft: "20px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    backgroundColor: "#eef3f8",
+                    borderRadius: "20px",
+                    padding: "5px",
+                  }}
+                >
+                  <SearchIcon
+                    sx={{
+                      color: "grey",
+                      fontSize: "20px",
+                      marginLeft: "10px",
+                    }}
+                  />
+                  <InputBase
+                    sx={{
+                      marginLeft: "10px",
+                      color: "grey",
+                      fontSize: "14px",
+                      fontFamily: "open sans",
+                      fontWeight: "500",
+                    }}
+                    placeholder="Search.."
+                    inputProps={{ "aria-label": "search" }}
+                  />
+                </div>
+              </Box>
+              <Box
+                sx={{
+                  display: { xs: "flex", md: "none" },
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <IconButton
+                  size="large"
+                  aria-label="show 4 new mails"
+                  color="inherit"
+                >
                   <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ "aria-label": "search" }}
-                />
-              </Search>
+                </IconButton>
+              </Box>
+
               <Box sx={{ flexGrow: 1 }} />
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
                 <IconButton
@@ -240,10 +291,10 @@ export default function MainHeading() {
                     alignItems: "center",
                   }}
                 >
-                  <HomeIcon />
+                  <HomeIcon style={{ fontSize: "22px" }} />
                   <Typography
                     sx={{
-                      fontSize: "12px",
+                      fontSize: "8px",
                       fontFamily: "open sans",
                       fontWeight: "500",
                       color: "#011e3b",
@@ -265,10 +316,10 @@ export default function MainHeading() {
                       alignItems: "center",
                     }}
                   >
-                    <PeopleIcon />
+                    <PeopleIcon style={{ fontSize: "22px" }} />
                     <Typography
                       sx={{
-                        fontSize: "12px",
+                        fontSize: "8px",
                         fontFamily: "open sans",
                         fontWeight: "500",
                         color: "#011e3b",
@@ -291,10 +342,10 @@ export default function MainHeading() {
                       alignItems: "center",
                     }}
                   >
-                    <WorkIcon />
+                    <WorkIcon style={{ fontSize: "22px" }} />
                     <Typography
                       sx={{
-                        fontSize: "12px",
+                        fontSize: "8px",
                         fontFamily: "open sans",
                         fontWeight: "500",
                         color: "#011e3b",
@@ -317,10 +368,10 @@ export default function MainHeading() {
                       alignItems: "center",
                     }}
                   >
-                    <CommentIcon />
+                    <CommentIcon style={{ fontSize: "22px" }} />
                     <Typography
                       sx={{
-                        fontSize: "12px",
+                        fontSize: "8px",
                         fontFamily: "open sans",
                         fontWeight: "500",
                         color: "#011e3b",
@@ -345,10 +396,10 @@ export default function MainHeading() {
                       alignItems: "center",
                     }}
                   >
-                    <NotificationsIcon />
+                    <NotificationsIcon style={{ fontSize: "22px" }} />
                     <Typography
                       sx={{
-                        fontSize: "12px",
+                        fontSize: "8px",
                         fontFamily: "open sans",
                         fontWeight: "500",
                         color: "#011e3b",
@@ -373,10 +424,10 @@ export default function MainHeading() {
                     alignItems: "center",
                   }}
                 >
-                  <AccountCircle />
+                  <AccountCircle style={{ fontSize: "22px" }} />
                   <Typography
                     sx={{
-                      fontSize: "12px",
+                      fontSize: "8px",
                       fontFamily: "open sans",
                       fontWeight: "500",
                       color: "#011e3b",

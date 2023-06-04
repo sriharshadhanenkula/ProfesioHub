@@ -8,7 +8,7 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 connectDB();
 
-var indexRouter = require("./routes/index");
+var indexRouter = require("./routes/posts");
 var usersRouter = require("./routes/users");
 
 var app = express();
