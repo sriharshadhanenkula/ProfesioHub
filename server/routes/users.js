@@ -10,7 +10,22 @@ router.get("/", function (req, res, next) {
 });
 
 router.post("/signup", async function (req, res, next) {
-  const { firstName, lastName, email, password } = req.body;
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    city,
+    state,
+    country,
+    zipCode,
+    role,
+    university,
+    startMonth,
+    startYear,
+    endMonth,
+    endYear,
+  } = req.body;
 
   const isPresent = await userSchema.findOne({ email: email });
 
@@ -18,11 +33,21 @@ router.post("/signup", async function (req, res, next) {
     res.status(203).send("User already exists");
   } else {
     const user = await userSchema.create({
-      _id: new mongoose.Types.ObjectId(),
+      id: new mongoose.Types.ObjectId(),
       firstName: firstName,
       lastName: lastName,
       email: email,
       password: password,
+      city: city,
+      state: state,
+      country: country,
+      zipCode: zipCode,
+      role: role,
+      university: university,
+      startMonth: startMonth,
+      startYear: startYear,
+      endMonth: endMonth,
+      endYear: endYear,
     });
 
     if (user) {
@@ -30,6 +55,17 @@ router.post("/signup", async function (req, res, next) {
     } else {
       res.status(500).send("Error in creating account");
     }
+  }
+});
+
+router.post("/validateEmail", async function (req, res, next) {
+  const { email } = req.body;
+  const isPresent = await userSchema.findOne({ email: email });
+
+  if (isPresent) {
+    res.status(200).send({ message: "Email already exists" });
+  } else {
+    res.status(200).send({ message: "Email is valid" });
   }
 });
 

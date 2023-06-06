@@ -12,6 +12,12 @@ import axios from "axios";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {
+  enterCredentials,
+  enterYourDetails,
+  enterYourLocation,
+  enterYourRole,
+} from "./SignUpPageUserInput";
 
 function SignUpPage() {
   const navigate = useNavigate();
@@ -27,7 +33,7 @@ function SignUpPage() {
   const [zipCode, setZipCode] = useState("");
   const [role, setRole] = useState("");
   const [university, setUniversity] = useState("");
-  const { startMonth, setStartMonth } = useState("");
+  const [startMonth, setStartMonth] = useState("");
   const [startYear, setStartYear] = useState(null);
   const [endMonth, setEndMonth] = useState("");
   const [endYear, setEndYear] = useState(null);
@@ -53,7 +59,7 @@ function SignUpPage() {
     };
     console.log(data);
 
-    /* const config = {
+    const config = {
       headers: {
         "Content-Type": "application/json",
       },
@@ -75,316 +81,7 @@ function SignUpPage() {
         // Handle the error properly
         console.error(error);
         toast.error("Error in creating account!");
-      }); */
-  };
-
-  const enterCredentials = () => {
-    return (
-      <Form className="mt-2">
-        <Form.Group className="mb-3" controlId="formGroupEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            value={emailId}
-            onChange={(e) => setEmailId(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formGroupPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formGroupConfirmPassword">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Confirm password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </Form.Group>
-
-        <Button
-          variant="primary"
-          className="w-100 mt-3"
-          onClick={(e) => {
-            e.preventDefault();
-            if (emailId === "" || password === "" || confirmPassword === "") {
-              toast.error("Please fill all the fields!");
-              return;
-            }
-
-            if (password !== confirmPassword) {
-              toast.error("Passwords do not match!");
-              return;
-            }
-
-            setNum(num + 1);
-          }}
-        >
-          Next
-        </Button>
-        <ToastContainer />
-      </Form>
-    );
-  };
-
-  const enterYourDetails = () => {
-    return (
-      <Form className="mt-2">
-        <Form.Group className="mb-3" controlId="formGroupFirstName">
-          <Form.Label>First Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter First Name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formGroupLastName">
-          <Form.Label>Last Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Last Name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </Form.Group>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginTop: "20px",
-          }}
-        >
-          <Button
-            variant="transparent"
-            className="mt-3"
-            style={{
-              width: "30%",
-              border: "1px solid black",
-            }}
-            onClick={() => setNum(num - 1)}
-          >
-            Back
-          </Button>
-          <Button
-            variant="primary"
-            className=" mt-3"
-            style={{
-              width: "30%",
-            }}
-            onClick={(e) => {
-              e.preventDefault();
-              if (firstName === "" || lastName === "") {
-                toast.error("Please fill all the fields!");
-                return;
-              }
-
-              setNum(num + 1);
-            }}
-          >
-            Next
-          </Button>
-        </div>
-
-        <ToastContainer />
-      </Form>
-    );
-  };
-
-  const enterYourLocation = () => {
-    return (
-      <Form>
-        <Form.Group className="mb-3" controlId="formGroupFirstName">
-          <Form.Label>City</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter City"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formGroupLastName">
-          <Form.Label>State</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter State"
-            value={state}
-            onChange={(e) => setState(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formGroupLastName">
-          <Form.Label>Country</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Country"
-            value={country}
-            onChange={(e) => setCountry(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formGroupLastName">
-          <Form.Label>Zip code</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Zip code"
-            value={zipCode}
-            onChange={(e) => setZipCode(e.target.value)}
-          />
-        </Form.Group>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginTop: "20px",
-          }}
-        >
-          <Button
-            variant="transparent"
-            className="mt-3"
-            style={{
-              width: "30%",
-              border: "1px solid black",
-            }}
-            onClick={() => setNum(num - 1)}
-          >
-            Back
-          </Button>
-          <Button
-            variant="primary"
-            className=" mt-3"
-            style={{
-              width: "30%",
-            }}
-            onClick={(e) => {
-              e.preventDefault();
-              if (
-                city === "" ||
-                country === "" ||
-                state === "" ||
-                zipCode === ""
-              ) {
-                toast.error("Please fill all the fields!");
-                return;
-              }
-
-              setNum(num + 1);
-            }}
-          >
-            Next
-          </Button>
-        </div>
-
-        <ToastContainer />
-      </Form>
-    );
-  };
-
-  const enterYourRole = () => {
-    return (
-      <Form>
-        <Form.Group className="mb-3" controlId="formGroupFirstName">
-          <Form.Label>Role</Form.Label>
-          <Form.Select
-            aria-label="Default select example"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option>Select your role</option>
-            <option value="Chancellor/President">Chancellor/President</option>
-            <option value="Provost/Vice-Chancellor">
-              Provost/Vice-Chancellor
-            </option>
-            <option value="Faculty">Faculty</option>
-            <option value="Department Chair/Head">Department Chair/Head</option>
-            <option value="Academic Advisors">Academic Advisors</option>
-            <option value="Registrar">Registrar</option>
-            <option value="Admissions Officer">Admissions Officer</option>
-            <option value="Financial Aid Officer">Financial Aid Officer</option>
-            <option value="Librarian">Librarian</option>
-            <option value="Student Affairs/Services Staff">
-              Student Affairs/Services Staff
-            </option>
-            <option value="Researcher">Researcher</option>
-            <option value="Administrative Staff">Administrative Staff</option>
-          </Form.Select>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formGroupLastName">
-          <Form.Label>University / College</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter University"
-            value={university}
-            onChange={(e) => setUniversity(e.target.value)}
-          />
-        </Form.Group>
-        <Button
-          variant="transparent"
-          className="w-100 mt-3"
-          style={{
-            color: "black",
-            backgroundColor: "#adadac",
-          }}
-          onClick={(e) => {
-            e.preventDefault();
-            setRole("Student");
-            setUniversity("");
-            setNum(num + 2);
-          }}
-        >
-          I am Student
-        </Button>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginTop: "20px",
-          }}
-        >
-          <Button
-            variant="transparent"
-            className="mt-3"
-            style={{
-              width: "30%",
-              border: "1px solid black",
-            }}
-            onClick={() => setNum(num - 1)}
-          >
-            Back
-          </Button>
-          <Button
-            variant="primary"
-            className=" mt-3"
-            style={{
-              width: "30%",
-            }}
-            onClick={(e) => {
-              e.preventDefault();
-              if (university === "" || role === "") {
-                toast.error("Please fill all the fields!");
-                return;
-              }
-
-              setNum(num + 1);
-            }}
-          >
-            Next
-          </Button>
-        </div>
-
-        <ToastContainer />
-      </Form>
-    );
+      });
   };
 
   const handleStartDateChange = (date) => {
@@ -393,6 +90,18 @@ function SignUpPage() {
 
   const handleEndDateChange = (date) => {
     setEndYear(date);
+  };
+
+  const CheckForValidationsForStartDate = (e) => {
+    e.preventDefault();
+    setEndMonth(null);
+    setEndYear(null);
+    if (startMonth === "" || startYear === null) {
+      toast.error("Please fill all the fields!");
+      return;
+    }
+
+    onClickSubmit(e);
   };
 
   const enterStartDate = () => {
@@ -407,18 +116,18 @@ function SignUpPage() {
               onChange={(e) => setStartMonth(e.target.value)}
             >
               <option>Select month</option>
-              <option value="January">January</option>
-              <option value="February">February</option>
-              <option value="March">March</option>
-              <option value="April">April</option>
-              <option value="May">May</option>
-              <option value="June">June</option>
-              <option value="July">July</option>
-              <option value="August">August</option>
-              <option value="September">September</option>
-              <option value="October">October</option>
-              <option value="November">November</option>
-              <option value="December">December</option>
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
             </Form.Select>
           </Form.Group>
 
@@ -459,7 +168,7 @@ function SignUpPage() {
               style={{
                 width: "30%",
               }}
-              onClick={onClickSubmit}
+              onClick={CheckForValidationsForStartDate}
             >
               Register
             </Button>
@@ -469,6 +178,33 @@ function SignUpPage() {
         </Form>
       </div>
     );
+  };
+
+  const CheckForValidationsForStartDateAndEndDate = (e) => {
+    e.preventDefault();
+    if (
+      startMonth === "" ||
+      startYear === null ||
+      endMonth === "" ||
+      endYear === null ||
+      university === ""
+    ) {
+      toast.error("Please fill all the fields!");
+      return;
+    }
+
+    if (startYear > endYear) {
+      toast.error("Start Year cannot be greater than end Year!");
+      return;
+    } else if (startYear.getFullYear() === endYear.getFullYear()) {
+      if (parseInt(startMonth) > parseInt(endMonth)) {
+        toast.error("Start date cannot be greater than end date!");
+        return;
+      }
+      onClickSubmit(e);
+    }
+
+    onClickSubmit(e);
   };
 
   const enterStartAndEndDate = () => {
@@ -498,22 +234,22 @@ function SignUpPage() {
             <Form.Group controlId="formGroupFirstName">
               <Form.Select
                 aria-label="Default select example"
-                onSelect={(e) => setStartMonth(e.target.value)}
+                onChange={(e) => setStartMonth(e.target.value)}
                 value={startMonth}
               >
                 <option>Select month</option>
-                <option value="January">January</option>
-                <option value="February">February</option>
-                <option value="March">March</option>
-                <option value="April">April</option>
-                <option value="May">May</option>
-                <option value="June">June</option>
-                <option value="July">July</option>
-                <option value="August">August</option>
-                <option value="September">September</option>
-                <option value="October">October</option>
-                <option value="November">November</option>
-                <option value="December">December</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
               </Form.Select>
             </Form.Group>
 
@@ -543,22 +279,22 @@ function SignUpPage() {
             <Form.Group controlId="formGroupFirstName">
               <Form.Select
                 aria-label="Default select example"
-                onSelect={(e) => setEndMonth(e.target.value)}
+                onChange={(e) => setEndMonth(e.target.value)}
                 value={endMonth}
               >
                 <option>Select month</option>
-                <option value="January">January</option>
-                <option value="February">February</option>
-                <option value="March">March</option>
-                <option value="April">April</option>
-                <option value="May">May</option>
-                <option value="June">June</option>
-                <option value="July">July</option>
-                <option value="August">August</option>
-                <option value="September">September</option>
-                <option value="October">October</option>
-                <option value="November">November</option>
-                <option value="December">December</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
               </Form.Select>
             </Form.Group>
 
@@ -600,7 +336,7 @@ function SignUpPage() {
               style={{
                 width: "30%",
               }}
-              onClick={onClickSubmit}
+              onClick={CheckForValidationsForStartDateAndEndDate}
             >
               Register
             </Button>
@@ -658,10 +394,48 @@ function SignUpPage() {
                     marginTop: "20px",
                   }}
                 >
-                  {num === 0 && enterCredentials()}
-                  {num === 1 && enterYourDetails()}
-                  {num === 2 && enterYourLocation()}
-                  {num === 3 && enterYourRole()}
+                  {num === 0 &&
+                    enterCredentials(
+                      emailId,
+                      password,
+                      confirmPassword,
+                      setEmailId,
+                      setPassword,
+                      setConfirmPassword,
+                      setNum,
+                      num
+                    )}
+                  {num === 1 &&
+                    enterYourDetails(
+                      firstName,
+                      lastName,
+                      setFirstName,
+                      setLastName,
+                      setNum,
+                      num
+                    )}
+                  {num === 2 &&
+                    enterYourLocation(
+                      city,
+                      state,
+                      country,
+                      zipCode,
+                      setCity,
+                      setState,
+                      setCountry,
+                      setZipCode,
+                      setNum,
+                      num
+                    )}
+                  {num === 3 &&
+                    enterYourRole(
+                      role,
+                      university,
+                      setRole,
+                      setUniversity,
+                      setNum,
+                      num
+                    )}
                   {num === 4 && enterStartDate()}
                   {num === 5 && enterStartAndEndDate()}
                 </div>
