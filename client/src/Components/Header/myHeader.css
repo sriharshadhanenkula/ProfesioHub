@@ -4,3 +4,20 @@
   font-family: "Dancing Script", cursive;
   color: #0471bf;
 }
+.nav-Link-decoration {
+  text-decoration: none;
+  color: #011e3b;
+  align-items: center;
+}
+.list-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.nav-item-paragraph {
+  font-size: 8px;
+  font-family: "open sans";
+  font-weight: 500;
+  color: #011e3b;
+}

@@ -3,6 +3,10 @@ import LoginPage from "./Components/Login-SignUp/LoginPage";
 import SignUpPage from "./Components/Login-SignUp/SignUpPage";
 import HomePage from "./Components/HomePage/HomePage";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import MyNetwork from "./Components/MYNetwork/MyNetwork";
+import MyJob from "./Components/MyJobs/MyJobs";
+import Events from "./Components/Events/Events";
+import Messaging from "./Components/Messaging/Messaging";
 
 function App() {
   return (
@@ -12,6 +16,10 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/myNetwork" element={<MyNetwork />} />
+          <Route path="/jobs" element={<MyJob />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/messaging" element={<Messaging />} />
         </Routes>
       </Router>
     </>

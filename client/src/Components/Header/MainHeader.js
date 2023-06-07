@@ -1,460 +1,151 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-// import MenuIcon from "@mui/icons-material/Menu";
+import React from "react";
+import { Navbar } from "react-bootstrap";
+import logo from "../../assets/logo.jpg";
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
+import { InputBase, Container } from "@mui/material";
+import { Link } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 import WorkIcon from "@mui/icons-material/Work";
 import PeopleIcon from "@mui/icons-material/People";
-import { faker } from "@faker-js/faker";
-import { Container, Divider } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
-import { useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.jpg";
-import "./myHeader.css";
-import { useCookies } from "react-cookie";
-import { useEffect } from "react";
-import { useState } from "react";
-import axios from "axios";
+import EventIcon from "@mui/icons-material/Event";
 
-export default function MainHeading() {
-  const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const [cookies] = useCookies(["userEmail"]);
-
-  const [userData, setUserData] = useState({});
-
-  useEffect(() => {
-    const userEmail = cookies.userEmail;
-
-    if (userEmail === undefined) {
-      navigate("/login");
-    } else {
-      const data = {
-        email: userEmail,
-      };
-
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-
-      axios
-        .post("http://localhost:5000/users/getUserDetails", data, config)
-        .then((res) => {
-          if (res.status === 200) {
-            setUserData(res.data);
-          } else {
-            navigate("/login");
-          }
-        });
-    }
-  }, [cookies.userEmail, navigate]);
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem sx={{ display: "flex", flexDirection: "column" }}>
-        <img
-          style={{ height: "80px", width: "80px", borderRadius: "50%" }}
-          src={faker.image.avatar()}
-          alt="avatar"
-        />
-        <Typography>
-          {userData.firstName} {userData.lastName}
-        </Typography>
-        <Typography>Student</Typography>
-      </MenuItem>
-
-      <MenuItem onClick={handleMenuClose}>View Profile</MenuItem>
-      <Divider style={{ backgroundColor: "black" }} />
-      <Typography>Account</Typography>
-      <MenuItem onClick={handleMenuClose}>Settings & Privacy</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Help</MenuItem>
-      <MenuItem
-        onClick={() => {
-          navigate("/login");
-        }}
-      >
-        Sign Out
-      </MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <HomeIcon />
-          </Badge>
-        </IconButton>
-        <p>Home</p>
-      </MenuItem>
-
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
-
+function MainHeader() {
   return (
-    <div style={{ backgroundColor: "white" }}>
-      <Container>
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar
-            position="static"
-            sx={{
-              backgroundColor: "white",
-              border: "none",
-              boxShadow: "none",
-              color: "#183552",
+    <div>
+      <Navbar style={{ backgroundColor: "white" }}>
+        <Container
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
             }}
           >
-            <Toolbar>
-              <Typography
-                noWrap
-                component="div"
-                sx={{ display: { xs: "none", sm: "block" } }}
-              >
-                <img
-                  style={{ height: "40px", width: "40px", borderRadius: "50%" }}
-                  src={logo}
-                  alt="logo"
-                />
-              </Typography>
-
-              <Box
+            <img
+              style={{ height: "40px", width: "40px", borderRadius: "50%" }}
+              src={logo}
+              alt="logo"
+            />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                backgroundColor: "#eef3f8",
+                borderRadius: "20px",
+                padding: "5px",
+                marginLeft: "20px",
+              }}
+            >
+              <SearchIcon
                 sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                  backgroundColor: "red",
+                  color: "#747574",
+                  fontSize: "20px",
+                  marginLeft: "10px",
                 }}
               />
-              <Box
+              <InputBase
                 sx={{
-                  display: { xs: "none", md: "flex" },
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginLeft: "20px",
+                  marginLeft: "10px",
+                  color: "#747574",
+                  fontSize: "14px",
+                  fontFamily: "open sans",
+                  fontWeight: "500",
                 }}
+                placeholder="Search.."
+                inputProps={{ "aria-label": "search" }}
+              />
+            </div>
+          </div>
+          <div
+            style={{
+              width: "45%",
+              marginLeft: "auto",
+            }}
+          >
+            <ul
+              style={{
+                listStyleType: "none",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <Link
+                to="/"
+                className="nav-Link-decoration"
+                style={{ height: "30px" }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    backgroundColor: "#eef3f8",
-                    borderRadius: "20px",
-                    padding: "5px",
-                  }}
-                >
-                  <SearchIcon
-                    sx={{
-                      color: "grey",
-                      fontSize: "20px",
-                      marginLeft: "10px",
-                    }}
-                  />
-                  <InputBase
-                    sx={{
-                      marginLeft: "10px",
-                      color: "grey",
-                      fontSize: "14px",
-                      fontFamily: "open sans",
-                      fontWeight: "500",
-                    }}
-                    placeholder="Search.."
-                    inputProps={{ "aria-label": "search" }}
-                  />
-                </div>
-              </Box>
-              <Box
-                sx={{
-                  display: { xs: "flex", md: "none" },
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <IconButton
-                  size="large"
-                  aria-label="show 4 new mails"
-                  color="inherit"
-                >
-                  <SearchIcon />
-                </IconButton>
-              </Box>
-
-              <Box sx={{ flexGrow: 1 }} />
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                <IconButton
-                  size="large"
-                  aria-label="show 4 new mails"
-                  color="inherit"
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
+                <li className="list-item">
                   <HomeIcon style={{ fontSize: "22px" }} />
-                  <Typography
-                    sx={{
-                      fontSize: "8px",
-                      fontFamily: "open sans",
-                      fontWeight: "500",
-                      color: "#011e3b",
-                    }}
-                  >
-                    Home
-                  </Typography>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  aria-label="show 4 new mails"
-                  color="inherit"
-                >
-                  <Badge
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <PeopleIcon style={{ fontSize: "22px" }} />
-                    <Typography
-                      sx={{
-                        fontSize: "8px",
-                        fontFamily: "open sans",
-                        fontWeight: "500",
-                        color: "#011e3b",
-                      }}
-                    >
-                      My Network
-                    </Typography>
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  aria-label="show 4 new mails"
-                  color="inherit"
-                >
-                  <Badge
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <WorkIcon style={{ fontSize: "22px" }} />
-                    <Typography
-                      sx={{
-                        fontSize: "8px",
-                        fontFamily: "open sans",
-                        fontWeight: "500",
-                        color: "#011e3b",
-                      }}
-                    >
-                      Jobs
-                    </Typography>
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  aria-label="show 4 new mails"
-                  color="inherit"
-                >
-                  <Badge
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <CommentIcon style={{ fontSize: "22px" }} />
-                    <Typography
-                      sx={{
-                        fontSize: "8px",
-                        fontFamily: "open sans",
-                        fontWeight: "500",
-                        color: "#011e3b",
-                      }}
-                    >
-                      Messaging
-                    </Typography>
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  aria-label="show 17 new notifications"
-                  color="inherit"
-                >
-                  <Badge
-                    badgeContent={17}
-                    color="error"
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <NotificationsIcon style={{ fontSize: "22px" }} />
-                    <Typography
-                      sx={{
-                        fontSize: "8px",
-                        fontFamily: "open sans",
-                        fontWeight: "500",
-                        color: "#011e3b",
-                      }}
-                    >
-                      Notifications
-                    </Typography>
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  color="inherit"
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
+                  <p className="nav-item-paragraph">Home</p>
+                </li>
+              </Link>
+              <Link
+                to="/myNetwork"
+                className="nav-Link-decoration"
+                style={{ height: "30px" }}
+              >
+                <li className="list-item">
+                  <PeopleIcon style={{ fontSize: "22px" }} />
+                  <p className="nav-item-paragraph">My Network</p>
+                </li>
+              </Link>
+              <Link
+                to="/jobs"
+                className="nav-Link-decoration"
+                style={{ height: "30px" }}
+              >
+                <li className="list-item">
+                  <WorkIcon style={{ fontSize: "22px" }} />
+                  <p className="nav-item-paragraph">Jobs</p>
+                </li>
+              </Link>
+              <Link
+                to="/events"
+                className="nav-Link-decoration"
+                style={{ height: "30px" }}
+              >
+                <li className="list-item">
+                  <EventIcon style={{ fontSize: "22px" }} />
+                  <p className="nav-item-paragraph">Events</p>
+                </li>
+              </Link>
+              <Link
+                to="/messaging"
+                className="nav-Link-decoration"
+                style={{ height: "30px" }}
+              >
+                <li className="list-item">
+                  <CommentIcon style={{ fontSize: "22px" }} />
+                  <p className="nav-item-paragraph">Messaging</p>
+                </li>
+              </Link>
+
+              <Link
+                to="/myProfile"
+                className="nav-Link-decoration"
+                style={{ height: "30px" }}
+              >
+                <li className="list-item">
                   <AccountCircle style={{ fontSize: "22px" }} />
-                  <Typography
-                    sx={{
-                      fontSize: "8px",
-                      fontFamily: "open sans",
-                      fontWeight: "500",
-                      color: "#011e3b",
-                    }}
-                  >
-                    Me
-                  </Typography>
-                </IconButton>
-              </Box>
-              <Box sx={{ display: { xs: "flex", md: "none" } }}>
-                <IconButton
-                  size="large"
-                  aria-label="show more"
-                  aria-controls={mobileMenuId}
-                  aria-haspopup="true"
-                  onClick={handleMobileMenuOpen}
-                  color="inherit"
-                >
-                  <MoreIcon />
-                </IconButton>
-              </Box>
-            </Toolbar>
-          </AppBar>
-          {renderMobileMenu}
-          {renderMenu}
-        </Box>
-      </Container>
+                  <p className="nav-item-paragraph">Me</p>
+                </li>
+              </Link>
+            </ul>
+          </div>
+        </Container>
+      </Navbar>
     </div>
   );
 }
+
+export default MainHeader;

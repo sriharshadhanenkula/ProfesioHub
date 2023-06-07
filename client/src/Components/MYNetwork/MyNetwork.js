@@ -1,12 +1,11 @@
 import React from "react";
 import MainHeader from "../Header/MainHeader";
 import { Container } from "@mui/material";
-import UserFeed from "../UserFeed/UserFeed";
-import ProfileBar from "./ProfileBar";
+import ManageNetworkBar from "./ManageNetworkBar";
 
-function HomePage() {
+function MyNetwork() {
   return (
-    <div style={{ backgroundColor: "#ebeced" }}>
+    <div style={{ backgroundColor: "#ebeced", minHeight: "100vh" }}>
       <MainHeader />
       <Container
         style={{
@@ -15,25 +14,23 @@ function HomePage() {
           justifyContent: "space-between",
         }}
       >
-        <ProfileBar />
+        <ManageNetworkBar />
 
-        <div style={{ width: "50%", margin: "30px", marginTop: "30px" }}>
-          <UserFeed />
-        </div>
         <div
           style={{
-            width: "28%",
             backgroundColor: "white",
             borderRadius: "10px",
             maxHeight: "70vh",
+            width: "70%",
+            margin: "30px",
             marginTop: "30px",
           }}
         >
-          <p>Display recent jobs and events</p>
+          <p>My Network</p>
         </div>
       </Container>
     </div>
   );
 }
 
-export default HomePage;
+export default MyNetwork;
