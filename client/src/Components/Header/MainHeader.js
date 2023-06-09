@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar } from "react-bootstrap";
+import { Button, Navbar } from "react-bootstrap";
 import logo from "../../assets/logo.jpg";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase, Container } from "@mui/material";
@@ -10,8 +10,60 @@ import WorkIcon from "@mui/icons-material/Work";
 import PeopleIcon from "@mui/icons-material/People";
 import CommentIcon from "@mui/icons-material/Comment";
 import EventIcon from "@mui/icons-material/Event";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { useCookies } from "react-cookie";
+import { useEffect } from "react";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { faker } from "@faker-js/faker";
 
 function MainHeader() {
+  const navigate = useNavigate();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [cookies, removeCookie] = useCookies(["userEmail"]);
+  const [userData, setUserData] = useState({});
+
+  console.log(userData);
+
+  useEffect(() => {
+    const userEmail = cookies.userEmail;
+
+    if (userEmail === undefined) {
+      navigate("/login");
+    } else {
+      const data = {
+        email: userEmail,
+      };
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      axios
+        .post("http://localhost:5000/users/getUserDetails", data, config)
+        .then((res) => {
+          if (res.status === 200) {
+            setUserData(res.data);
+          } else {
+            navigate("/login");
+          }
+        });
+    }
+  }, [cookies.userEmail, navigate]);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <div>
       <Navbar style={{ backgroundColor: "white" }}>
@@ -130,16 +182,104 @@ function MainHeader() {
                 </li>
               </Link>
 
-              <Link
-                to="/myProfile"
-                className="nav-Link-decoration"
-                style={{ height: "30px" }}
-              >
-                <li className="list-item">
-                  <AccountCircle style={{ fontSize: "22px" }} />
-                  <p className="nav-item-paragraph">Me</p>
+              <Link className="nav-Link-decoration" style={{ height: "30px" }}>
+                <li
+                  onClick={handleClick}
+                  className="list-item"
+                  style={{
+                    textAlign: "center",
+                  }}
+                >
+                  <AccountCircle
+                    style={{
+                      fontSize: "22px",
+                    }}
+                  />
+                  <p className="nav-item-paragraph">My profile</p>
                 </li>
               </Link>
+
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                PaperProps={{
+                  style: {
+                    width: "250px",
+                  },
+                }}
+              >
+                <Container
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <img
+                    style={{
+                      height: "50px",
+                      width: "50px",
+                      borderRadius: "50%",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                    }}
+                    src={faker.image.avatar()}
+                    alt="profile"
+                  />
+                  <p
+                    style={{
+                      fontSize: "16px",
+                      fontFamily: "open sans",
+                      fontWeight: "600",
+                      textAlign: "center",
+                      marginTop: "15px",
+                      marginBottom: "5px",
+                    }}
+                  >
+                    {userData.firstName} {` `}
+                    {userData.lastName}
+                  </p>
+                  <p>{userData.role}</p>
+                  <Button
+                    variant="outline-primary"
+                    style={{
+                      width: "100%",
+                      marginBottom: "10px",
+                      height: "30px",
+                      fontSize: "12px",
+                      fontFamily: "open sans",
+                      fontWeight: "600",
+                      textAlign: "center",
+                      borderRadius: "20px",
+                    }}
+                  >
+                    View Profile
+                  </Button>
+                </Container>
+
+                <MenuItem onClick={handleClose}>Resume</MenuItem>
+                <MenuItem onClick={handleClose}>Saved jobs</MenuItem>
+                <MenuItem onClick={handleClose}>Saved events</MenuItem>
+                <MenuItem onClick={handleClose}>Help</MenuItem>
+                <MenuItem>
+                  <Button
+                    variant="outline-primary"
+                    onClick={() => {
+                      removeCookie("userEmail");
+                      navigate("/login");
+                    }}
+                    style={{
+                      borderRadius: "20px",
+                      fontSize: "12px",
+                      fontFamily: "open sans",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Sign Out
+                  </Button>
+                </MenuItem>
+              </Menu>
             </ul>
           </div>
         </Container>

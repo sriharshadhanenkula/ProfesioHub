@@ -1,0 +1,11 @@
+.manageNetworkBar__item {
+  font-family: open sans;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  color: #414142;
+}

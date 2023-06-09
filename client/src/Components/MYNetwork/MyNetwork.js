@@ -20,10 +20,10 @@ function MyNetwork() {
           style={{
             backgroundColor: "white",
             borderRadius: "10px",
-            maxHeight: "70vh",
+            minHeight: "90vh",
             width: "70%",
-            margin: "30px",
             marginTop: "30px",
+            marginLeft: "30px",
           }}
         >
           <p>My Network</p>
