@@ -26,8 +26,6 @@ function MainHeader() {
   const [cookies, removeCookie] = useCookies(["userEmail"]);
   const [userData, setUserData] = useState({});
 
-  console.log(userData);
-
   useEffect(() => {
     const userEmail = cookies.userEmail;
 
@@ -258,10 +256,46 @@ function MainHeader() {
                   </Button>
                 </Container>
 
-                <MenuItem onClick={handleClose}>Resume</MenuItem>
-                <MenuItem onClick={handleClose}>Saved jobs</MenuItem>
-                <MenuItem onClick={handleClose}>Saved events</MenuItem>
-                <MenuItem onClick={handleClose}>Help</MenuItem>
+                <MenuItem
+                  onClick={handleClose}
+                  style={{
+                    fontSize: "14px",
+                    fontFamily: "open sans",
+                    fontWeight: "500",
+                  }}
+                >
+                  Resume
+                </MenuItem>
+                <MenuItem
+                  onClick={handleClose}
+                  style={{
+                    fontSize: "14px",
+                    fontFamily: "open sans",
+                    fontWeight: "500",
+                  }}
+                >
+                  Saved jobs
+                </MenuItem>
+                <MenuItem
+                  onClick={handleClose}
+                  style={{
+                    fontSize: "14px",
+                    fontFamily: "open sans",
+                    fontWeight: "500",
+                  }}
+                >
+                  Saved events
+                </MenuItem>
+                <MenuItem
+                  onClick={handleClose}
+                  style={{
+                    fontSize: "14px",
+                    fontFamily: "open sans",
+                    fontWeight: "500",
+                  }}
+                >
+                  Help
+                </MenuItem>
                 <MenuItem>
                   <Button
                     variant="outline-primary"
@@ -271,9 +305,9 @@ function MainHeader() {
                     }}
                     style={{
                       borderRadius: "20px",
-                      fontSize: "12px",
+                      fontSize: "10px",
                       fontFamily: "open sans",
-                      fontWeight: "600",
+                      fontWeight: "500",
                     }}
                   >
                     Sign Out

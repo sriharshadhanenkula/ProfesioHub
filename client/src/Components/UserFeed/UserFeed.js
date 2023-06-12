@@ -9,6 +9,7 @@ function UserFeed() {
 
       <UserPost />
       <UserPost />
+      <UserPost />
     </div>
   );
 }

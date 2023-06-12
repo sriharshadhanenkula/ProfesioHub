@@ -8,9 +8,10 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ModeCommentIcon from "@mui/icons-material/ModeComment";
+import TelegramIcon from "@mui/icons-material/Telegram";
 import { faker } from "@faker-js/faker";
 
 export default function UserPost() {
@@ -27,24 +28,72 @@ export default function UserPost() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
+        title={
+          <Typography variant="subtitle1" component="div">
+            {faker.name.firstName()} {faker.name.lastName()}
+            <Typography
+              variant="subtitle2"
+              color="text.secondary"
+              style={{ fontSize: "10px", marginTop: "0px", paddingTop: "0px" }}
+            >
+              Student
+            </Typography>
+          </Typography>
+        }
         subheader="September 14, 2016"
+        style={{ marginBottom: "5px", paddingBottom: "0px" }}
       />
-      <CardContent>
+
+      <CardContent style={{ marginTop: "0px", paddingTop: "0px" }}>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {faker.lorem.paragraph()}
         </Typography>
       </CardContent>
-      <CardMedia component="img" image={faker.image.food()} alt="Paella dish" />
+      <CardMedia
+        component="img"
+        image={faker.image.urlPicsumPhotos()}
+        alt="Paella dish"
+      />
 
-      <CardActions disableSpacing>
+      <CardActions
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+          alignItems: "center",
+        }}
+      >
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+          <ThumbUpIcon />
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+            style={{ fontSize: "10px", marginTop: "0px", paddingTop: "0px" }}
+          >
+            Like
+          </Typography>
         </IconButton>
+
+        <IconButton aria-label=" comments">
+          <ModeCommentIcon />
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+            style={{ fontSize: "10px", marginTop: "0px", paddingTop: "0px" }}
+          >
+            Comment
+          </Typography>
+        </IconButton>
+
         <IconButton aria-label="share">
-          <ShareIcon />
+          <TelegramIcon />
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+            style={{ fontSize: "10px", marginTop: "0px", paddingTop: "0px" }}
+          >
+            Share
+          </Typography>
         </IconButton>
       </CardActions>
     </Card>

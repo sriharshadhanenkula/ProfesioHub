@@ -2,11 +2,11 @@ import React from "react";
 import { Button, Container } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import profileBackground from "../../assets/profileBackground.jpg";
-import userProfilePic from "../../assets/userProfilePic.jpg";
 import { Divider } from "@mui/material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import PeopleIcon from "@mui/icons-material/People";
+import { faker } from "@faker-js/faker";
 
 function ProfileBar() {
   return (
@@ -44,7 +44,7 @@ function ProfileBar() {
             }}
           >
             <img
-              src={userProfilePic}
+              src={faker.image.avatar()}
               alt="profile"
               style={{ borderRadius: "50%", width: "90px", height: "70px" }}
             />
@@ -58,7 +58,7 @@ function ProfileBar() {
                 textAlign: "center",
               }}
             >
-              Sri Harsha Chowdary Dhanenkula
+              {faker.name.firstName()} {faker.name.lastName()}
             </p>
 
             <p
