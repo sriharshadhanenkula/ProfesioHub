@@ -1,6 +1,6 @@
 import React from "react";
 import { faker } from "@faker-js/faker";
-import { Button } from "react-bootstrap";
+import Button from "@mui/material/Button";
 import PhotoIcon from "@mui/icons-material/Photo";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import EventIcon from "@mui/icons-material/Event";
@@ -55,17 +55,25 @@ function AddPost() {
           alt="avatar"
         />
         <Button
-          style={{
+          sx={{
             backgroundColor: "transparent",
             color: "#02182e",
             border: "1px solid #02182e",
             borderRadius: "20px",
             marginLeft: "10px",
             width: "100%",
-            textAlign: "left",
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
             fontWeight: "400",
             fontSize: "12px",
             fontFamily: "open sans",
+            textTransform: "capitalize",
+            paddingLeft: "20px",
+            "&:hover": {
+              backgroundColor: "#dfe5eb",
+              color: "black",
+            },
           }}
           onClick={handleShow}
         >
@@ -137,7 +145,7 @@ function AddPost() {
         }}
       >
         <Button
-          style={{
+          sx={{
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
@@ -146,7 +154,11 @@ function AddPost() {
             border: "none",
             fontWeight: "500",
             fontFamily: "open sans",
-            fontSize: "10px",
+            fontSize: "12px",
+            textTransform: "capitalize",
+            "&:hover": {
+              backgroundColor: "#dfe5eb",
+            },
           }}
         >
           <PhotoIcon
@@ -155,7 +167,7 @@ function AddPost() {
           Photo
         </Button>
         <Button
-          style={{
+          sx={{
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
@@ -164,7 +176,11 @@ function AddPost() {
             border: "none",
             fontWeight: "500",
             fontFamily: "open sans",
-            fontSize: "10px",
+            fontSize: "12px",
+            textTransform: "capitalize",
+            "&:hover": {
+              backgroundColor: "#dfe5eb",
+            },
           }}
         >
           <OndemandVideoIcon
@@ -173,7 +189,7 @@ function AddPost() {
           Video
         </Button>
         <Button
-          style={{
+          sx={{
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
@@ -182,7 +198,11 @@ function AddPost() {
             border: "none",
             fontWeight: "500",
             fontFamily: "open sans",
-            fontSize: "10px",
+            fontSize: "12px",
+            textTransform: "capitalize",
+            "&:hover": {
+              backgroundColor: "#dfe5eb",
+            },
           }}
         >
           <EventIcon
@@ -191,7 +211,7 @@ function AddPost() {
           Event
         </Button>
         <Button
-          style={{
+          sx={{
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
@@ -200,11 +220,15 @@ function AddPost() {
             border: "none",
             fontWeight: "500",
             fontFamily: "open sans",
-            fontSize: "10px",
+            fontSize: "12px",
+            textTransform: "capitalize",
+            "&:hover": {
+              backgroundColor: "#dfe5eb",
+            },
           }}
         >
           <NewspaperIcon
-            style={{ color: "red", marginRight: "5px", fontSize: "20px" }}
+            style={{ color: "red", marginRight: "5px", fontSize: "18px" }}
           />
           Write article
         </Button>

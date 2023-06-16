@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Navbar } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
+import Button from "@mui/material/Button";
 import logo from "../../assets/logo.jpg";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase, Container } from "@mui/material";
@@ -63,262 +64,299 @@ function MainHeader() {
   };
 
   return (
-    <div>
-      <Navbar style={{ backgroundColor: "white" }}>
-        <Container
+    <Navbar style={{ backgroundColor: "white" }}>
+      <Container
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        <div
           style={{
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
           }}
         >
+          <img
+            style={{ height: "40px", width: "40px", borderRadius: "50%" }}
+            src={logo}
+            alt="logo"
+          />
           <div
             style={{
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
+              backgroundColor: "#eef3f8",
+              borderRadius: "20px",
+              padding: "5px",
+              marginLeft: "20px",
             }}
           >
-            <img
-              style={{ height: "40px", width: "40px", borderRadius: "50%" }}
-              src={logo}
-              alt="logo"
+            <SearchIcon
+              sx={{
+                color: "#747574",
+                fontSize: "20px",
+                marginLeft: "10px",
+              }}
             />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                backgroundColor: "#eef3f8",
-                borderRadius: "20px",
-                padding: "5px",
-                marginLeft: "20px",
+            <InputBase
+              sx={{
+                marginLeft: "10px",
+                color: "#747574",
+                fontSize: "14px",
+                fontFamily: "open sans",
+                fontWeight: "500",
+              }}
+              placeholder="Search.."
+              inputProps={{ "aria-label": "search" }}
+            />
+          </div>
+        </div>
+        <div
+          style={{
+            width: "45%",
+            marginLeft: "auto",
+          }}
+        >
+          <ul
+            style={{
+              listStyleType: "none",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              margin: "0px",
+              padding: "0px",
+            }}
+          >
+            <Link to="/" className="nav-Link-decoration">
+              <Button
+                className="list-item"
+                sx={{
+                  textTransform: "capitalize",
+                  color: "#40576e",
+                  "&:hover": {
+                    color: "#1d2b38",
+                  },
+                }}
+              >
+                <HomeIcon style={{ fontSize: "22px" }} />
+                <p className="nav-item-paragraph">Home</p>
+              </Button>
+            </Link>
+
+            <Link to="/myNetwork" className="nav-Link-decoration">
+              <Button
+                className="list-item"
+                sx={{
+                  textTransform: "capitalize",
+                  color: "#40576e",
+                  "&:hover": {
+                    color: "#1d2b38",
+                  },
+                }}
+              >
+                <PeopleIcon style={{ fontSize: "22px" }} />
+                <p className="nav-item-paragraph">My Network</p>
+              </Button>
+            </Link>
+
+            <Link to="/jobs" className="nav-Link-decoration">
+              <Button
+                className="list-item"
+                sx={{
+                  textTransform: "capitalize",
+                  color: "#40576e",
+                  "&:hover": {
+                    color: "#1d2b38",
+                  },
+                }}
+              >
+                <WorkIcon style={{ fontSize: "22px" }} />
+                <p className="nav-item-paragraph">Jobs</p>
+              </Button>
+            </Link>
+
+            <Link to="/events" className="nav-Link-decoration">
+              <Button
+                className="list-item"
+                sx={{
+                  textTransform: "capitalize",
+                  color: "#40576e",
+                  "&:hover": {
+                    color: "#1d2b38",
+                  },
+                }}
+              >
+                <EventIcon style={{ fontSize: "22px" }} />
+                <p className="nav-item-paragraph">Events</p>
+              </Button>
+            </Link>
+
+            <Link to="/messaging" className="nav-Link-decoration">
+              <Button
+                className="list-item"
+                sx={{
+                  textTransform: "capitalize",
+                  color: "#40576e",
+                  "&:hover": {
+                    color: "#1d2b38",
+                  },
+                }}
+              >
+                <CommentIcon style={{ fontSize: "22px" }} />
+                <p className="nav-item-paragraph">Messaging</p>
+              </Button>
+            </Link>
+
+            <Link className="nav-Link-decoration">
+              <Button
+                onClick={handleClick}
+                className="list-item"
+                sx={{
+                  textTransform: "capitalize",
+                  color: "#40576e",
+                  "&:hover": {
+                    color: "#1d2b38",
+                  },
+                }}
+                style={{
+                  textAlign: "center",
+                }}
+              >
+                <AccountCircle
+                  style={{
+                    fontSize: "22px",
+                  }}
+                />
+                <p className="nav-item-paragraph">My profile</p>
+              </Button>
+            </Link>
+
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+              PaperProps={{
+                style: {
+                  width: "250px",
+                },
               }}
             >
-              <SearchIcon
-                sx={{
-                  color: "#747574",
-                  fontSize: "20px",
-                  marginLeft: "10px",
+              <Container
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
                 }}
-              />
-              <InputBase
-                sx={{
-                  marginLeft: "10px",
-                  color: "#747574",
+              >
+                <img
+                  style={{
+                    height: "50px",
+                    width: "50px",
+                    borderRadius: "50%",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
+                  src={faker.image.avatar()}
+                  alt="profile"
+                />
+                <p
+                  style={{
+                    fontSize: "16px",
+                    fontFamily: "open sans",
+                    fontWeight: "600",
+                    textAlign: "center",
+                    marginTop: "15px",
+                    marginBottom: "5px",
+                  }}
+                >
+                  {userData.firstName} {` `}
+                  {userData.lastName}
+                </p>
+                <p>{userData.role}</p>
+                <Button
+                  variant="outline-primary"
+                  style={{
+                    width: "100%",
+                    marginBottom: "10px",
+                    height: "30px",
+                    fontSize: "12px",
+                    fontFamily: "open sans",
+                    fontWeight: "600",
+                    textAlign: "center",
+                    borderRadius: "20px",
+                  }}
+                >
+                  View Profile
+                </Button>
+              </Container>
+
+              <MenuItem
+                onClick={handleClose}
+                style={{
                   fontSize: "14px",
                   fontFamily: "open sans",
                   fontWeight: "500",
                 }}
-                placeholder="Search.."
-                inputProps={{ "aria-label": "search" }}
-              />
-            </div>
-          </div>
-          <div
-            style={{
-              width: "45%",
-              marginLeft: "auto",
-            }}
-          >
-            <ul
-              style={{
-                listStyleType: "none",
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <Link
-                to="/"
-                className="nav-Link-decoration"
-                style={{ height: "30px" }}
               >
-                <li className="list-item">
-                  <HomeIcon style={{ fontSize: "22px" }} />
-                  <p className="nav-item-paragraph">Home</p>
-                </li>
-              </Link>
-              <Link
-                to="/myNetwork"
-                className="nav-Link-decoration"
-                style={{ height: "30px" }}
-              >
-                <li className="list-item">
-                  <PeopleIcon style={{ fontSize: "22px" }} />
-                  <p className="nav-item-paragraph">My Network</p>
-                </li>
-              </Link>
-              <Link
-                to="/jobs"
-                className="nav-Link-decoration"
-                style={{ height: "30px" }}
-              >
-                <li className="list-item">
-                  <WorkIcon style={{ fontSize: "22px" }} />
-                  <p className="nav-item-paragraph">Jobs</p>
-                </li>
-              </Link>
-              <Link
-                to="/events"
-                className="nav-Link-decoration"
-                style={{ height: "30px" }}
-              >
-                <li className="list-item">
-                  <EventIcon style={{ fontSize: "22px" }} />
-                  <p className="nav-item-paragraph">Events</p>
-                </li>
-              </Link>
-              <Link
-                to="/messaging"
-                className="nav-Link-decoration"
-                style={{ height: "30px" }}
-              >
-                <li className="list-item">
-                  <CommentIcon style={{ fontSize: "22px" }} />
-                  <p className="nav-item-paragraph">Messaging</p>
-                </li>
-              </Link>
-
-              <Link className="nav-Link-decoration" style={{ height: "30px" }}>
-                <li
-                  onClick={handleClick}
-                  className="list-item"
-                  style={{
-                    textAlign: "center",
-                  }}
-                >
-                  <AccountCircle
-                    style={{
-                      fontSize: "22px",
-                    }}
-                  />
-                  <p className="nav-item-paragraph">My profile</p>
-                </li>
-              </Link>
-
-              <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-                PaperProps={{
-                  style: {
-                    width: "250px",
-                  },
+                Resume
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                style={{
+                  fontSize: "14px",
+                  fontFamily: "open sans",
+                  fontWeight: "500",
                 }}
               >
-                <Container
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
+                Saved jobs
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                style={{
+                  fontSize: "14px",
+                  fontFamily: "open sans",
+                  fontWeight: "500",
+                }}
+              >
+                Saved events
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                style={{
+                  fontSize: "14px",
+                  fontFamily: "open sans",
+                  fontWeight: "500",
+                }}
+              >
+                Help
+              </MenuItem>
+              <MenuItem>
+                <Button
+                  variant="outline-primary"
+                  onClick={() => {
+                    removeCookie("userEmail");
+                    navigate("/login");
                   }}
-                >
-                  <img
-                    style={{
-                      height: "50px",
-                      width: "50px",
-                      borderRadius: "50%",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                    }}
-                    src={faker.image.avatar()}
-                    alt="profile"
-                  />
-                  <p
-                    style={{
-                      fontSize: "16px",
-                      fontFamily: "open sans",
-                      fontWeight: "600",
-                      textAlign: "center",
-                      marginTop: "15px",
-                      marginBottom: "5px",
-                    }}
-                  >
-                    {userData.firstName} {` `}
-                    {userData.lastName}
-                  </p>
-                  <p>{userData.role}</p>
-                  <Button
-                    variant="outline-primary"
-                    style={{
-                      width: "100%",
-                      marginBottom: "10px",
-                      height: "30px",
-                      fontSize: "12px",
-                      fontFamily: "open sans",
-                      fontWeight: "600",
-                      textAlign: "center",
-                      borderRadius: "20px",
-                    }}
-                  >
-                    View Profile
-                  </Button>
-                </Container>
-
-                <MenuItem
-                  onClick={handleClose}
                   style={{
-                    fontSize: "14px",
+                    borderRadius: "20px",
+                    fontSize: "10px",
                     fontFamily: "open sans",
                     fontWeight: "500",
                   }}
                 >
-                  Resume
-                </MenuItem>
-                <MenuItem
-                  onClick={handleClose}
-                  style={{
-                    fontSize: "14px",
-                    fontFamily: "open sans",
-                    fontWeight: "500",
-                  }}
-                >
-                  Saved jobs
-                </MenuItem>
-                <MenuItem
-                  onClick={handleClose}
-                  style={{
-                    fontSize: "14px",
-                    fontFamily: "open sans",
-                    fontWeight: "500",
-                  }}
-                >
-                  Saved events
-                </MenuItem>
-                <MenuItem
-                  onClick={handleClose}
-                  style={{
-                    fontSize: "14px",
-                    fontFamily: "open sans",
-                    fontWeight: "500",
-                  }}
-                >
-                  Help
-                </MenuItem>
-                <MenuItem>
-                  <Button
-                    variant="outline-primary"
-                    onClick={() => {
-                      removeCookie("userEmail");
-                      navigate("/login");
-                    }}
-                    style={{
-                      borderRadius: "20px",
-                      fontSize: "10px",
-                      fontFamily: "open sans",
-                      fontWeight: "500",
-                    }}
-                  >
-                    Sign Out
-                  </Button>
-                </MenuItem>
-              </Menu>
-            </ul>
-          </div>
-        </Container>
-      </Navbar>
-    </div>
+                  Sign Out
+                </Button>
+              </MenuItem>
+            </Menu>
+          </ul>
+        </div>
+      </Container>
+    </Navbar>
   );
 }
 
