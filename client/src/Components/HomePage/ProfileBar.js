@@ -16,7 +16,7 @@ function ProfileBar() {
         backgroundColor: "white",
         marginTop: "30px",
         borderRadius: "10px",
-        maxHeight: "350px",
+        maxHeight: "300px",
       }}
     >
       <Row>
@@ -64,7 +64,7 @@ function ProfileBar() {
             <p
               style={{
                 fontFamily: "open sans",
-                fontSize: "8px",
+                fontSize: "11px",
                 textAlign: "center",
                 color: "#747574",
               }}
@@ -78,7 +78,7 @@ function ProfileBar() {
             style={{
               backgroundColor: "transparent",
               border: "none",
-              fontSize: "10px",
+              fontSize: "12px",
               fontFamily: "open sans",
               color: "#3a3b3a",
               width: "100%",
@@ -95,7 +95,7 @@ function ProfileBar() {
             style={{
               backgroundColor: "transparent",
               border: "none",
-              fontSize: "10px",
+              fontSize: "12px",
               fontFamily: "open sans",
               color: "#3a3b3a",
               width: "100%",
@@ -112,7 +112,7 @@ function ProfileBar() {
             style={{
               backgroundColor: "transparent",
               border: "none",
-              fontSize: "10px",
+              fontSize: "12px",
               fontFamily: "open sans",
               color: "#3a3b3a",
               textAlign: "start",

@@ -10,9 +10,11 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import { faker } from "@faker-js/faker";
+import Button from "@mui/material/Button";
+import CommentIcon from '@mui/icons-material/Comment';
+import { Container } from "@mui/material";
 
 export default function UserPost() {
   return (
@@ -55,46 +57,122 @@ export default function UserPost() {
         alt="Paella dish"
       />
 
+      <Container style={{ display: "flex", flexDirection: "row" }}>
+      <Typography
+        variant="subtitle2"
+        color="text.secondary"
+        style={{
+          fontSize: "10px",
+          marginTop: "0px",
+          paddingTop: "0px",
+          textTransform: "capitalize",
+          marginLeft: "10px",
+        }}
+      >
+        2 Likes
+      </Typography>
+
+      <Typography
+        variant="subtitle2"
+        color="text.secondary"
+        style={{
+          fontSize: "10px",
+          marginTop: "0px",
+          paddingTop: "0px",
+          textTransform: "capitalize",
+          marginLeft: "10px",
+        }}  
+      >
+        5 Comments
+      </Typography>
+
+      <Typography
+        variant="subtitle2"
+        color="text.secondary"
+        style={{
+          fontSize: "10px",
+          marginTop: "0px",
+          paddingTop: "0px",
+          textTransform: "capitalize",
+          marginLeft: "10px",
+        }}
+      >
+        10 Shares
+      </Typography>
+      </Container>
+
+      <hr style={{ marginTop: "0px", marginBottom: "0px" }} />
       <CardActions
         style={{
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-around",
           alignItems: "center",
+          justifyContent: "space-around",
+          marginTop: "0px"
         }}
       >
-        <IconButton aria-label="add to favorites">
+        <Button aria-label="add to favorites" sx={{
+        flexGrow: "1",
+        color: "gray",
+        }}>
           <ThumbUpIcon />
           <Typography
             variant="subtitle2"
             color="text.secondary"
-            style={{ fontSize: "10px", marginTop: "0px", paddingTop: "0px" }}
+            sx={{
+              fontSize: "10px",
+              marginTop: "0px",
+              paddingTop: "0px",
+              textTransform: "capitalize",
+              marginLeft: "3px",
+            }}
           >
             Like
           </Typography>
-        </IconButton>
+        </Button>
 
-        <IconButton aria-label=" comments">
-          <ModeCommentIcon />
+        <Button aria-label=" comments"
+        sx={{
+        flexGrow: "1",
+        color: "gray",
+        }}>
+          <CommentIcon />
           <Typography
             variant="subtitle2"
             color="text.secondary"
-            style={{ fontSize: "10px", marginTop: "0px", paddingTop: "0px" }}
+            
+            sx={{
+              fontSize: "10px",
+              marginTop: "0px",
+              paddingTop: "0px",
+              textTransform: "capitalize",
+              marginLeft: "3px",
+            }}
           >
             Comment
           </Typography>
-        </IconButton>
+        </Button>
 
-        <IconButton aria-label="share">
+        <Button aria-label="share" 
+        sx={{
+        flexGrow: "1",
+        color: "gray",
+        }}>
           <TelegramIcon />
           <Typography
             variant="subtitle2"
             color="text.secondary"
-            style={{ fontSize: "10px", marginTop: "0px", paddingTop: "0px" }}
+            sx={{
+              fontSize: "10px",
+              marginTop: "0px",
+              paddingTop: "0px",
+              textTransform: "capitalize",
+              marginLeft: "3px",
+            }}
           >
             Share
           </Typography>
-        </IconButton>
+        </Button>
       </CardActions>
     </Card>
   );

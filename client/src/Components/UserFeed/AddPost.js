@@ -146,7 +146,7 @@ function AddPost() {
             border: "none",
             fontWeight: "500",
             fontFamily: "open sans",
-            fontSize: "8px",
+            fontSize: "10px",
           }}
         >
           <PhotoIcon
@@ -164,7 +164,7 @@ function AddPost() {
             border: "none",
             fontWeight: "500",
             fontFamily: "open sans",
-            fontSize: "8px",
+            fontSize: "10px",
           }}
         >
           <OndemandVideoIcon
@@ -182,7 +182,7 @@ function AddPost() {
             border: "none",
             fontWeight: "500",
             fontFamily: "open sans",
-            fontSize: "8px",
+            fontSize: "10px",
           }}
         >
           <EventIcon
@@ -200,7 +200,7 @@ function AddPost() {
             border: "none",
             fontWeight: "500",
             fontFamily: "open sans",
-            fontSize: "8px",
+            fontSize: "10px",
           }}
         >
           <NewspaperIcon

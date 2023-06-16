@@ -14,12 +14,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
 }
 .nav-item-paragraph {
-  font-size: 8px;
+  font-size: 10px;
   font-family: "open sans";
   font-weight: 500;
   color: #011e3b;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
 }
 .MyProfile-MenuItem {
   font-family: "open sans";

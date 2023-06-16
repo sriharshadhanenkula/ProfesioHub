@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "@mui/material";
 import MainHeader from "../Header/MainHeader";
 import MyEventListBar from "./MyEventListBar";
+import myEventsData from "../data/EventsData";
 
 function Events() {
   return (
@@ -27,7 +28,7 @@ function Events() {
             justifyContent: "space-between",
           }}
         >
-          <MyEventListBar />
+          <MyEventListBar myEventsData = {myEventsData}/>
 
           <div
             style={{
@@ -40,6 +41,7 @@ function Events() {
             }}
           >
             <p>My Event Description</p>
+           
           </div>
         </div>
       </Container>
