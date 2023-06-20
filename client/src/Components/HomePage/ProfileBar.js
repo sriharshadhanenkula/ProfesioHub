@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Container } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
-import profileBackground from "../../assets/profileBackground.jpg";
 import { Divider } from "@mui/material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
@@ -16,7 +15,8 @@ function ProfileBar() {
         backgroundColor: "white",
         marginTop: "30px",
         borderRadius: "10px",
-        maxHeight: "300px",
+        height: "fit-content",
+        paddingBottom: "10px",
       }}
     >
       <Row>
@@ -28,7 +28,7 @@ function ProfileBar() {
             height: "100%",
             marginTop: "1px",
           }}
-          src={profileBackground}
+          src={faker.image.imageUrl(300, 100, "people", true, true)}
           alt="profile"
         />
       </Row>
@@ -46,7 +46,7 @@ function ProfileBar() {
             <img
               src={faker.image.avatar()}
               alt="profile"
-              style={{ borderRadius: "50%", width: "90px", height: "70px" }}
+              style={{ borderRadius: "50%", width: "38%" }}
             />
           </Row>
 

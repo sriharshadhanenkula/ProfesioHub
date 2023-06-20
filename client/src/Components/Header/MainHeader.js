@@ -279,7 +279,7 @@ function MainHeader() {
                 </p>
                 <p>{userData.role}</p>
                 <Button
-                  variant="outline-primary"
+                  variant="outlined"
                   style={{
                     width: "100%",
                     marginBottom: "10px",
@@ -337,7 +337,7 @@ function MainHeader() {
               </MenuItem>
               <MenuItem>
                 <Button
-                  variant="outline-primary"
+                  variant="outlined"
                   onClick={() => {
                     removeCookie("userEmail");
                     navigate("/login");

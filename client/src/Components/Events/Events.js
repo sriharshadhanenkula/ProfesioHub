@@ -31,7 +31,7 @@ function Events() {
         >
           <div
             style={{
-              width: "35%",
+              width: "40%",
               borderRadius: "10px",
               padding: "10px",
               marginTop: "15px",
@@ -50,8 +50,7 @@ function Events() {
               backgroundColor: "white",
               borderRadius: "10px",
               height: "80vh",
-              width: "65%",
-              marginLeft: "15px",
+              width: "60%",
               marginTop: "15px",
               overflowY: "scroll",
             }}

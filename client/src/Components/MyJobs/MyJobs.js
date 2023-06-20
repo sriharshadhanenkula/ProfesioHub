@@ -1,14 +1,14 @@
 import React from "react";
 import MainHeader from "../Header/MainHeader";
 import { Container } from "@mui/material";
-import MyJobListBar from "./MyJobListBar";
+import MyJobItem from "./MyJobItem";
 
 function MyJob() {
   return (
     <div style={{ backgroundColor: "#ebeced", minHeight: "100vh" }}>
       <MainHeader />
 
-      <Container>
+      <Container sx={{ height: "83vh" }}>
         <div
           style={{
             backgroundColor: "white",
@@ -25,18 +25,44 @@ function MyJob() {
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
+            height: "100%",
           }}
         >
-          <MyJobListBar />
+          <div
+            style={{
+              width: "40%",
+              backgroundColor: "white",
+              borderRadius: "10px",
+              marginTop: "15px",
+              border: "1px solid #e5e5e5",
+              overflowY: "scroll",
+            }}
+          >
+            <MyJobItem />
+            <MyJobItem />
+            <MyJobItem />
+            <MyJobItem />
+            <MyJobItem />
+            <MyJobItem />
+            <MyJobItem />
+            <MyJobItem />
+            <MyJobItem />
+            <MyJobItem />
+            <MyJobItem />
+            <MyJobItem />
+            <MyJobItem />
+            <MyJobItem />
+            <MyJobItem />
+          </div>
 
           <div
             style={{
               backgroundColor: "white",
               borderRadius: "10px",
-              minHeight: "90vh",
               width: "60%",
-              marginLeft: "15px",
               marginTop: "15px",
+              border: "1px solid #e5e5e5",
+              overflowY: "scroll",
             }}
           >
             <p>My Job Description</p>

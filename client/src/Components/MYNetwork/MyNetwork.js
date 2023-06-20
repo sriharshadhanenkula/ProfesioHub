@@ -2,10 +2,11 @@ import React from "react";
 import MainHeader from "../Header/MainHeader";
 import { Container } from "@mui/material";
 import ManageNetworkBar from "./ManageNetworkBar";
+import UserProfileCard from "./UserProfileCard";
 
 function MyNetwork() {
   return (
-    <div style={{ backgroundColor: "#ebeced", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#ebeced" }}>
       <MainHeader />
       <Container
         style={{
@@ -24,9 +25,39 @@ function MyNetwork() {
             width: "70%",
             marginTop: "30px",
             marginLeft: "30px",
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-evenly",
+            padding: "10px",
           }}
         >
-          <p>My Network</p>
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
+          <UserProfileCard />
         </div>
       </Container>
     </div>
