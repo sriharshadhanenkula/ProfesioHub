@@ -36,6 +36,8 @@ router.post("/signup", async function (req, res, next) {
       id: new mongoose.Types.ObjectId(),
       firstName: firstName,
       lastName: lastName,
+      profilePicture:
+        "https://res.cloudinary.com/dp6ofrbni/image/upload/v1688055678/ProfesioHub/preview_z2tdjn.png",
       email: email,
       password: password,
       city: city,

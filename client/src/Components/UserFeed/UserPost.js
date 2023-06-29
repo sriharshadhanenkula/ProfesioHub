@@ -188,11 +188,11 @@ export default function UserPost() {
             },
           }}
         >
-          <ThumbUpIcon style={{ fontSize: "18px" }} />
+          <ThumbUpIcon style={{ fontSize: "22px" }} />
           <Typography
             variant="subtitle2"
             sx={{
-              fontSize: "10px",
+              fontSize: "12px",
               marginTop: "0px",
               paddingTop: "0px",
               textTransform: "capitalize",
@@ -217,11 +217,11 @@ export default function UserPost() {
             },
           }}
         >
-          <CommentIcon style={{ fontSize: "17px" }} />
+          <CommentIcon style={{ fontSize: "22px" }} />
           <Typography
             variant="subtitle2"
             sx={{
-              fontSize: "10px",
+              fontSize: "12px",
               marginTop: "0px",
               paddingTop: "0px",
               textTransform: "capitalize",
@@ -246,11 +246,11 @@ export default function UserPost() {
             },
           }}
         >
-          <TelegramIcon style={{ fontSize: "20px" }} />
+          <TelegramIcon style={{ fontSize: "25px" }} />
           <Typography
             variant="subtitle2"
             sx={{
-              fontSize: "10px",
+              fontSize: "12px",
               marginTop: "0px",
               paddingTop: "0px",
               textTransform: "capitalize",

@@ -278,21 +278,24 @@ function MainHeader() {
                   {userData.lastName}
                 </p>
                 <p>{userData.role}</p>
-                <Button
-                  variant="outlined"
-                  style={{
-                    width: "100%",
-                    marginBottom: "10px",
-                    height: "30px",
-                    fontSize: "12px",
-                    fontFamily: "open sans",
-                    fontWeight: "600",
-                    textAlign: "center",
-                    borderRadius: "20px",
-                  }}
-                >
-                  View Profile
-                </Button>
+                <Link to="/userProfile" className="nav-Link-decoration">
+                  <Button
+                    variant="outlined"
+                    style={{
+                      width: "200px",
+                      marginBottom: "10px",
+                      height: "30px",
+                      fontSize: "12px",
+                      fontFamily: "open sans",
+                      fontWeight: "600",
+                      textAlign: "center",
+                      borderRadius: "20px",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    View Profile
+                  </Button>
+                </Link>
               </Container>
 
               <MenuItem

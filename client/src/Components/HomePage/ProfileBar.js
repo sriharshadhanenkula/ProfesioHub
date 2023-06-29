@@ -6,6 +6,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import PeopleIcon from "@mui/icons-material/People";
 import { faker } from "@faker-js/faker";
+import preview from "../../assets/preview.png";
 
 function ProfileBar() {
   return (
@@ -44,7 +45,7 @@ function ProfileBar() {
             }}
           >
             <img
-              src={faker.image.avatar()}
+              src="https://res.cloudinary.com/dp6ofrbni/image/upload/v1688055678/ProfesioHub/preview_z2tdjn.png"
               alt="profile"
               style={{ borderRadius: "50%", width: "38%" }}
             />

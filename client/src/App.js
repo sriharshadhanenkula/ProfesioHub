@@ -7,6 +7,7 @@ import MyNetwork from "./Components/MYNetwork/MyNetwork";
 import MyJob from "./Components/MyJobs/MyJobs";
 import Events from "./Components/Events/Events";
 import Messaging from "./Components/Messaging/Messaging";
+import UserProfile from "./Components/UserProfile/UserProfile";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/jobs" element={<MyJob />} />
           <Route path="/events" element={<Events />} />
           <Route path="/messaging" element={<Messaging />} />
+          <Route path="/userProfile" element={<UserProfile />} />
         </Routes>
       </Router>
     </>

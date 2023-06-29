@@ -5,6 +5,7 @@ const userSchema = mongoose.Schema(
     id: mongoose.Schema.Types.ObjectId,
     firstName: String,
     lastName: String,
+    profilePicture: String,
     email: String,
     password: String,
     city: String,
