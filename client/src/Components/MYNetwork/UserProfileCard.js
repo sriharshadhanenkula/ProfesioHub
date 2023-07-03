@@ -6,7 +6,9 @@ import { faker } from "@faker-js/faker";
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
-function UserProfileCard() {
+function UserProfileCard(props) {
+  const userData = props.userData;
+
   return (
     <div
       style={{

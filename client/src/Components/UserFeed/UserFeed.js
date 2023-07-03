@@ -2,10 +2,11 @@ import React from "react";
 import AddPost from "./AddPost";
 import UserPost from "./UserPost";
 
-function UserFeed() {
+function UserFeed(props) {
+  const userData = props.userData;
   return (
     <div>
-      <AddPost />
+      <AddPost userData={userData} />
 
       <UserPost />
       <UserPost />

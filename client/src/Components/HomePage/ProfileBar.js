@@ -6,9 +6,10 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import PeopleIcon from "@mui/icons-material/People";
 import { faker } from "@faker-js/faker";
-import preview from "../../assets/preview.png";
 
-function ProfileBar() {
+function ProfileBar(props) {
+  const userData = props.userData;
+
   return (
     <div
       style={{
@@ -45,7 +46,7 @@ function ProfileBar() {
             }}
           >
             <img
-              src="https://res.cloudinary.com/dp6ofrbni/image/upload/v1688055678/ProfesioHub/preview_z2tdjn.png"
+              src={userData.profilePicture}
               alt="profile"
               style={{ borderRadius: "50%", width: "38%" }}
             />
@@ -59,7 +60,7 @@ function ProfileBar() {
                 textAlign: "center",
               }}
             >
-              {faker.name.firstName()} {faker.name.lastName()}
+              {userData.firstName} {userData.lastName}
             </p>
 
             <p
@@ -70,7 +71,7 @@ function ProfileBar() {
                 color: "#747574",
               }}
             >
-              Graduate Student at University at Albany
+              {userData.role}
             </p>
           </div>
           <Divider style={{ backgroundColor: "black" }} className="mb-2" />

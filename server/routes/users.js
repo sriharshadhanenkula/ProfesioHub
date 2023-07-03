@@ -105,4 +105,14 @@ router.post("/getUserDetails", async function (req, res, next) {
   }
 });
 
+router.get("/getAllUsers", async function (req, res, next) {
+  const users = await userSchema.find();
+
+  if (users) {
+    res.status(200).send(users);
+  } else {
+    res.status(203).send("No users found");
+  }
+});
+
 module.exports = router;

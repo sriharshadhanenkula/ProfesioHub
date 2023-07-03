@@ -7,7 +7,6 @@ import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import TelegramIcon from "@mui/icons-material/Telegram";
@@ -21,8 +20,8 @@ export default function UserPost() {
     <Card style={{ marginTop: "10px" }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            <img src={faker.image.avatar()} alt="avatar" />
+          <Avatar style={{ width: "45px", height: "45px" }}>
+            <img src={faker.image.avatar()} alt="avatar" width="45px" />
           </Avatar>
         }
         action={
@@ -51,7 +50,7 @@ export default function UserPost() {
                 fontFamily: "open sans",
               }}
             >
-              Student
+              {faker.name.jobTitle()}
             </Typography>
           </Typography>
         }

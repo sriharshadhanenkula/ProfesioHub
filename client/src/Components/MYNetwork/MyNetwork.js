@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MainHeader from "../Header/MainHeader";
 import { Container } from "@mui/material";
 import ManageNetworkBar from "./ManageNetworkBar";
 import UserProfileCard from "./UserProfileCard";
+import axios from "axios";
+import { useState } from "react";
 
 function MyNetwork() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios.get("http://localhost:5000/users/getAllUsers", config).then((res) => {
+      if (res.status === 200) {
+        setUsers(res.data);
+      }
+    });
+  }, []);
+
   return (
     <div style={{ backgroundColor: "#ebeced" }}>
       <MainHeader />
@@ -32,32 +50,9 @@ function MyNetwork() {
             padding: "10px",
           }}
         >
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
-          <UserProfileCard />
+          {users.map((user) => {
+            return <UserProfileCard userData={user} />;
+          })}
         </div>
       </Container>
     </div>

@@ -18,13 +18,12 @@ import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { faker } from "@faker-js/faker";
 
 function MainHeader() {
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const [cookies, removeCookie] = useCookies(["userEmail"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["userEmail"]);
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
@@ -53,7 +52,7 @@ function MainHeader() {
           }
         });
     }
-  }, [cookies.userEmail, navigate]);
+  }, [cookies.userEmail, navigate, setCookie]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -261,7 +260,7 @@ function MainHeader() {
                     marginLeft: "auto",
                     marginRight: "auto",
                   }}
-                  src={faker.image.avatar()}
+                  src={userData.profilePicture}
                   alt="profile"
                 />
                 <p
