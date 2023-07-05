@@ -9,19 +9,24 @@ router.get("/", function (req, res, next) {
 });
 
 router.post("/addPost", async function (req, res, next) {
-  const { email, content } = req.body;
+  const { email, content, url, likes, comments, shares } = req.body;
 
   const myPost = await postSchema.create({
     _id: new mongoose.Types.ObjectId(),
     email: email,
     content: content,
-    image: "",
-    likes: 0,
-    comments: 0,
-    shares: 0,
+    image: url,
+    likes: likes,
+    comments: comments,
+    shares: shares,
   });
 
   res.status(201).send("Post added successfully");
+});
+
+router.get("/getAllPosts", async function (req, res, next) {
+  const posts = await postSchema.find({});
+  res.status(200).send(posts);
 });
 
 module.exports = router;

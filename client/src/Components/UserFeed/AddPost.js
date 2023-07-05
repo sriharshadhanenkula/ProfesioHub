@@ -8,42 +8,96 @@ import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useRef } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function AddPost(props) {
   const userData = props.userData;
 
   const [postTextData, setPostTextData] = useState("");
   const [show, setShow] = useState(false);
+  const [myImage, setMyImage] = useState([]);
   const handleShow = () => setShow(true);
 
-  const handleClose = () => {
+  const onClickPostButton = () => {
     setShow(false);
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
 
-    // const data = {
-    //   email: "sriHarsha",
-    //   content: postTextData,
-    // };
+    if (myImage.length === 0) {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const data = {
+        email: userData.email,
+        content: postTextData,
+        url: "",
+        likes: 0,
+        comments: 0,
+        shares: 0,
+      };
 
-    // axios.post("http://localhost:5000/addPost", data, config).then((res) => {
-    //   console.log(res);
-    // });
+      axios
+        .post("http://localhost:5000/addPost", data, config)
+        .then(function (response) {
+          if (response.status === 201) {
+            toast.success("Post added successfully");
+          }
+        });
+      return;
+    }
+
+    const data = new FormData();
+    data.append("file", myImage);
+    data.append("upload_preset", "SEProject");
+    data.append("cloud_name", "dp6ofrbni");
+
+    axios
+      .post("https://api.cloudinary.com/v1_1/dp6ofrbni/image/upload", data)
+      .then(function (response) {
+        const getURL = response.data.url;
+
+        if (getURL !== "") {
+          const config = {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+          const data = {
+            email: userData.email,
+            content: postTextData,
+            url: getURL,
+            likes: 0,
+            comments: 0,
+            shares: 0,
+          };
+
+          axios
+            .post("http://localhost:5000/addPost", data, config)
+            .then(function (response) {
+              if (response.status === 201) {
+                toast.success("Post added successfully");
+              }
+            })
+            .catch(function (error) {
+              console.error(error);
+            });
+        }
+      });
   };
 
   const fileInputRef = useRef(null);
 
   const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    // Perform any necessary operations with the uploaded file
-    console.log("Uploaded file:", file);
+    setMyImage(event.target.files[0]);
   };
 
   const handleClick = () => {
     fileInputRef.current.click();
+  };
+
+  const handleClose = () => {
+    setShow(false);
   };
 
   const modalFunction = () => {
@@ -165,7 +219,6 @@ function AddPost(props) {
               />
               Photo
             </button>
-
             <Button
               variant="outlined"
               sx={{
@@ -175,7 +228,7 @@ function AddPost(props) {
                 fontFamily: "open sans",
                 fontSize: "14px",
               }}
-              onClick={handleClose}
+              onClick={onClickPostButton}
             >
               Post
             </Button>
@@ -335,6 +388,7 @@ function AddPost(props) {
         </Button>
 
         {modalFunction()}
+        <ToastContainer />
       </div>
       {buttonOptions()}
     </div>

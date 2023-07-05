@@ -14,8 +14,20 @@ import { faker } from "@faker-js/faker";
 import Button from "@mui/material/Button";
 import CommentIcon from "@mui/icons-material/Comment";
 import { Container } from "@mui/material";
+import { useState } from "react";
 
-export default function UserPost() {
+export default function UserPost(props) {
+  const postData = props.postData;
+
+  const [showFull, setShowFull] = useState(false);
+
+  const maxWords = 20;
+  const words = postData.content.split(" ");
+
+  const toggleShowFull = () => {
+    setShowFull(!showFull);
+  };
+
   return (
     <Card style={{ marginTop: "10px" }}>
       <CardHeader
@@ -60,7 +72,7 @@ export default function UserPost() {
             color="text.secondary"
             style={{ fontSize: "10px", fontFamily: "open sans" }}
           >
-            September 14, 2016
+            {faker.date.past().toLocaleDateString()}
           </Typography>
         }
         style={{ marginBottom: "4px", paddingBottom: "0px" }}
@@ -79,18 +91,47 @@ export default function UserPost() {
           color="#232423"
           style={{
             fontFamily: "open sans",
-            fontSize: "12px",
-            color: "#141414",
+            fontSize: "13px",
+            color: "#232423",
+            textAlign: "justify",
           }}
         >
-          {faker.lorem.paragraph()}
+          {showFull ? (
+            <>
+              {postData.content}{" "}
+              <span
+                style={{ color: "#047fc7", fontWeight: "bold" }}
+                onClick={toggleShowFull}
+              >
+                Read less...
+              </span>
+            </>
+          ) : (
+            <>
+              {words.slice(0, maxWords).join(" ")}
+              {words.length > maxWords && (
+                <span
+                  style={{ color: "#047fc7", fontWeight: "bold" }}
+                  onClick={toggleShowFull}
+                >
+                  {` `} ... Read more
+                </span>
+              )}
+            </>
+          )}
         </Typography>
       </CardContent>
-      <CardMedia
-        component="img"
-        image={faker.image.urlPicsumPhotos()}
-        alt="Paella dish"
-      />
+
+      {postData.image && (
+        <CardMedia
+          component="img"
+          image={postData.image}
+          alt="Paella dish"
+          style={{ height: "300px", width: "100%", objectFit: "cover" }}
+        />
+      )}
+
+      {/* <CardMedia component="img" image={postData.image} alt="Paella dish" /> */}
 
       <Container
         style={{
@@ -116,7 +157,7 @@ export default function UserPost() {
           <ThumbUpIcon
             style={{ color: "#458eed", fontSize: "14px", marginRight: "5px" }}
           />
-          2 Likes
+          {postData.likes} Likes
         </Typography>
 
         <div
@@ -141,7 +182,7 @@ export default function UserPost() {
             <CommentIcon
               style={{ color: "#026e09", fontSize: "14px", marginRight: "5px" }}
             />
-            5 Comments
+            {postData.comments} Comments
           </Typography>
 
           <Typography
@@ -159,7 +200,7 @@ export default function UserPost() {
             <TelegramIcon
               style={{ color: "#913226", fontSize: "14px", marginRight: "5px" }}
             />
-            10 Shares
+            {postData.shares} Shares
           </Typography>
         </div>
       </Container>
