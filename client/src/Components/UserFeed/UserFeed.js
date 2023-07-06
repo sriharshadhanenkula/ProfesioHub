@@ -10,12 +10,15 @@ function UserFeed(props) {
   const [userPosts, setUserPosts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/getAllPosts").then((res) => {
-      if (res.status === 200) {
-        setUserPosts(res.data);
-      }
-    });
+    fetchPosts();
   }, []);
+
+  const fetchPosts = async () => {
+    const res = await axios.get("http://localhost:5000/getAllPosts");
+    if (res.status === 200) {
+      setUserPosts(res.data);
+    }
+  };
 
   return (
     <div>

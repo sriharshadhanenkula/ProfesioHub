@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const mongoose = require("mongoose");
 const userSchema = require("../models/users");
+const userAdditionalDataSchema = require("../models/userAdditionalData");
 const { use } = require("./posts");
 
 /* GET users listing. */
@@ -112,6 +113,84 @@ router.get("/getAllUsers", async function (req, res, next) {
     res.status(200).send(users);
   } else {
     res.status(203).send("No users found");
+  }
+});
+
+router.post("/bookmarkPost", async function (req, res, next) {
+  const { email, postId } = req.body;
+
+  const isBookmarkPresent = await userAdditionalDataSchema.findOne({
+    email: email,
+  });
+
+  if (isBookmarkPresent) {
+    const isPostPresent = isBookmarkPresent.bookmarks.find(
+      (bookmark) => bookmark === postId
+    );
+
+    if (isPostPresent) {
+      const updatedBookmarks = isBookmarkPresent.bookmarks.filter(
+        (bookmark) => bookmark !== postId
+      );
+
+      const updatedUser = await userAdditionalDataSchema.findOneAndUpdate(
+        { email: email },
+        { bookmarks: updatedBookmarks }
+      );
+
+      if (updatedUser) {
+        res.status(200).send("false");
+      } else {
+        res.status(203).send("Error in unbookmarking post");
+      }
+    } else {
+      const updatedBookmarks = [...isBookmarkPresent.bookmarks, postId];
+
+      const updatedUser = await userAdditionalDataSchema.findOneAndUpdate(
+        { email: email },
+        { bookmarks: updatedBookmarks }
+      );
+
+      if (updatedUser) {
+        res.status(200).send("true");
+      } else {
+        res.status(203).send("Error in bookmarking post");
+      }
+    }
+  } else {
+    const user = await userAdditionalDataSchema.create({
+      id: new mongoose.Types.ObjectId(),
+      email: email,
+      bookmarks: [postId],
+    });
+
+    if (user) {
+      res.status(200).send("Post bookmarked successfully");
+    } else {
+      res.status(203).send("Error in bookmarking post");
+    }
+  }
+});
+
+router.post("/getIsBookmarked", async function (req, res, next) {
+  const { email, postId } = req.body;
+
+  const isBookmarkPresent = await userAdditionalDataSchema.findOne({
+    email: email,
+  });
+
+  if (isBookmarkPresent) {
+    const isPostPresent = isBookmarkPresent.bookmarks.find(
+      (bookmark) => bookmark === postId
+    );
+
+    if (isPostPresent) {
+      res.status(200).send("true");
+    } else {
+      res.status(200).send("false");
+    }
+  } else {
+    res.status(200).send("false");
   }
 });
 

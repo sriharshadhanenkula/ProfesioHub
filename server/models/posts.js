@@ -4,6 +4,7 @@ const postSchema = mongoose.Schema(
   {
     id: mongoose.Schema.Types.ObjectId,
     email: String,
+    date: String,
     content: String,
     image: String,
     likes: Number,

@@ -7,25 +7,90 @@ import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import TelegramIcon from "@mui/icons-material/Telegram";
-import { faker } from "@faker-js/faker";
 import Button from "@mui/material/Button";
 import CommentIcon from "@mui/icons-material/Comment";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { Container } from "@mui/material";
 import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function UserPost(props) {
   const postData = props.postData;
 
   const [showFull, setShowFull] = useState(false);
+  const [userPostDetails, setUserPostDetails] = useState({});
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   const maxWords = 20;
   const words = postData.content.split(" ");
 
+  useEffect(() => {
+    const userPostedEmail = postData.email;
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios
+      .post(
+        "http://localhost:5000/users/getUserDetails",
+        { email: userPostedEmail },
+        config
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          setUserPostDetails(res.data);
+        }
+      });
+  }, [postData.email]);
+
+  useEffect(() => {
+    const userPostedEmail = postData.email;
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios
+      .post(
+        "http://localhost:5000/users/getIsBookmarked",
+        { email: userPostedEmail, postId: postData._id },
+        config
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          setIsBookmarked(res.data);
+        }
+      });
+  }, [postData._id, postData.email]);
+
   const toggleShowFull = () => {
     setShowFull(!showFull);
+  };
+
+  const onClickBookMark = () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    axios
+      .post(
+        "http://localhost:5000/users/bookmarkPost",
+        { email: userPostDetails.email, postId: postData._id },
+        config
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          setIsBookmarked(res.data);
+        }
+      });
   };
 
   return (
@@ -33,12 +98,20 @@ export default function UserPost(props) {
       <CardHeader
         avatar={
           <Avatar style={{ width: "45px", height: "45px" }}>
-            <img src={faker.image.avatar()} alt="avatar" width="45px" />
+            <img
+              src={userPostDetails.profilePicture}
+              alt="avatar"
+              width="45px"
+            />
           </Avatar>
         }
         action={
           <IconButton aria-label="settings">
-            <MoreVertIcon />
+            {isBookmarked ? (
+              <BookmarkIcon onClick={onClickBookMark} />
+            ) : (
+              <BookmarkBorderIcon onClick={onClickBookMark} />
+            )}
           </IconButton>
         }
         title={
@@ -51,7 +124,7 @@ export default function UserPost(props) {
               fontSize: "13px",
             }}
           >
-            {faker.name.firstName()} {faker.name.lastName()}
+            {userPostDetails.firstName} {userPostDetails.lastName}
             <Typography
               variant="subtitle2"
               color="text.secondary"
@@ -62,7 +135,7 @@ export default function UserPost(props) {
                 fontFamily: "open sans",
               }}
             >
-              {faker.name.jobTitle()}
+              {userPostDetails.role}
             </Typography>
           </Typography>
         }
@@ -72,7 +145,7 @@ export default function UserPost(props) {
             color="text.secondary"
             style={{ fontSize: "10px", fontFamily: "open sans" }}
           >
-            {faker.date.past().toLocaleDateString()}
+            {postData.date}
           </Typography>
         }
         style={{ marginBottom: "4px", paddingBottom: "0px" }}
@@ -130,8 +203,6 @@ export default function UserPost(props) {
           style={{ height: "300px", width: "100%", objectFit: "cover" }}
         />
       )}
-
-      {/* <CardMedia component="img" image={postData.image} alt="Paella dish" /> */}
 
       <Container
         style={{
