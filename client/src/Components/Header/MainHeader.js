@@ -138,7 +138,8 @@ function MainHeader() {
                   textTransform: "capitalize",
                   color: "#40576e",
                   "&:hover": {
-                    color: "#1d2b38",
+                    color: "#047fc7",
+                    fontWeight: "bold",
                   },
                 }}
               >
@@ -154,7 +155,8 @@ function MainHeader() {
                   textTransform: "capitalize",
                   color: "#40576e",
                   "&:hover": {
-                    color: "#1d2b38",
+                    color: "#047fc7",
+                    fontWeight: "bold",
                   },
                 }}
               >
@@ -170,7 +172,8 @@ function MainHeader() {
                   textTransform: "capitalize",
                   color: "#40576e",
                   "&:hover": {
-                    color: "#1d2b38",
+                    color: "#047fc7",
+                    fontWeight: "bold",
                   },
                 }}
               >
@@ -186,7 +189,8 @@ function MainHeader() {
                   textTransform: "capitalize",
                   color: "#40576e",
                   "&:hover": {
-                    color: "#1d2b38",
+                    color: "#047fc7",
+                    fontWeight: "bold",
                   },
                 }}
               >
@@ -202,7 +206,8 @@ function MainHeader() {
                   textTransform: "capitalize",
                   color: "#40576e",
                   "&:hover": {
-                    color: "#1d2b38",
+                    color: "#047fc7",
+                    fontWeight: "bold",
                   },
                 }}
               >
@@ -219,7 +224,8 @@ function MainHeader() {
                   textTransform: "capitalize",
                   color: "#40576e",
                   "&:hover": {
-                    color: "#1d2b38",
+                    color: "#047fc7",
+                    fontWeight: "bold",
                   },
                 }}
                 style={{
@@ -286,7 +292,7 @@ function MainHeader() {
                       height: "30px",
                       fontSize: "12px",
                       fontFamily: "open sans",
-                      fontWeight: "600",
+                      fontWeight: "bold",
                       textAlign: "center",
                       borderRadius: "20px",
                       textTransform: "capitalize",
@@ -307,26 +313,31 @@ function MainHeader() {
               >
                 Resume
               </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                style={{
-                  fontSize: "14px",
-                  fontFamily: "open sans",
-                  fontWeight: "500",
-                }}
-              >
-                Saved jobs
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                style={{
-                  fontSize: "14px",
-                  fontFamily: "open sans",
-                  fontWeight: "500",
-                }}
-              >
-                Saved events
-              </MenuItem>
+
+              <Link to="/myItems" className="nav-Link-decoration">
+                <MenuItem
+                  onClick={handleClose}
+                  style={{
+                    fontSize: "14px",
+                    fontFamily: "open sans",
+                    fontWeight: "500",
+                  }}
+                >
+                  Saved jobs
+                </MenuItem>
+              </Link>
+              <Link to="/myItems" className="nav-Link-decoration">
+                <MenuItem
+                  onClick={handleClose}
+                  style={{
+                    fontSize: "14px",
+                    fontFamily: "open sans",
+                    fontWeight: "500",
+                  }}
+                >
+                  Saved events
+                </MenuItem>
+              </Link>
               <MenuItem
                 onClick={handleClose}
                 style={{

@@ -8,6 +8,7 @@ import MyJob from "./Components/MyJobs/MyJobs";
 import Events from "./Components/Events/Events";
 import Messaging from "./Components/Messaging/Messaging";
 import UserProfile from "./Components/UserProfile/UserProfile";
+import MyItems from "./Components/MyItems/MyItems";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/messaging" element={<Messaging />} />
           <Route path="/userProfile" element={<UserProfile />} />
+          <Route path="/myItems" element={<MyItems />} />
         </Routes>
       </Router>
     </>

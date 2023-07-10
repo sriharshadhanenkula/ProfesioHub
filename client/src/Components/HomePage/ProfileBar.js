@@ -6,21 +6,14 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import PeopleIcon from "@mui/icons-material/People";
 import { faker } from "@faker-js/faker";
+import { Link } from "react-router-dom";
+import "./ProfileBar.css";
 
 function ProfileBar(props) {
   const userData = props.userData;
 
   return (
-    <div
-      style={{
-        width: "22%",
-        backgroundColor: "white",
-        marginTop: "30px",
-        borderRadius: "10px",
-        height: "fit-content",
-        paddingBottom: "10px",
-      }}
-    >
+    <div className="MainProfileBar">
       <Row>
         <img
           style={{
@@ -54,7 +47,7 @@ function ProfileBar(props) {
 
           <div className="mt-3 mb-3">
             <p
-              style={{
+              sx={{
                 fontFamily: "open sans",
                 fontWeight: "bold",
                 textAlign: "center",
@@ -93,23 +86,26 @@ function ProfileBar(props) {
             />
             Events registered
           </Button>
-          <Button
-            style={{
-              backgroundColor: "transparent",
-              border: "none",
-              fontSize: "12px",
-              fontFamily: "open sans",
-              color: "#3a3b3a",
-              width: "100%",
-              textAlign: "start",
-            }}
-          >
-            <BookmarkIcon
-              style={{ fontSize: "16px", color: "gray" }}
-              className="me-1"
-            />
-            My Items
-          </Button>
+          <Link to="/myItems">
+            <Button
+              style={{
+                backgroundColor: "transparent",
+                border: "none",
+                fontSize: "12px",
+                fontFamily: "open sans",
+                color: "#3a3b3a",
+                width: "100%",
+                textAlign: "start",
+              }}
+            >
+              <BookmarkIcon
+                style={{ fontSize: "16px", color: "gray" }}
+                className="me-1"
+              />
+              My Items
+            </Button>
+          </Link>
+
           <Button
             style={{
               backgroundColor: "transparent",

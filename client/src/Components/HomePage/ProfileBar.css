@@ -1,0 +1,9 @@
+.MainProfileBar{
+    width: "22%" ;
+    background-color:"white" ;
+    height: "fit-content";
+    border-radius: "10px" ;
+    margin-top: "30px" ;
+    padding-bottom: "10px";
+
+}

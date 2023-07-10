@@ -8,15 +8,17 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import Button from "@mui/material/Button";
 import CommentIcon from "@mui/icons-material/Comment";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { Container } from "@mui/material";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import { LiaTelegram } from "react-icons/lia";
+import { GoBookmark, GoBookmarkFill } from "react-icons/go";
 
 export default function UserPost(props) {
   const postData = props.postData;
@@ -24,6 +26,7 @@ export default function UserPost(props) {
   const [showFull, setShowFull] = useState(false);
   const [userPostDetails, setUserPostDetails] = useState({});
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
 
   const maxWords = 20;
   const words = postData.content.split(" ");
@@ -93,6 +96,10 @@ export default function UserPost(props) {
       });
   };
 
+  const handleClick = () => {
+    setIsClicked(!isClicked);
+  };
+
   return (
     <Card style={{ marginTop: "10px" }}>
       <CardHeader
@@ -108,9 +115,9 @@ export default function UserPost(props) {
         action={
           <IconButton aria-label="settings">
             {isBookmarked ? (
-              <BookmarkIcon onClick={onClickBookMark} />
+              <GoBookmarkFill onClick={onClickBookMark} />
             ) : (
-              <BookmarkBorderIcon onClick={onClickBookMark} />
+              <GoBookmark onClick={onClickBookMark} />
             )}
           </IconButton>
         }
@@ -173,7 +180,11 @@ export default function UserPost(props) {
             <>
               {postData.content}{" "}
               <span
-                style={{ color: "#047fc7", fontWeight: "bold" }}
+                style={{
+                  color: "#047fc7",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                }}
                 onClick={toggleShowFull}
               >
                 Read less...
@@ -184,7 +195,11 @@ export default function UserPost(props) {
               {words.slice(0, maxWords).join(" ")}
               {words.length > maxWords && (
                 <span
-                  style={{ color: "#047fc7", fontWeight: "bold" }}
+                  style={{
+                    color: "#047fc7",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                  }}
                   onClick={toggleShowFull}
                 >
                   {` `} ... Read more
@@ -200,7 +215,7 @@ export default function UserPost(props) {
           component="img"
           image={postData.image}
           alt="Paella dish"
-          style={{ height: "300px", width: "100%", objectFit: "cover" }}
+          style={{ height: "360px", width: "100%", objectFit: "cover" }}
         />
       )}
 
@@ -291,15 +306,16 @@ export default function UserPost(props) {
           aria-label="add to favorites"
           sx={{
             flexGrow: "1",
-            color: "#53575c",
+            color: isClicked ? "#458eed" : "#53575c",
             alignItems: "center",
             "&:hover": {
               backgroundColor: "#dfe5eb",
               color: "#458eed",
             },
           }}
+          onClick={handleClick}
         >
-          <ThumbUpIcon style={{ fontSize: "22px" }} />
+          <ThumbUpOffAltIcon style={{ fontSize: "23px" }} />
           <Typography
             variant="subtitle2"
             sx={{
@@ -328,7 +344,7 @@ export default function UserPost(props) {
             },
           }}
         >
-          <CommentIcon style={{ fontSize: "22px" }} />
+          <ChatBubbleOutlineIcon style={{ fontSize: "22px" }} />
           <Typography
             variant="subtitle2"
             sx={{
@@ -357,7 +373,8 @@ export default function UserPost(props) {
             },
           }}
         >
-          <TelegramIcon style={{ fontSize: "25px" }} />
+          <LiaTelegram style={{ fontSize: "23px" }} />
+
           <Typography
             variant="subtitle2"
             sx={{
