@@ -106,6 +106,37 @@ router.post("/getUserDetails", async function (req, res, next) {
   }
 });
 
+router.put("/updateUserDetails", async function (req, res, next) {
+  const {
+    email,
+    firstName,
+    lastName,
+    city,
+    state,
+    country,
+    university,
+    profilePicture,
+  } = req.body;
+
+  console.log(req.body);
+
+  const isUpdated = await userSchema.updateOne(
+    { email: email },
+    {
+      $set: {
+        firstName: firstName,
+        lastName: lastName,
+        city: city,
+        state: state,
+        country: country,
+        university: university,
+        profilePicture: profilePicture,
+      },
+    }
+  );
+  res.status(200).send("User details updated successfully");
+});
+
 router.get("/getAllUsers", async function (req, res, next) {
   const users = await userSchema.find();
 

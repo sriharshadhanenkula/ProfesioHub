@@ -15,19 +15,74 @@ import { faker } from "@faker-js/faker";
 import profileBackground from "../../assets/profileBackground.jpg";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import axios from "axios";
 
 export function UserProfileHeader(userData) {
   const handleShow = () => setShow(true);
   const [show, setShow] = useState(false);
-  const [firstName, setFirstName] = useState(userData.firstName);
+  const [myFirstName, setMyFirstName] = useState("");
+  const [myLastName, setMyLastName] = useState("");
+  const [myCity, setMyCity] = useState("");
+  const [myState, setMyState] = useState("");
+  const [myCountry, setMyCountry] = useState("");
+  const [myUniversity, setMyUniversity] = useState("");
+  const [myProfilePicture, setMyProfilePicture] = useState([]);
 
   const handleClose = () => {
     setShow(false);
   };
 
-  const onClickSave = () => {
+  const onClickSave = async () => {
     setShow(false);
-    console.log(firstName);
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const myData = {
+      email: userData.email,
+      firstName: myFirstName === "" ? userData.firstName : myFirstName,
+      lastName: myLastName === "" ? userData.lastName : myLastName,
+      city: myCity === "" ? userData.city : myCity,
+      state: myState === "" ? userData.state : myState,
+      country: myCountry === "" ? userData.country : myCountry,
+      university: myUniversity === "" ? userData.university : myUniversity,
+      profilePicture: "",
+    };
+
+    if (myProfilePicture.length === 0) {
+      myData.profilePicture = userData.profilePicture;
+      axios
+        .put("http://localhost:5000/users/updateUserDetails", myData, config)
+        .then((res) => {
+          //console.log(res);
+        });
+    }
+
+    const data = new FormData();
+    data.append("file", myData.profilePicture);
+    data.append("upload_preset", "SEProject");
+    data.append("cloud_name", "dp6ofrbni");
+
+    axios
+      .post("https://api.cloudinary.com/v1_1/dp6ofrbni/image/upload", data)
+      .then((res) => {
+        myData.profilePicture = res.data.url;
+        axios
+          .put("http://localhost:5000/users/updateUserDetails", myData, config)
+          .then((res) => {
+            //console.log(res);
+          });
+      });
+
+    setMyFirstName("");
+    setMyLastName("");
+    setMyCity("");
+    setMyState("");
+    setMyCountry("");
+    setMyUniversity("");
+    setMyProfilePicture([]);
   };
 
   const UserProfileHeaderModal = () => {
@@ -43,37 +98,63 @@ export function UserProfileHeader(userData) {
               <Form.Control
                 type="text"
                 placeholder="Enter First Name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                value={myFirstName}
+                onChange={(e) => setMyFirstName(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Last Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter Last Name" />
+              <Form.Control
+                type="text"
+                placeholder="Enter Last Name"
+                value={myLastName}
+                onChange={(e) => setMyLastName(e.target.value)}
+              />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Role</Form.Label>
-              <Form.Control type="text" placeholder="Enter Role" />
-            </Form.Group>
+
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>City</Form.Label>
-              <Form.Control type="text" placeholder="Enter City" />
+              <Form.Control
+                type="text"
+                placeholder="Enter City"
+                value={myCity}
+                onChange={(e) => setMyCity(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>State</Form.Label>
-              <Form.Control type="text" placeholder="Enter State" />
+              <Form.Control
+                type="text"
+                placeholder="Enter State"
+                value={myState}
+                onChange={(e) => setMyState(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Country</Form.Label>
-              <Form.Control type="text" placeholder="Enter Country" />
+              <Form.Control
+                type="text"
+                placeholder="Enter Country"
+                value={myCountry}
+                onChange={(e) => setMyCountry(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>University</Form.Label>
-              <Form.Control type="text" placeholder="Enter University" />
+              <Form.Control
+                type="text"
+                placeholder="Enter University"
+                value={myUniversity}
+                onChange={(e) => setMyUniversity(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Profile Picture</Form.Label>
-              <Form.Control type="file" placeholder="Enter University" />
+              <Form.Control
+                type="file"
+                placeholder="Enter University"
+                onChange={(e) => setMyProfilePicture(e.target.files[0])}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -153,8 +234,8 @@ export function UserProfileHeader(userData) {
             <h1
               style={{
                 fontFamily: "open sans",
-                fontSize: "20px",
-                fontWeight: "bold",
+                fontSize: "18px",
+                fontWeight: "600",
               }}
             >
               {userData.firstName} {userData.lastName}

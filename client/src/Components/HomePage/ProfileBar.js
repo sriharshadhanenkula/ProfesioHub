@@ -7,13 +7,21 @@ import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import PeopleIcon from "@mui/icons-material/People";
 import { faker } from "@faker-js/faker";
 import { Link } from "react-router-dom";
-import "./ProfileBar.css";
 
 function ProfileBar(props) {
   const userData = props.userData;
 
   return (
-    <div className="MainProfileBar">
+    <div
+      style={{
+        backgroundColor: "white",
+        width: "22%",
+        height: "fit-content",
+        borderRadius: "10px",
+        marginTop: "30px",
+        paddingBottom: "10px",
+      }}
+    >
       <Row>
         <img
           style={{
