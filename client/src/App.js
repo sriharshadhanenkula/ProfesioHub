@@ -9,7 +9,7 @@ import Events from "./Components/Events/Events";
 import Messaging from "./Components/Messaging/Messaging";
 import UserProfile from "./Components/UserProfile/UserProfile";
 import MyItems from "./Components/MyItems/MyItems";
-import PostJob from "./Components/PostJob/PostJob";
+import PostJob from "./Components/MyJobs/PostJob";
 
 function App() {
   return (

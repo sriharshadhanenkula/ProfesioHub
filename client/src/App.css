@@ -40,3 +40,6 @@
 body{
   font-family: "open sans";
 }
+::-webkit-scrollbar {
+  width: 0px;
+}

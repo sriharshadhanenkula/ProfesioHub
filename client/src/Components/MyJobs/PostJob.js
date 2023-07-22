@@ -67,23 +67,22 @@ function PostJob() {
       .then((response) => {
         if (response.status === 200) {
           toast.success("Job Posted Successfully!");
+          setJobTitle("");
+          setJobDescription("");
+          setJobLocation("");
+          setJobType("Full Time");
+          setJobIndustry("");
+          setJobExperienceLevel("");
+          setJobEducationLevel("High School");
+          setJobSkills("");
+          setJobSalary("");
+          setJobCompany("");
+          setJobCompanyWebsite("");
+          setJobApplyBy("");
         } else {
           toast.error("Error while posting job!");
         }
       });
-
-    setJobTitle("");
-    setJobDescription("");
-    setJobLocation("");
-    setJobType("Full Time");
-    setJobIndustry("");
-    setJobExperienceLevel("");
-    setJobEducationLevel("High School");
-    setJobSkills("");
-    setJobSalary("");
-    setJobCompany("");
-    setJobCompanyWebsite("");
-    setJobApplyBy("");
   };
 
   return (

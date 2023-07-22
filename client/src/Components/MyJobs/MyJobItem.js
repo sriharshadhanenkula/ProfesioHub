@@ -2,7 +2,13 @@ import { Container } from "@mui/material";
 import React from "react";
 import { faker } from "@faker-js/faker";
 
-function MyJobItem() {
+function MyJobItem(props) {
+  const { jobItem, setMyJobItemDetails } = props;
+
+  const onClickJobItem = () => {
+    setMyJobItemDetails(jobItem);
+  };
+
   return (
     <Container
       sx={{
@@ -17,6 +23,7 @@ function MyJobItem() {
         borderBottom: "1px solid #e5e5e5",
         padding: "10px",
       }}
+      onClick={onClickJobItem}
     >
       <div>
         <img
@@ -35,7 +42,7 @@ function MyJobItem() {
             marginBottom: "3px",
           }}
         >
-          {faker.name.jobTitle()}
+          {jobItem.jobTitle}
         </p>
         <p
           style={{
@@ -44,7 +51,7 @@ function MyJobItem() {
             marginBottom: "3px",
           }}
         >
-          {faker.company.name()}
+          {jobItem.jobCompany}
         </p>
         <p
           style={{
@@ -53,7 +60,7 @@ function MyJobItem() {
             marginBottom: "3px",
           }}
         >
-          {faker.address.state()}, {faker.address.country()}
+          {jobItem.jobLocation}
         </p>
 
         <p
@@ -63,7 +70,7 @@ function MyJobItem() {
             marginBottom: "2px",
           }}
         >
-          Posted on : {faker.date.past().toDateString()}
+          Posted on : {jobItem.postedOn}
         </p>
       </div>
     </Container>
