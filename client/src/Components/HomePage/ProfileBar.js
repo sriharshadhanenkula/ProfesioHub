@@ -5,6 +5,7 @@ import { Divider } from "@mui/material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import PeopleIcon from "@mui/icons-material/People";
+import WorkIcon from "@mui/icons-material/Work";
 import { faker } from "@faker-js/faker";
 import { Link } from "react-router-dom";
 
@@ -53,11 +54,12 @@ function ProfileBar(props) {
             />
           </Row>
 
-          <div className="mt-3 mb-3">
+          <div className="mt-3">
             <p
-              sx={{
+              style={{
                 fontFamily: "open sans",
-                fontWeight: "bold",
+                fontWeight: "600",
+                fontSize: "15px",
                 textAlign: "center",
               }}
             >
@@ -67,7 +69,7 @@ function ProfileBar(props) {
             <p
               style={{
                 fontFamily: "open sans",
-                fontSize: "11px",
+                fontSize: "12px",
                 textAlign: "center",
                 color: "#747574",
               }}
@@ -111,6 +113,26 @@ function ProfileBar(props) {
                 className="me-1"
               />
               My Items
+            </Button>
+          </Link>
+
+          <Link to="/addJob">
+            <Button
+              style={{
+                backgroundColor: "transparent",
+                border: "none",
+                fontSize: "12px",
+                fontFamily: "open sans",
+                color: "#3a3b3a",
+                width: "100%",
+                textAlign: "start",
+              }}
+            >
+              <WorkIcon
+                style={{ fontSize: "16px", color: "gray" }}
+                className="me-1"
+              />
+              Post a Job
             </Button>
           </Link>
 

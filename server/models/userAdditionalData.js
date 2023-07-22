@@ -5,6 +5,7 @@ const userAdditionalDataSchema = mongoose.Schema(
     id: mongoose.Schema.Types.ObjectId,
     email: String,
     bookmarks: Array,
+    about: String,
   },
   {
     timestamps: true,

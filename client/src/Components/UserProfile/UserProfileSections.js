@@ -1,5 +1,4 @@
 import React from "react";
-import { Form, Row } from "react-bootstrap";
 import Timeline from "@mui/lab/Timeline";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
 import TimelineConnector from "@mui/lab/TimelineConnector";
@@ -12,283 +11,14 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import EditIcon from "@mui/icons-material/Edit";
 import { faker } from "@faker-js/faker";
-import profileBackground from "../../assets/profileBackground.jpg";
 import { useState } from "react";
-import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import { Button } from "@mui/material";
 
-export function UserProfileHeader(userData) {
-  const handleShow = () => setShow(true);
-  const [show, setShow] = useState(false);
-  const [myFirstName, setMyFirstName] = useState("");
-  const [myLastName, setMyLastName] = useState("");
-  const [myCity, setMyCity] = useState("");
-  const [myState, setMyState] = useState("");
-  const [myCountry, setMyCountry] = useState("");
-  const [myUniversity, setMyUniversity] = useState("");
-  const [myProfilePicture, setMyProfilePicture] = useState([]);
+export function UserBioCard(userAdditionalData) {
+  const [textAreaValue, setTextAreaValue] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
 
-  const handleClose = () => {
-    setShow(false);
-  };
-
-  const onClickSave = async () => {
-    setShow(false);
-
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const myData = {
-      email: userData.email,
-      firstName: myFirstName === "" ? userData.firstName : myFirstName,
-      lastName: myLastName === "" ? userData.lastName : myLastName,
-      city: myCity === "" ? userData.city : myCity,
-      state: myState === "" ? userData.state : myState,
-      country: myCountry === "" ? userData.country : myCountry,
-      university: myUniversity === "" ? userData.university : myUniversity,
-      profilePicture: "",
-    };
-
-    if (myProfilePicture.length === 0) {
-      myData.profilePicture = userData.profilePicture;
-      axios
-        .put("http://localhost:5000/users/updateUserDetails", myData, config)
-        .then((res) => {
-          //console.log(res);
-        });
-    }
-
-    const data = new FormData();
-    data.append("file", myData.profilePicture);
-    data.append("upload_preset", "SEProject");
-    data.append("cloud_name", "dp6ofrbni");
-
-    axios
-      .post("https://api.cloudinary.com/v1_1/dp6ofrbni/image/upload", data)
-      .then((res) => {
-        myData.profilePicture = res.data.url;
-        axios
-          .put("http://localhost:5000/users/updateUserDetails", myData, config)
-          .then((res) => {
-            //console.log(res);
-          });
-      });
-
-    setMyFirstName("");
-    setMyLastName("");
-    setMyCity("");
-    setMyState("");
-    setMyCountry("");
-    setMyUniversity("");
-    setMyProfilePicture([]);
-  };
-
-  const UserProfileHeaderModal = () => {
-    return (
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Intro</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>First Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter First Name"
-                value={myFirstName}
-                onChange={(e) => setMyFirstName(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Last Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Last Name"
-                value={myLastName}
-                onChange={(e) => setMyLastName(e.target.value)}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>City</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter City"
-                value={myCity}
-                onChange={(e) => setMyCity(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>State</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter State"
-                value={myState}
-                onChange={(e) => setMyState(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Country</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Country"
-                value={myCountry}
-                onChange={(e) => setMyCountry(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>University</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter University"
-                value={myUniversity}
-                onChange={(e) => setMyUniversity(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Profile Picture</Form.Label>
-              <Form.Control
-                type="file"
-                placeholder="Enter University"
-                onChange={(e) => setMyProfilePicture(e.target.files[0])}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <button className="btn btn-secondary" onClick={handleClose}>
-            Close
-          </button>
-
-          <button className="btn btn-primary" onClick={onClickSave}>
-            Save
-          </button>
-        </Modal.Footer>
-      </Modal>
-    );
-  };
-
-  return (
-    <div style={{ backgroundColor: "white", borderRadius: "10px" }}>
-      <Row>
-        <img
-          style={{
-            width: "100%",
-            height: "180px",
-            objectFit: "cover",
-          }}
-          src={profileBackground}
-          alt="profile-cover-page"
-        />
-      </Row>
-      <Row>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "30px",
-            paddingBottom: "0px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginTop: "-130px",
-            }}
-          >
-            <img
-              style={{
-                width: "170px",
-                height: "170px",
-                border: "5px solid white",
-                objectFit: "cover",
-                borderRadius: "50%",
-                backgroundColor: "white",
-                padding: "1px",
-              }}
-              src={userData.profilePicture}
-              alt="profile-avatar"
-            />
-          </div>
-          <EditIcon onClick={handleShow} style={{ cursor: "pointer" }} />
-          {UserProfileHeaderModal()}
-        </div>
-      </Row>
-      <Row>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "space-between",
-            padding: "30px",
-            paddingTop: "10px",
-            paddingBottom: "0px",
-          }}
-        >
-          <div>
-            <h1
-              style={{
-                fontFamily: "open sans",
-                fontSize: "18px",
-                fontWeight: "600",
-              }}
-            >
-              {userData.firstName} {userData.lastName}
-            </h1>
-            <p
-              style={{
-                fontFamily: "open sans",
-                fontSize: "15px",
-              }}
-            >
-              {userData.role}
-            </p>
-
-            <p
-              style={{
-                fontFamily: "open sans",
-                fontSize: "15px",
-              }}
-            >
-              {userData.city}, {userData.state},{userData.country}
-            </p>
-          </div>
-          <div
-            style={{
-              maxWidth: "45%",
-              minWidth: "36%",
-            }}
-          >
-            <p
-              style={{
-                fontFamily: "open sans",
-                fontSize: "15px",
-              }}
-            >
-              <img
-                style={{
-                  width: "60px",
-                  borderRadius: "50%",
-                  marginRight: "10px",
-                }}
-                src={faker.image.avatar()}
-                alt="profile-avatar"
-              />
-              {userData.university}
-            </p>
-          </div>
-        </div>
-      </Row>
-    </div>
-  );
-}
-
-export function userBioCard() {
   return (
     <div>
       <div
@@ -301,30 +31,105 @@ export function userBioCard() {
           paddingLeft: "30px",
         }}
       >
-        <h1
+        <div
           style={{
-            fontFamily: "open sans",
-            fontWeight: "bold",
-            fontSize: "18px",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
           }}
         >
-          About
-        </h1>
-        <p
-          style={{
-            fontFamily: "open sans",
-            fontSize: "15px",
-            textAlign: "justify",
-          }}
-        >
-          {faker.lorem.paragraph()}
-        </p>
+          <h1
+            style={{
+              fontFamily: "open sans",
+              fontWeight: "bold",
+              fontSize: "18px",
+            }}
+          >
+            About
+          </h1>
+          <EditIcon
+            onClick={() => setIsEdit(true)}
+            style={{ cursor: "pointer", fontSize: "18px" }}
+          />
+        </div>
+        <div>
+          {isEdit ? (
+            <>
+              <textarea
+                style={{
+                  width: "100%",
+                  height: "100px",
+                  resize: "none",
+                  outline: "none",
+                  fontFamily: "open sans",
+                  fontSize: "15px",
+                }}
+                value={textAreaValue}
+                onChange={(e) => setTextAreaValue(e.target.value)}
+              ></textarea>
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button
+                  variant="contained"
+                  style={{
+                    backgroundColor: "#0f71a6",
+                    fontFamily: "open sans",
+                    fontWeight: "bold",
+                    fontSize: "15px",
+                    marginTop: "10px",
+                  }}
+                  onClick={() => {
+                    setIsEdit(false);
+                    const config = {
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                    };
+
+                    const data = {
+                      email: userAdditionalData.email,
+                      about: textAreaValue,
+                    };
+
+                    axios
+                      .put(
+                        "http://localhost:5000/users/updateUserAdditionalDataAbout",
+                        data,
+                        config
+                      )
+                      .then((res) => {
+                        if (res.status === 200) {
+                          console.log(
+                            "User additional data updated successfully"
+                          );
+                        }
+                      });
+                  }}
+                >
+                  Save
+                </Button>
+              </div>
+            </>
+          ) : (
+            <p
+              style={{
+                fontFamily: "open sans",
+                fontSize: "15px",
+                textAlign: "justify",
+              }}
+            >
+              {userAdditionalData.about}
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
 }
 
-export function getWorkExperienceTimeLine() {
+export function GetWorkExperienceTimeLine(userData) {
+  const startDateYear = new Date(userData.startYear).getFullYear();
+  const endDateYear = new Date(userData.endYear).getFullYear();
   return (
     <div
       style={{
@@ -367,7 +172,7 @@ export function getWorkExperienceTimeLine() {
                   fontSize: "18px",
                 }}
               >
-                {faker.company.name()}
+                {userData.university}
               </h1>
               <p
                 style={{
@@ -375,7 +180,7 @@ export function getWorkExperienceTimeLine() {
                   fontSize: "15px",
                 }}
               >
-                {faker.name.jobTitle()}
+                {userData.role}
               </p>
               <p
                 style={{
@@ -383,10 +188,10 @@ export function getWorkExperienceTimeLine() {
                   fontSize: "15px",
                 }}
               >
-                {faker.date.past().toDateString()} -{" "}
-                {faker.date.past().toDateString()}
+                {userData.startMonth}/{startDateYear} - {userData.endMonth}
+                {"/"}
+                {endDateYear}
               </p>
-
               <p
                 style={{
                   fontFamily: "open sans",
@@ -404,7 +209,10 @@ export function getWorkExperienceTimeLine() {
   );
 }
 
-export function getEducationTimeLine() {
+export function GetEducationTimeLine(userData) {
+  const startDateYear = new Date(userData.startYear).getFullYear();
+  const endDateYear = new Date(userData.endYear).getFullYear();
+
   return (
     <div
       style={{
@@ -447,7 +255,7 @@ export function getEducationTimeLine() {
                   fontSize: "18px",
                 }}
               >
-                {faker.company.name()}
+                {userData.university}
               </h1>
               <p
                 style={{
@@ -455,7 +263,7 @@ export function getEducationTimeLine() {
                   fontSize: "15px",
                 }}
               >
-                {faker.name.jobTitle()}
+                {userData.role}
               </p>
               <p
                 style={{
@@ -463,8 +271,9 @@ export function getEducationTimeLine() {
                   fontSize: "15px",
                 }}
               >
-                {faker.date.past().toDateString()} -{" "}
-                {faker.date.past().toDateString()}
+                {userData.startMonth}/{startDateYear} - {userData.endMonth}
+                {"/"}
+                {endDateYear}
               </p>
 
               <p
@@ -484,7 +293,7 @@ export function getEducationTimeLine() {
   );
 }
 
-export function skillsCard() {
+export function SkillsCard() {
   const mySkills = [
     "C",
     "Java",
@@ -593,7 +402,7 @@ export function skillsCard() {
   );
 }
 
-export function projectSection() {
+export function ProjectSection() {
   return (
     <div
       style={{

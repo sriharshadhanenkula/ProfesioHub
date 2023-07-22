@@ -5,17 +5,18 @@ import axios from "axios";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import {
-  UserProfileHeader,
-  userBioCard,
-  getWorkExperienceTimeLine,
-  getEducationTimeLine,
-  skillsCard,
-  projectSection,
+  UserBioCard,
+  GetWorkExperienceTimeLine,
+  GetEducationTimeLine,
+  SkillsCard,
+  ProjectSection,
 } from "./UserProfileSections";
+import UserProfileHeader from "./UserProfileHeader";
 
 function UserProfile() {
   const [cookies] = useCookies(["userEmail"]);
   const [userData, setUserData] = useState({});
+  const [userAdditionalData, setUserAdditionalData] = useState({});
 
   useEffect(() => {
     const userEmail = cookies.userEmail;
@@ -39,6 +40,28 @@ function UserProfile() {
       });
   }, [cookies.userEmail]);
 
+  useEffect(() => {
+    const userEmail = cookies.userEmail;
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const data = {
+      email: userEmail,
+    };
+
+    axios
+      .post("http://localhost:5000/users/getUserAdditionalData", data, config)
+      .then((res) => {
+        if (res.status === 200) {
+          setUserAdditionalData(res.data);
+        }
+      });
+  }, [cookies.userEmail]);
+
   return (
     <div style={{ backgroundColor: "#ebeced", minHeight: "100vh" }}>
       <MainHeader />
@@ -58,12 +81,12 @@ function UserProfile() {
               marginBottom: "30px",
             }}
           >
-            {UserProfileHeader(userData)}
-            {userBioCard()}
-            {getWorkExperienceTimeLine()}
-            {getEducationTimeLine()}
-            {skillsCard()}
-            {projectSection()}
+            <UserProfileHeader userData={userData} />
+            {UserBioCard(userAdditionalData)}
+            {GetWorkExperienceTimeLine(userData)}
+            {GetEducationTimeLine(userData)}
+            {SkillsCard()}
+            {ProjectSection()}
           </div>
 
           <div style={{ backgroundColor: "lightcyan", width: "25%" }}>

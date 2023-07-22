@@ -106,6 +106,18 @@ router.post("/getUserDetails", async function (req, res, next) {
   }
 });
 
+router.post("/getUserAdditionalData", async function (req, res, next) {
+  const { email } = req.body;
+
+  const isPresent = await userAdditionalDataSchema.findOne({ email: email });
+
+  if (isPresent) {
+    res.status(200).send(isPresent);
+  } else {
+    res.status(203).send("User not found");
+  }
+});
+
 router.put("/updateUserDetails", async function (req, res, next) {
   const {
     email,
@@ -144,6 +156,25 @@ router.get("/getAllUsers", async function (req, res, next) {
     res.status(200).send(users);
   } else {
     res.status(203).send("No users found");
+  }
+});
+
+router.put("/updateUserAdditionalDataAbout", async function (req, res, next) {
+  const { email, about } = req.body;
+
+  const isUpdated = await userAdditionalDataSchema.updateOne(
+    { email: email },
+    {
+      $set: {
+        about: about,
+      },
+    }
+  );
+
+  if (isUpdated) {
+    res.status(200).send("User additional data updated successfully");
+  } else {
+    res.status(203).send("Error in updating user additional data");
   }
 });
 
