@@ -41,8 +41,9 @@ function UserProfileHeader(props) {
       university: myUniversity === "" ? userData.university : myUniversity,
       profilePicture: "",
     };
+    console.log(myProfilePicture);
 
-    if (myProfilePicture.length === 0) {
+    if (myProfilePicture === undefined || myProfilePicture.length === 0) {
       myData.profilePicture = userData.profilePicture;
       axios
         .put("http://localhost:5000/users/updateUserDetails", myData, config)
@@ -50,22 +51,23 @@ function UserProfileHeader(props) {
           //console.log(res);
         });
     }
+    // console.log(myData.profilePicture);
+    // const data = new FormData();
+    // data.append("file", myData.profilePicture);
+    // data.append("upload_preset", "SEProject");
+    // data.append("cloud_name", "dp6ofrbni");
 
-    const data = new FormData();
-    data.append("file", myData.profilePicture);
-    data.append("upload_preset", "SEProject");
-    data.append("cloud_name", "dp6ofrbni");
-
-    axios
-      .post("https://api.cloudinary.com/v1_1/dp6ofrbni/image/upload", data)
-      .then((res) => {
-        myData.profilePicture = res.data.url;
-        axios
-          .put("http://localhost:5000/users/updateUserDetails", myData, config)
-          .then((res) => {
-            //console.log(res);
-          });
-      });
+    // axios
+    //   .post("https://api.cloudinary.com/v1_1/dp6ofrbni/image/upload", data)
+    //   .then((res) => {
+    //     myData.profilePicture = res.data.url;
+    //     console.log(myData);
+    //     // axios
+    //     //   .put("http://localhost:5000/users/updateUserDetails", myData, config)
+    //     //   .then((res) => {
+    //     //     //console.log(res);
+    //     //   });
+    //   });
 
     setMyFirstName("");
     setMyLastName("");
@@ -84,7 +86,7 @@ function UserProfileHeader(props) {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="firstName">
               <Form.Label>First Name</Form.Label>
               <Form.Control
                 type="text"
@@ -93,7 +95,7 @@ function UserProfileHeader(props) {
                 onChange={(e) => setMyFirstName(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="lastName">
               <Form.Label>Last Name</Form.Label>
               <Form.Control
                 type="text"
@@ -103,7 +105,7 @@ function UserProfileHeader(props) {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="city">
               <Form.Label>City</Form.Label>
               <Form.Control
                 type="text"
@@ -112,7 +114,7 @@ function UserProfileHeader(props) {
                 onChange={(e) => setMyCity(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="state">
               <Form.Label>State</Form.Label>
               <Form.Control
                 type="text"
@@ -121,7 +123,7 @@ function UserProfileHeader(props) {
                 onChange={(e) => setMyState(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="country">
               <Form.Label>Country</Form.Label>
               <Form.Control
                 type="text"
@@ -130,7 +132,7 @@ function UserProfileHeader(props) {
                 onChange={(e) => setMyCountry(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="university">
               <Form.Label>University</Form.Label>
               <Form.Control
                 type="text"
@@ -139,7 +141,7 @@ function UserProfileHeader(props) {
                 onChange={(e) => setMyUniversity(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="profilePic">
               <Form.Label>Profile Picture</Form.Label>
               <Form.Control
                 type="file"

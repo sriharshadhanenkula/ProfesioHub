@@ -51,7 +51,7 @@ function MyJob() {
         <h1
           style={{
             fontFamily: "open sans",
-            fontSize: "22px",
+            fontSize: "20px",
             fontWeight: "600",
             color: "#0f71a6",
           }}
@@ -77,14 +77,14 @@ function MyJob() {
               <img
                 src={faker.image.avatar()}
                 alt="company-logo"
-                style={{ height: "53px", width: "53px", borderRadius: "50%" }}
+                style={{ height: "50px", width: "50px", borderRadius: "50%" }}
               />
             </div>
             <div>
               <p
                 style={{
                   fontFamily: "open sans",
-                  fontSize: "15px",
+                  fontSize: "13px",
                   fontWeight: "600",
                   color: "#034766",
                   margin: "0px",
@@ -96,14 +96,14 @@ function MyJob() {
               <p
                 style={{
                   fontFamily: "open sans",
-                  fontSize: "12px",
+                  fontSize: "11px",
                   fontWeight: "600",
                   color: "#034766",
                   margin: "0px",
                 }}
               >
                 <LocationOnIcon
-                  style={{ fontSize: "16px", marginRight: "1px" }}
+                  style={{ fontSize: "15px", marginRight: "1px" }}
                 />
                 {myJobItemDetails.jobLocation}
               </p>
@@ -113,7 +113,7 @@ function MyJob() {
           <h1
             style={{
               fontFamily: "open sans",
-              fontSize: "16px",
+              fontSize: "14px",
               fontWeight: "bold",
             }}
           >
@@ -131,7 +131,7 @@ function MyJob() {
         <h1
           style={{
             fontFamily: "open sans",
-            fontSize: "20px",
+            fontSize: "18px",
             fontWeight: "600",
             color: "#0f71a6",
             marginTop: "25px",
@@ -150,7 +150,7 @@ function MyJob() {
             <p
               style={{
                 fontFamily: "open sans",
-                fontSize: "14px",
+                fontSize: "13px",
                 fontWeight: "600",
                 marginBottom: "8px",
               }}
@@ -160,7 +160,7 @@ function MyJob() {
             <p
               style={{
                 fontFamily: "open sans",
-                fontSize: "15px",
+                fontSize: "13px",
                 fontWeight: "600",
                 margin: "0px",
               }}
@@ -172,7 +172,7 @@ function MyJob() {
             <p
               style={{
                 fontFamily: "open sans",
-                fontSize: "14px",
+                fontSize: "13px",
                 fontWeight: "600",
                 marginBottom: "8px",
               }}
@@ -182,7 +182,7 @@ function MyJob() {
             <p
               style={{
                 fontFamily: "open sans",
-                fontSize: "15px",
+                fontSize: "13px",
                 fontWeight: "600",
                 margin: "0px",
               }}
@@ -194,7 +194,7 @@ function MyJob() {
             <p
               style={{
                 fontFamily: "open sans",
-                fontSize: "14px",
+                fontSize: "13px",
                 fontWeight: "600",
                 marginBottom: "8px",
               }}
@@ -204,7 +204,7 @@ function MyJob() {
             <p
               style={{
                 fontFamily: "open sans",
-                fontSize: "15px",
+                fontSize: "13px",
                 fontWeight: "600",
                 margin: "0px",
               }}
@@ -221,14 +221,15 @@ function MyJob() {
               fontFamily: "open sans",
               color: "black",
               textTransform: "capitalize",
-              fontWeight: "700",
+              fontWeight: "600",
               border: "1px solid black",
               marginRight: "15px",
               borderRadius: "10px",
-              width: "100px",
+              width: "90px",
+              fontSize: "13px",
             }}
           >
-            <GoBookmark style={{ fontSize: "18px", marginRight: "3px" }} /> Save
+            <GoBookmark style={{ fontSize: "16px", marginRight: "3px" }} /> Save
           </Button>
 
           <Button
@@ -238,7 +239,8 @@ function MyJob() {
               textTransform: "capitalize",
               fontWeight: "600",
               borderRadius: "10px",
-              width: "100px",
+              width: "90px",
+              fontSize: "13px",
             }}
           >
             Apply
@@ -248,7 +250,7 @@ function MyJob() {
         <h1
           style={{
             fontFamily: "open sans",
-            fontSize: "20px",
+            fontSize: "18px",
             fontWeight: "600",
             color: "#0f71a6",
             marginTop: "25px",
@@ -259,6 +261,7 @@ function MyJob() {
         <p
           style={{
             textAlign: "justify",
+            fontSize: "14px",
           }}
         >
           {myJobItemDetails.jobDescription}
@@ -267,7 +270,7 @@ function MyJob() {
         <h1
           style={{
             fontFamily: "open sans",
-            fontSize: "20px",
+            fontSize: "18px",
             fontWeight: "600",
             color: "#0f71a6",
             marginTop: "25px",
@@ -278,6 +281,7 @@ function MyJob() {
         <p
           style={{
             textAlign: "justify",
+            fontSize: "14px",
           }}
         >
           {myJobItemDetails.jobSkills}
@@ -286,7 +290,7 @@ function MyJob() {
         <h1
           style={{
             fontFamily: "open sans",
-            fontSize: "20px",
+            fontSize: "18px",
             fontWeight: "600",
             color: "#0f71a6",
             marginTop: "25px",
@@ -306,7 +310,7 @@ function MyJob() {
             <p
               style={{
                 fontFamily: "open sans",
-                fontSize: "14px",
+                fontSize: "13px",
                 fontWeight: "600",
                 marginBottom: "8px",
               }}
@@ -316,7 +320,7 @@ function MyJob() {
             <p
               style={{
                 fontFamily: "open sans",
-                fontSize: "15px",
+                fontSize: "13px",
                 fontWeight: "600",
                 margin: "0px",
               }}
@@ -328,7 +332,7 @@ function MyJob() {
             <p
               style={{
                 fontFamily: "open sans",
-                fontSize: "14px",
+                fontSize: "13px",
                 fontWeight: "600",
                 marginBottom: "8px",
               }}
@@ -338,7 +342,7 @@ function MyJob() {
             <p
               style={{
                 fontFamily: "open sans",
-                fontSize: "15px",
+                fontSize: "13px",
                 fontWeight: "600",
                 margin: "0px",
               }}
@@ -350,7 +354,7 @@ function MyJob() {
             <p
               style={{
                 fontFamily: "open sans",
-                fontSize: "14px",
+                fontSize: "13px",
                 fontWeight: "600",
                 marginBottom: "8px",
               }}
@@ -360,7 +364,7 @@ function MyJob() {
             <p
               style={{
                 fontFamily: "open sans",
-                fontSize: "15px",
+                fontSize: "13px",
                 fontWeight: "600",
                 margin: "0px",
               }}
@@ -372,7 +376,7 @@ function MyJob() {
             <p
               style={{
                 fontFamily: "open sans",
-                fontSize: "14px",
+                fontSize: "13px",
                 fontWeight: "600",
                 marginBottom: "8px",
               }}
@@ -382,7 +386,7 @@ function MyJob() {
             <p
               style={{
                 fontFamily: "open sans",
-                fontSize: "15px",
+                fontSize: "13px",
                 fontWeight: "600",
                 margin: "0px",
               }}

@@ -29,14 +29,14 @@ function MyJobItem(props) {
         <img
           src={faker.image.avatar()}
           alt="job-item-img"
-          style={{ height: "55px", width: "55px", borderRadius: "50%" }}
+          style={{ height: "53px", width: "53px", borderRadius: "50%" }}
         />
       </div>
       <div style={{ marginLeft: "10px" }}>
         <p
           style={{
             fontFamily: "open sans",
-            fontWeight: "bold",
+            fontWeight: "600",
             fontSize: "16px",
             color: "#0f71a6",
             marginBottom: "3px",
