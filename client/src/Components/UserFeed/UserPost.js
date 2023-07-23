@@ -127,7 +127,7 @@ export default function UserPost(props) {
             component="div"
             style={{
               fontFamily: "open sans",
-              fontWeight: "bold",
+              fontWeight: "600",
               fontSize: "13px",
             }}
           >
@@ -182,7 +182,7 @@ export default function UserPost(props) {
               <span
                 style={{
                   color: "#047fc7",
-                  fontWeight: "bold",
+                  fontWeight: "600",
                   cursor: "pointer",
                 }}
                 onClick={toggleShowFull}
@@ -197,7 +197,7 @@ export default function UserPost(props) {
                 <span
                   style={{
                     color: "#047fc7",
-                    fontWeight: "bold",
+                    fontWeight: "600",
                     cursor: "pointer",
                   }}
                   onClick={toggleShowFull}

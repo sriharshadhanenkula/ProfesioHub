@@ -10,6 +10,7 @@ import Messaging from "./Components/Messaging/Messaging";
 import UserProfile from "./Components/UserProfile/UserProfile";
 import MyItems from "./Components/MyItems/MyItems";
 import PostJob from "./Components/MyJobs/PostJob";
+import AddEvent from "./Components/Events/AddEvent";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/myItems" element={<MyItems />} />
           <Route path="/addJob" element={<PostJob />} />
+          <Route path="/addEvent" element={<AddEvent />} />
         </Routes>
       </Router>
     </>

@@ -130,8 +130,6 @@ router.put("/updateUserDetails", async function (req, res, next) {
     profilePicture,
   } = req.body;
 
-  console.log(req.body);
-
   const isUpdated = await userSchema.updateOne(
     { email: email },
     {

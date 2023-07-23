@@ -6,6 +6,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import PeopleIcon from "@mui/icons-material/People";
 import WorkIcon from "@mui/icons-material/Work";
+import EventIcon from "@mui/icons-material/Event";
 import { faker } from "@faker-js/faker";
 import { Link } from "react-router-dom";
 
@@ -54,13 +55,14 @@ function ProfileBar(props) {
             />
           </Row>
 
-          <div className="mt-3">
+          <div className="mt-2">
             <p
               style={{
                 fontFamily: "open sans",
                 fontWeight: "600",
                 fontSize: "15px",
                 textAlign: "center",
+                marginBottom: "8px",
               }}
             >
               {userData.firstName} {userData.lastName}
@@ -72,6 +74,7 @@ function ProfileBar(props) {
                 fontSize: "12px",
                 textAlign: "center",
                 color: "#747574",
+                marginBottom: "8px",
               }}
             >
               {userData.role}
@@ -81,13 +84,13 @@ function ProfileBar(props) {
 
           <Button
             style={{
-              backgroundColor: "transparent",
               border: "none",
               fontSize: "12px",
               fontFamily: "open sans",
               color: "#3a3b3a",
               width: "100%",
               textAlign: "start",
+              backgroundColor: "transparent",
             }}
           >
             <EventAvailableIcon
@@ -133,6 +136,26 @@ function ProfileBar(props) {
                 className="me-1"
               />
               Post a Job
+            </Button>
+          </Link>
+
+          <Link to="/addEvent">
+            <Button
+              style={{
+                backgroundColor: "transparent",
+                border: "none",
+                fontSize: "12px",
+                fontFamily: "open sans",
+                color: "#3a3b3a",
+                width: "100%",
+                textAlign: "start",
+              }}
+            >
+              <EventIcon
+                style={{ fontSize: "16px", color: "gray" }}
+                className="me-1"
+              />
+              Add an Event
             </Button>
           </Link>
 

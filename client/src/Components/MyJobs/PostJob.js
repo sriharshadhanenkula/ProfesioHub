@@ -7,6 +7,7 @@ import { Form } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import hireImage from "../../assets/hire1.jpg";
 
 function PostJob() {
   const [cookies] = useCookies(["userEmail"]);
@@ -23,7 +24,8 @@ function PostJob() {
   const [jobCompanyWebsite, setJobCompanyWebsite] = useState("");
   const [jobApplyBy, setJobApplyBy] = useState("");
 
-  const onClickPostJob = () => {
+  const onClickPostJob = (event) => {
+    event.preventDefault();
     const data = {
       email: cookies.userEmail,
       jobTitle: jobTitle,
@@ -100,191 +102,209 @@ function PostJob() {
             boxShadow: "0 0 10px rgba(0,0,0,0.1)",
           }}
         >
-          <h1
+          <div>
+            <h1
+              style={{
+                fontFamily: "open sans",
+                fontSize: "30px",
+                fontWeight: "600",
+                color: "#0f71a6",
+              }}
+            >
+              Post a Job
+            </h1>
+
+            <hr
+              style={{
+                width: "100%",
+                height: "2px",
+                backgroundColor: "#0f71a6",
+                border: "none",
+                marginTop: "10px",
+                marginBottom: "10px",
+              }}
+            />
+
+            <p
+              style={{
+                fontFamily: "open sans",
+                fontSize: "20px",
+                fontWeight: "600",
+                color: "#0f71a6",
+              }}
+            >
+              Reach the quality candidates you can't find anywhere else.
+            </p>
+
+            <p
+              style={{
+                fontFamily: "open sans",
+                fontSize: "15px",
+                fontWeight: "400",
+                color: "#0f71a6",
+              }}
+            >
+              Get started by telling us about your company and the job you're
+              hiring for.
+            </p>
+          </div>
+          <div
             style={{
-              fontFamily: "open sans",
-              fontSize: "30px",
-              fontWeight: "600",
-              color: "#0f71a6",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-start",
             }}
           >
-            Post a Job
-          </h1>
+            <div style={{ width: "50%" }}>
+              <Form>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Job Title</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Job Title"
+                    onChange={(e) => setJobTitle(e.target.value)}
+                  />
+                </Form.Group>
 
-          <hr
-            style={{
-              width: "100%",
-              height: "2px",
-              backgroundColor: "#0f71a6",
-              border: "none",
-              marginTop: "10px",
-              marginBottom: "10px",
-            }}
-          />
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Job Description</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    placeholder="Enter Job Description"
+                    style={{ height: "200px", textJustify: "justify" }}
+                    onChange={(e) => setJobDescription(e.target.value)}
+                  />
+                </Form.Group>
 
-          <p
-            style={{
-              fontFamily: "open sans",
-              fontSize: "20px",
-              fontWeight: "600",
-              color: "#0f71a6",
-            }}
-          >
-            Reach the quality candidates you can't find anywhere else.
-          </p>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Job Location</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Job Location"
+                    onChange={(e) => setJobLocation(e.target.value)}
+                  />
+                </Form.Group>
 
-          <p
-            style={{
-              fontFamily: "open sans",
-              fontSize: "15px",
-              fontWeight: "400",
-              color: "#0f71a6",
-            }}
-          >
-            Get started by telling us about your company and the job you're
-            hiring for.
-          </p>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Job Type</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    onChange={(e) => setJobType(e.target.value)}
+                  >
+                    <option>Full Time</option>
+                    <option>Part Time</option>
+                    <option>Internship</option>
+                    <option>Contract</option>
+                    <option>Temporary</option>
+                  </Form.Select>
+                </Form.Group>
 
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Job Title</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Job Title"
-                onChange={(e) => setJobTitle(e.target.value)}
-              />
-            </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Job Industry</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Job Industry"
+                    onChange={(e) => setJobIndustry(e.target.value)}
+                  />
+                </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Job Description</Form.Label>
-              <Form.Control
-                as="textarea"
-                placeholder="Enter Job Description"
-                style={{ height: "200px", textJustify: "justify" }}
-                onChange={(e) => setJobDescription(e.target.value)}
-              />
-            </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Job Experience Level</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Job Experience Level"
+                    onChange={(e) => setJobExperienceLevel(e.target.value)}
+                  />
+                </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Job Location</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Job Location"
-                onChange={(e) => setJobLocation(e.target.value)}
-              />
-            </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Job Education Level</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    onChange={(e) => setJobEducationLevel(e.target.value)}
+                  >
+                    <option>High School</option>
+                    <option>Bachelor's Degree</option>
+                    <option>Master's Degree</option>
+                    <option>PHD</option>
+                    <option>None</option>
+                  </Form.Select>
+                </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Job Type</Form.Label>
-              <Form.Select
-                aria-label="Default select example"
-                onChange={(e) => setJobType(e.target.value)}
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Job Skills</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    placeholder="Enter job skills"
+                    onChange={(e) => setJobSkills(e.target.value)}
+                    style={{ height: "100px", textJustify: "justify" }}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Job Salary</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Job Salary"
+                    onChange={(e) => setJobSalary(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Job Company</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Job Company"
+                    onChange={(e) => setJobCompany(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Job Company Website</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Job Company Website"
+                    onChange={(e) => setJobCompanyWebsite(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Job Apply By</Form.Label>
+                  <Form.Control
+                    type="date"
+                    placeholder="Enter Job Apply By"
+                    onChange={(e) => setJobApplyBy(e.target.value)}
+                  />
+                </Form.Group>
+              </Form>
+              <ToastContainer />
+              <button
+                onClick={onClickPostJob}
+                style={{
+                  backgroundColor: "#0f71a6",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  padding: "10px",
+                  width: "100%",
+                  marginTop: "10px",
+                  marginBottom: "10px",
+                  fontFamily: "open sans",
+                  fontSize: "15px",
+                  fontWeight: "600",
+                }}
               >
-                <option>Full Time</option>
-                <option>Part Time</option>
-                <option>Internship</option>
-                <option>Contract</option>
-                <option>Temporary</option>
-              </Form.Select>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Job Industry</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Job Industry"
-                onChange={(e) => setJobIndustry(e.target.value)}
+                Post Job
+              </button>
+            </div>
+            <div style={{ width: "50%" }}>
+              <img
+                style={{ width: "500px", height: "500px" }}
+                src={hireImage}
+                alt="postJob"
               />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Job Experience Level</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Job Experience Level"
-                onChange={(e) => setJobExperienceLevel(e.target.value)}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Job Education Level</Form.Label>
-              <Form.Select
-                aria-label="Default select example"
-                onChange={(e) => setJobEducationLevel(e.target.value)}
-              >
-                <option>High School</option>
-                <option>Bachelor's Degree</option>
-                <option>Master's Degree</option>
-                <option>PHD</option>
-                <option>None</option>
-              </Form.Select>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Job Skills</Form.Label>
-              <Form.Control
-                as="textarea"
-                placeholder="Enter job skills"
-                onChange={(e) => setJobSkills(e.target.value)}
-                style={{ height: "100px", textJustify: "justify" }}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Job Salary</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Job Salary"
-                onChange={(e) => setJobSalary(e.target.value)}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Job Company</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Job Company"
-                onChange={(e) => setJobCompany(e.target.value)}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Job Company Website</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Job Company Website"
-                onChange={(e) => setJobCompanyWebsite(e.target.value)}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Job Apply By</Form.Label>
-              <Form.Control
-                type="date"
-                placeholder="Enter Job Apply By"
-                onChange={(e) => setJobApplyBy(e.target.value)}
-              />
-            </Form.Group>
-          </Form>
-          <ToastContainer />
-          <button
-            onClick={onClickPostJob}
-            style={{
-              backgroundColor: "#0f71a6",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              padding: "10px",
-              width: "100%",
-              marginTop: "10px",
-              marginBottom: "10px",
-              fontFamily: "open sans",
-              fontSize: "15px",
-              fontWeight: "600",
-            }}
-          >
-            Post Job
-          </button>
+            </div>
+          </div>
         </div>
       </Container>
     </div>

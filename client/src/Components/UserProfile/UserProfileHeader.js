@@ -41,7 +41,6 @@ function UserProfileHeader(props) {
       university: myUniversity === "" ? userData.university : myUniversity,
       profilePicture: "",
     };
-    console.log(myProfilePicture);
 
     if (myProfilePicture === undefined || myProfilePicture.length === 0) {
       myData.profilePicture = userData.profilePicture;
@@ -50,24 +49,27 @@ function UserProfileHeader(props) {
         .then((res) => {
           //console.log(res);
         });
-    }
-    // console.log(myData.profilePicture);
-    // const data = new FormData();
-    // data.append("file", myData.profilePicture);
-    // data.append("upload_preset", "SEProject");
-    // data.append("cloud_name", "dp6ofrbni");
+    } else {
+      const data = new FormData();
+      data.append("file", myProfilePicture);
+      data.append("upload_preset", "SEProject");
+      data.append("cloud_name", "dp6ofrbni");
 
-    // axios
-    //   .post("https://api.cloudinary.com/v1_1/dp6ofrbni/image/upload", data)
-    //   .then((res) => {
-    //     myData.profilePicture = res.data.url;
-    //     console.log(myData);
-    //     // axios
-    //     //   .put("http://localhost:5000/users/updateUserDetails", myData, config)
-    //     //   .then((res) => {
-    //     //     //console.log(res);
-    //     //   });
-    //   });
+      axios
+        .post("https://api.cloudinary.com/v1_1/dp6ofrbni/image/upload", data)
+        .then((res) => {
+          myData.profilePicture = res.data.url;
+          axios
+            .put(
+              "http://localhost:5000/users/updateUserDetails",
+              myData,
+              config
+            )
+            .then((res) => {
+              //console.log(res);
+            });
+        });
+    }
 
     setMyFirstName("");
     setMyLastName("");

@@ -19,7 +19,8 @@ function AddPost(props) {
   const [myImage, setMyImage] = useState([]);
   const handleShow = () => setShow(true);
 
-  const onClickPostButton = () => {
+  const onClickPostButton = (event) => {
+    event.preventDefault();
     setShow(false);
 
     if (myImage.length === 0) {
