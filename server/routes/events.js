@@ -38,4 +38,9 @@ router.post("/addEvent", async function (req, res, next) {
   }
 });
 
+router.get("/getAllEvents", async function (req, res, next) {
+  const allEvents = await eventSchema.find({});
+  res.status(200).send(allEvents);
+});
+
 module.exports = router;

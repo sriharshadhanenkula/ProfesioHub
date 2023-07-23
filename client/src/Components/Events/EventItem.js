@@ -1,13 +1,11 @@
 import React from "react";
 import SchoolIcon from "@mui/icons-material/School";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import PushPinIcon from "@mui/icons-material/PushPin";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Container } from "@mui/material";
-import { faker } from "@faker-js/faker";
 
 function EventItem(props) {
-  const event = props.event;
+  const { event, setEventItemDetails } = props;
 
   return (
     <Container
@@ -19,6 +17,8 @@ function EventItem(props) {
         flexDirection: "row",
         paddingBottom: "0px",
         width: "100%",
+        border: "1px solid #e4e4e4",
+        marginBottom: "10px",
       }}
       sx={{
         "&:hover": {
@@ -26,11 +26,12 @@ function EventItem(props) {
           cursor: "pointer",
         },
       }}
+      onClick={() => setEventItemDetails(event)}
     >
       <img
-        src={faker.image.urlPicsumPhotos(70, 70)}
+        src={event.EventImage}
         alt="event"
-        style={{ width: "70px", height: "70px", borderRadius: "5px" }}
+        style={{ width: "75px", height: "90px", borderRadius: "5px" }}
       />
       <div
         style={{
@@ -42,14 +43,14 @@ function EventItem(props) {
       >
         <p
           style={{
-            fontSize: "16px",
+            fontSize: "15px",
             fontWeight: "600",
             fontFamily: "open sans",
             color: "#0f71a6",
-            marginBottom: "12px",
+            marginBottom: "10px",
           }}
         >
-          {faker.company.name()}
+          {event.EventTitle}
         </p>
         <p
           style={{
@@ -62,7 +63,7 @@ function EventItem(props) {
           <SchoolIcon
             style={{ color: "#575859", marginRight: "6px", fontSize: "17px" }}
           />
-          {faker.company.catchPhrase()}
+          {event.EventOrganizer}
         </p>
         <div
           style={{
@@ -73,21 +74,18 @@ function EventItem(props) {
             color: "#3d3e40",
             fontFamily: "open sans",
             fontWeight: "500",
+            width: "70%",
           }}
         >
-          <p style={{ fontSize: "11px" }}>
-            <PushPinIcon style={{ marginRight: "4px", fontSize: "14px" }} />
-            {event.medium}
-          </p>
           <p style={{ fontSize: "11px" }}>
             <CalendarMonthIcon
               style={{ marginRight: "4px", fontSize: "14px" }}
             />
-            {faker.date.recent().toLocaleDateString()}
+            {event.EventDate}
           </p>
           <p style={{ fontSize: "11px" }}>
             <AccessTimeIcon style={{ marginRight: "4px", fontSize: "14px" }} />
-            {faker.date.recent().toLocaleTimeString()}
+            {event.EventTime}
           </p>
         </div>
       </div>

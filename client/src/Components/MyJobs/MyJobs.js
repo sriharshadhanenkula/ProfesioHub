@@ -7,32 +7,18 @@ import { GoBookmark } from "react-icons/go";
 import MyJobItem from "./MyJobItem";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useCookies } from "react-cookie";
 import { faker } from "@faker-js/faker";
 
 function MyJob() {
-  const [cookies] = useCookies(["userEmail"]);
   const [myJobs, setMyJobs] = useState([]);
   const [myJobItemDetails, setMyJobItemDetails] = useState([{}]);
 
   useEffect(() => {
-    const data = {
-      email: cookies.userEmail,
-    };
-
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    axios
-      .post("http://localhost:5000/jobs/getMyJobs", data, config)
-      .then((res) => {
-        setMyJobs(res.data);
-        setMyJobItemDetails(res.data[0]);
-      });
-  }, [cookies.userEmail]);
+    axios.get("http://localhost:5000/jobs/getMyJobs").then((res) => {
+      setMyJobs(res.data);
+      setMyJobItemDetails(res.data[0]);
+    });
+  }, []);
 
   const jobDescriptionTab = () => {
     return (

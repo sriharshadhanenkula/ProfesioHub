@@ -49,14 +49,9 @@ router.post("/addJob", async function (req, res, next) {
   }
 });
 
-router.post("/getMyJobs", async function (req, res, next) {
-  const { email } = req.body;
-
-  const isPresent = await jobSchema.find({ email: email });
-
-  if (isPresent) {
-    res.status(200).send(isPresent);
-  }
+router.get("/getMyJobs", async function (req, res, next) {
+  const myJobs = await jobSchema.find({});
+  res.status(200).send(myJobs);
 });
 
 module.exports = router;
