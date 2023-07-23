@@ -31,6 +31,7 @@ function MyNetwork() {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
+          minHeight: "90vh",
         }}
       >
         <ManageNetworkBar />
@@ -39,19 +40,55 @@ function MyNetwork() {
           style={{
             backgroundColor: "white",
             borderRadius: "10px",
-            minHeight: "90vh",
+            height: "fit-content",
             width: "70%",
             marginTop: "30px",
             marginLeft: "30px",
             display: "flex",
             flexDirection: "row",
+            justifyContent: "space-between",
             flexWrap: "wrap",
-            justifyContent: "space-evenly",
-            padding: "10px",
+            padding: "15px",
           }}
         >
           {users.map((user) => {
-            return <UserProfileCard userData={user} />;
+            return <UserProfileCard key={user._id} userData={user} />;
+          })}
+          {users.map((user) => {
+            return <UserProfileCard key={user._id} userData={user} />;
+          })}
+          {users.map((user) => {
+            return <UserProfileCard key={user._id} userData={user} />;
+          })}
+          {users.map((user) => {
+            return <UserProfileCard key={user._id} userData={user} />;
+          })}
+          {users.map((user) => {
+            return <UserProfileCard key={user._id} userData={user} />;
+          })}
+          {users.map((user) => {
+            return <UserProfileCard key={user._id} userData={user} />;
+          })}
+          {users.map((user) => {
+            return <UserProfileCard key={user._id} userData={user} />;
+          })}
+          {users.map((user) => {
+            return <UserProfileCard key={user._id} userData={user} />;
+          })}
+          {users.map((user) => {
+            return <UserProfileCard key={user._id} userData={user} />;
+          })}
+          {users.map((user) => {
+            return <UserProfileCard key={user._id} userData={user} />;
+          })}
+          {users.map((user) => {
+            return <UserProfileCard key={user._id} userData={user} />;
+          })}
+          {users.map((user) => {
+            return <UserProfileCard key={user._id} userData={user} />;
+          })}
+          {users.map((user) => {
+            return <UserProfileCard key={user._id} userData={user} />;
           })}
         </div>
       </Container>

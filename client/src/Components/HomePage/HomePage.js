@@ -6,6 +6,7 @@ import ProfileBar from "./ProfileBar";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import axios from "axios";
+import LatestItems from "./LatestItems";
 
 function HomePage() {
   const [cookies] = useCookies(["userEmail"]);
@@ -48,17 +49,8 @@ function HomePage() {
         <div style={{ width: "50%", margin: "30px", marginTop: "30px" }}>
           <UserFeed userData={userData} />
         </div>
-        <div
-          style={{
-            width: "28%",
-            backgroundColor: "white",
-            borderRadius: "10px",
-            maxHeight: "70vh",
-            marginTop: "30px",
-          }}
-        >
-          <p>Display recent jobs and events</p>
-        </div>
+
+        <LatestItems />
       </Container>
     </div>
   );

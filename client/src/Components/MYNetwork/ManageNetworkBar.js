@@ -21,7 +21,7 @@ function ManageNetworkBar() {
         backgroundColor: "white",
         marginTop: "30px",
         borderRadius: "10px",
-        height: "270px",
+        height: "fit-content",
         padding: "10px",
       }}
     >

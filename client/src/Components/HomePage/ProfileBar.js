@@ -22,6 +22,7 @@ function ProfileBar(props) {
         borderRadius: "10px",
         marginTop: "30px",
         paddingBottom: "10px",
+        boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.2)",
       }}
     >
       <Row>
@@ -60,9 +61,10 @@ function ProfileBar(props) {
               style={{
                 fontFamily: "open sans",
                 fontWeight: "600",
-                fontSize: "15px",
+                fontSize: "15.5px",
                 textAlign: "center",
                 marginBottom: "8px",
+                color: "#0f71a6",
               }}
             >
               {userData.firstName} {userData.lastName}
@@ -85,7 +87,7 @@ function ProfileBar(props) {
           <Button
             style={{
               border: "none",
-              fontSize: "12px",
+              fontSize: "13px",
               fontFamily: "open sans",
               color: "#3a3b3a",
               width: "100%",
@@ -94,7 +96,7 @@ function ProfileBar(props) {
             }}
           >
             <EventAvailableIcon
-              style={{ fontSize: "16px", color: "gray" }}
+              style={{ fontSize: "17px", color: "gray" }}
               className="me-1"
             />
             Events registered
@@ -104,7 +106,7 @@ function ProfileBar(props) {
               style={{
                 backgroundColor: "transparent",
                 border: "none",
-                fontSize: "12px",
+                fontSize: "13px",
                 fontFamily: "open sans",
                 color: "#3a3b3a",
                 width: "100%",
@@ -112,7 +114,7 @@ function ProfileBar(props) {
               }}
             >
               <BookmarkIcon
-                style={{ fontSize: "16px", color: "gray" }}
+                style={{ fontSize: "17px", color: "gray" }}
                 className="me-1"
               />
               My Items
@@ -124,7 +126,7 @@ function ProfileBar(props) {
               style={{
                 backgroundColor: "transparent",
                 border: "none",
-                fontSize: "12px",
+                fontSize: "13px",
                 fontFamily: "open sans",
                 color: "#3a3b3a",
                 width: "100%",
@@ -132,7 +134,7 @@ function ProfileBar(props) {
               }}
             >
               <WorkIcon
-                style={{ fontSize: "16px", color: "gray" }}
+                style={{ fontSize: "17px", color: "gray" }}
                 className="me-1"
               />
               Post a Job
@@ -144,7 +146,7 @@ function ProfileBar(props) {
               style={{
                 backgroundColor: "transparent",
                 border: "none",
-                fontSize: "12px",
+                fontSize: "13px",
                 fontFamily: "open sans",
                 color: "#3a3b3a",
                 width: "100%",
@@ -152,7 +154,7 @@ function ProfileBar(props) {
               }}
             >
               <EventIcon
-                style={{ fontSize: "16px", color: "gray" }}
+                style={{ fontSize: "17px", color: "gray" }}
                 className="me-1"
               />
               Add an Event
@@ -163,7 +165,7 @@ function ProfileBar(props) {
             style={{
               backgroundColor: "transparent",
               border: "none",
-              fontSize: "12px",
+              fontSize: "13px",
               fontFamily: "open sans",
               color: "#3a3b3a",
               textAlign: "start",
@@ -171,7 +173,7 @@ function ProfileBar(props) {
             }}
           >
             <PeopleIcon
-              style={{ fontSize: "16px", color: "gray" }}
+              style={{ fontSize: "17px", color: "gray" }}
               className="me-1"
             />
             Number of Connections: 500

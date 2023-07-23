@@ -7,15 +7,15 @@ import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
 function UserProfileCard(props) {
-  const userData = props.userData;
+  const { userData } = props;
 
   return (
     <div
       style={{
-        width: "22%",
+        width: "24%",
         borderRadius: "10px",
         border: "1px solid #e5e5e5",
-        maxHeight: "300px",
+        height: "fit-content",
         marginBottom: "10px",
       }}
     >
@@ -40,24 +40,27 @@ function UserProfileCard(props) {
               alignItems: "center",
               justifyContent: "center",
               marginTop: "-10%",
+              marginBottom: "10px",
             }}
           >
             <img
-              src={faker.image.avatar()}
+              src={userData.profilePicture}
               alt="profile"
               style={{ borderRadius: "50%", width: "50%" }}
             />
           </Row>
 
-          <div className="mt-3 mb-3">
+          <div style={{ paddingBottom: "10px" }}>
             <p
               style={{
                 fontFamily: "open sans",
-                fontWeight: "bold",
+                fontWeight: "600",
                 textAlign: "center",
+                fontSize: "15px",
+                marginBottom: "10px",
               }}
             >
-              {faker.name.firstName()} {faker.name.lastName()}
+              {userData.firstName} {userData.lastName}
             </p>
 
             <p
@@ -66,9 +69,10 @@ function UserProfileCard(props) {
                 fontSize: "11px",
                 textAlign: "center",
                 color: "#747574",
+                marginBottom: "10px",
               }}
             >
-              Graduate Student at University at Albany
+              {userData.university}
             </p>
             <Typography sx={{ textAlign: "center" }}>
               <Button

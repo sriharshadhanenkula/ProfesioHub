@@ -101,7 +101,12 @@ export default function UserPost(props) {
   };
 
   return (
-    <Card style={{ marginTop: "10px" }}>
+    <Card
+      style={{
+        marginTop: "10px",
+        boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.2)",
+      }}
+    >
       <CardHeader
         avatar={
           <Avatar style={{ width: "45px", height: "45px" }}>

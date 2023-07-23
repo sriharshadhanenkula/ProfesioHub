@@ -63,7 +63,12 @@ function MainHeader() {
   };
 
   return (
-    <Navbar style={{ backgroundColor: "white" }}>
+    <Navbar
+      style={{
+        backgroundColor: "white",
+        boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.1)",
+      }}
+    >
       <Container
         style={{
           display: "flex",

@@ -60,7 +60,7 @@ function Events() {
             alignItems: "center",
           }}
         >
-          <div style={{ textAlign: "start" }}>
+          <div style={{ textAlign: "center" }}>
             <p
               style={{
                 fontFamily: "open sans",
@@ -105,33 +105,33 @@ function Events() {
               {myEventItemDetails.EventDate} {myEventItemDetails.EventTime}
             </p>
           </div>
-        </div>
-        <div style={{ textAlign: "center", width: "33%" }}>
-          <p
-            style={{
-              fontFamily: "open sans",
-              fontSize: "15px",
-              fontWeight: "600",
-              marginBottom: "8px",
-            }}
-          >
-            Location
-          </p>
-          <p
-            style={{
-              fontFamily: "open sans",
-              fontSize: "13px",
-              fontWeight: "600",
-              margin: "0px",
-            }}
-          >
-            {myEventItemDetails.EventLocation}
-          </p>
+          <div style={{ textAlign: "center", width: "33%" }}>
+            <p
+              style={{
+                fontFamily: "open sans",
+                fontSize: "15px",
+                fontWeight: "600",
+                marginBottom: "8px",
+              }}
+            >
+              Location
+            </p>
+            <p
+              style={{
+                fontFamily: "open sans",
+                fontSize: "13px",
+                fontWeight: "600",
+                margin: "0px",
+              }}
+            >
+              {myEventItemDetails.EventLocation}
+            </p>
+          </div>
         </div>
 
         <div
           style={{
-            marginTop: "25px",
+            marginTop: "30px",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",

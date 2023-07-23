@@ -347,6 +347,7 @@ function AddPost(props) {
         backgroundColor: "white",
         padding: "10px",
         borderRadius: "10px",
+        boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.2)",
       }}
     >
       <div
