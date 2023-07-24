@@ -29,4 +29,10 @@ router.get("/getAllPosts", async function (req, res, next) {
   res.status(200).send(posts);
 });
 
+router.post("/getUserPosts", async function (req, res, next) {
+  const { email } = req.body;
+  const userPosts = await postSchema.find({ email: email });
+  res.status(200).send(userPosts);
+});
+
 module.exports = router;
