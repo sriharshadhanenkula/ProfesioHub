@@ -3,9 +3,56 @@ import SchoolIcon from "@mui/icons-material/School";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Container } from "@mui/material";
+import { useCookies } from "react-cookie";
+import axios from "axios";
 
 function EventItem(props) {
-  const { event, setEventItemDetails } = props;
+  const {
+    event,
+    setEventItemDetails,
+    setIsEventRegistered,
+    setIsEventBookmarked,
+  } = props;
+
+  const [cookies] = useCookies(["userEmail"]);
+  const email = cookies.userEmail;
+
+  const isEventBookmarkedFunction = async () => {
+    const data = {
+      email: email,
+      eventId: event._id,
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios
+      .post("http://localhost:5000/users/getIsEventBookmarked", data, config)
+      .then((res) => {
+        if (res.data) {
+          setIsEventBookmarked(true);
+        } else {
+          setIsEventBookmarked(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const onClickedEventItem = () => {
+    setEventItemDetails(event);
+    isEventBookmarkedFunction();
+
+    if (event.EventApplicantsEmails.includes(email)) {
+      setIsEventRegistered(true);
+    } else {
+      setIsEventRegistered(false);
+    }
+  };
 
   return (
     <Container
@@ -26,7 +73,7 @@ function EventItem(props) {
           cursor: "pointer",
         },
       }}
-      onClick={() => setEventItemDetails(event)}
+      onClick={onClickedEventItem}
     >
       <img
         src={event.EventImage}

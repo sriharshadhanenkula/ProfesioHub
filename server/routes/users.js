@@ -332,4 +332,81 @@ router.post("/getIsJobBookmarked", async function (req, res, next) {
   }
 });
 
+router.post("/bookmarkEvent", async function (req, res, next) {
+  const { email, eventId } = req.body;
+
+  const isBookmarkPresent = await userAdditionalDataSchema.findOne({
+    email: email,
+  });
+
+  if (isBookmarkPresent) {
+    const isEventPresent = isBookmarkPresent.eventsBookmarks.find(
+      (bookmark) => bookmark === eventId
+    );
+
+    if (isEventPresent) {
+      const updatedBookmarks = isBookmarkPresent.eventsBookmarks.filter(
+        (bookmark) => bookmark !== eventId
+      );
+
+      const updatedUser = await userAdditionalDataSchema.findOneAndUpdate(
+        { email: email },
+        { eventsBookmarks: updatedBookmarks }
+      );
+
+      if (updatedUser) {
+        res.status(200).send("false");
+      } else {
+        res.status(203).send("Error in unbookmarking event");
+      }
+    } else {
+      const updatedBookmarks = [...isBookmarkPresent.eventsBookmarks, eventId];
+
+      const updatedUser = await userAdditionalDataSchema.findOneAndUpdate(
+        { email: email },
+        { eventsBookmarks: updatedBookmarks }
+      );
+
+      if (updatedUser) {
+        res.status(200).send("true");
+      } else {
+        res.status(203).send("Error in bookmarking event");
+      }
+    }
+  } else {
+    const user = await userAdditionalDataSchema.create({
+      id: new mongoose.Types.ObjectId(),
+      email: email,
+      eventsBookmarks: [eventId],
+    });
+
+    if (user) {
+      res.status(200).send("Event bookmarked successfully");
+    } else {
+      res.status(203).send("Error in bookmarking event");
+    }
+  }
+});
+
+router.post("/getIsEventBookmarked", async function (req, res, next) {
+  const { email, eventId } = req.body;
+  const isBookmarkPresent = await userAdditionalDataSchema.findOne({
+    email: email,
+  });
+
+  if (isBookmarkPresent) {
+    const isEventPresent = isBookmarkPresent.eventsBookmarks.find(
+      (bookmark) => bookmark === eventId
+    );
+
+    if (isEventPresent) {
+      res.status(200).send("true");
+    } else {
+      res.status(200).send("false");
+    }
+  } else {
+    res.status(200).send("false");
+  }
+});
+
 module.exports = router;

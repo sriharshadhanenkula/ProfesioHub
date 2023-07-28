@@ -93,7 +93,7 @@ function MyJob() {
     axios
       .post("http://localhost:5000/jobs/applyJob", data, config)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         toast.success("Applied successfully");
       });
   };

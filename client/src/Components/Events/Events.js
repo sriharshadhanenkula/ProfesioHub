@@ -5,20 +5,98 @@ import EventItem from "./EventItem";
 import { Button } from "@mui/material";
 import { GoBookmark } from "react-icons/go";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 function Events() {
   const [eventData, setEventData] = useState([]);
   const [myEventItemDetails, setEventItemDetails] = useState([]);
+  const [isEventRegistered, setIsEventRegistered] = useState(false);
+  const [isEventBookmarked, setIsEventBookmarked] = useState(false);
+  const [cookies] = useCookies(["userEmail"]);
+  const email = cookies.userEmail;
 
   useEffect(() => {
     axios.get("http://localhost:5000/events/getAllEvents").then((response) => {
       setEventData(response.data);
       setEventItemDetails(response.data[0]);
+
+      if (response.data[0].EventApplicantsEmails.includes(email)) {
+        setIsEventRegistered(true);
+      } else {
+        setIsEventRegistered(false);
+      }
     });
   }, []);
+
+  useEffect(() => {
+    const data = {
+      email: email,
+      eventId: myEventItemDetails._id,
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios
+      .post("http://localhost:5000/users/getIsEventBookmarked", data, config)
+      .then((res) => {
+        if (res.data) {
+          setIsEventBookmarked(true);
+        } else {
+          setIsEventBookmarked(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [email, myEventItemDetails]);
+
+  const onClickSaveEventButton = () => {
+    const data = {
+      email: email,
+      eventId: myEventItemDetails._id,
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios
+      .post("http://localhost:5000/users/bookmarkEvent", data, config)
+      .then((res) => {
+        setIsEventBookmarked(res.data);
+      });
+  };
+
+  const onClickRegisterEventButton = () => {
+    const data = {
+      email: email,
+      eventId: myEventItemDetails._id,
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios
+      .post("http://localhost:5000/events/registerEvent", data, config)
+      .then((res) => {
+        console.log(res.data);
+        toast.success("Registered successfully");
+      });
+  };
 
   const eventDescriptionTab = () => {
     return (
@@ -138,37 +216,78 @@ function Events() {
           }}
         >
           <div>
-            <Button
-              variant="outlined"
-              style={{
-                fontFamily: "open sans",
-                color: "black",
-                textTransform: "capitalize",
-                fontWeight: "600",
-                border: "1px solid black",
-                marginRight: "15px",
-                borderRadius: "10px",
-                width: "90px",
-                fontSize: "13px",
-              }}
-            >
-              <GoBookmark style={{ fontSize: "16px", marginRight: "3px" }} />{" "}
-              Save
-            </Button>
+            {isEventBookmarked ? (
+              <Button
+                variant="outlined"
+                style={{
+                  fontFamily: "open sans",
+                  color: "black",
+                  textTransform: "capitalize",
+                  fontWeight: "600",
+                  border: "1px solid black",
+                  marginRight: "15px",
+                  borderRadius: "10px",
+                  width: "90px",
+                  fontSize: "13px",
+                }}
+                onClick={onClickSaveEventButton}
+              >
+                <GoBookmark style={{ fontSize: "16px", marginRight: "3px" }} />{" "}
+                Saved
+              </Button>
+            ) : (
+              <Button
+                variant="outlined"
+                style={{
+                  fontFamily: "open sans",
+                  color: "black",
+                  textTransform: "capitalize",
+                  fontWeight: "600",
+                  border: "1px solid black",
+                  marginRight: "15px",
+                  borderRadius: "10px",
+                  width: "90px",
+                  fontSize: "13px",
+                }}
+                onClick={onClickSaveEventButton}
+              >
+                <GoBookmark style={{ fontSize: "16px", marginRight: "3px" }} />{" "}
+                Save
+              </Button>
+            )}
 
-            <Button
-              variant="contained"
-              style={{
-                fontFamily: "open sans",
-                textTransform: "capitalize",
-                fontWeight: "600",
-                borderRadius: "10px",
-                width: "90px",
-                fontSize: "13px",
-              }}
-            >
-              Register
-            </Button>
+            {isEventRegistered ? (
+              <Button
+                variant="contained"
+                color="success"
+                style={{
+                  fontFamily: "open sans",
+                  textTransform: "capitalize",
+                  fontWeight: "600",
+                  borderRadius: "10px",
+                  width: "90px",
+                  fontSize: "13px",
+                }}
+              >
+                Registered
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                style={{
+                  fontFamily: "open sans",
+                  textTransform: "capitalize",
+                  fontWeight: "600",
+                  borderRadius: "10px",
+                  width: "90px",
+                  fontSize: "13px",
+                }}
+                onClick={onClickRegisterEventButton}
+              >
+                Register
+              </Button>
+            )}
+            <ToastContainer />
           </div>
           <h1
             style={{
@@ -252,6 +371,8 @@ function Events() {
                 key={event._id}
                 event={event}
                 setEventItemDetails={setEventItemDetails}
+                setIsEventRegistered={setIsEventRegistered}
+                setIsEventBookmarked={setIsEventBookmarked}
               />
             ))}
           </div>
