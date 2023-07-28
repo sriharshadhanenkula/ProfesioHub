@@ -15,6 +15,8 @@ import { useCookies } from "react-cookie";
 function MyJob() {
   const [myJobs, setMyJobs] = useState([]);
   const [myJobItemDetails, setMyJobItemDetails] = useState([{}]);
+  const [isJobApplied, setIsJobApplied] = useState(false);
+  const [isJobBookmarked, setIsJobBookmarked] = useState(false);
   const [cookies] = useCookies(["userEmail"]);
   const email = cookies.userEmail;
 
@@ -22,8 +24,79 @@ function MyJob() {
     axios.get("http://localhost:5000/jobs/getMyJobs").then((res) => {
       setMyJobs(res.data);
       setMyJobItemDetails(res.data[0]);
+
+      if (res.data[0].applicantsEmails.includes(email)) {
+        setIsJobApplied(true);
+      } else {
+        setIsJobApplied(false);
+      }
     });
   }, [email]);
+
+  useEffect(() => {
+    const data = {
+      email: email,
+      jobId: myJobItemDetails._id,
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios
+      .post("http://localhost:5000/users/getIsJobBookmarked", data, config)
+      .then((res) => {
+        if (res.data) {
+          setIsJobBookmarked(true);
+        } else {
+          setIsJobBookmarked(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [myJobItemDetails, email]);
+
+  const onClickSaveJobButton = () => {
+    const data = {
+      email: email,
+      jobId: myJobItemDetails._id,
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios
+      .post("http://localhost:5000/users/bookmarkJob", data, config)
+      .then((res) => {
+        setIsJobBookmarked(res.data);
+      });
+  };
+
+  const onClickApplyButton = () => {
+    const data = {
+      email: email,
+      jobId: myJobItemDetails._id,
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios
+      .post("http://localhost:5000/jobs/applyJob", data, config)
+      .then((res) => {
+        console.log(res.data);
+        toast.success("Applied successfully");
+      });
+  };
 
   const jobDescriptionTab = () => {
     return (
@@ -206,36 +279,76 @@ function MyJob() {
         </div>
 
         <div style={{ marginTop: "25px" }}>
-          <Button
-            variant="outlined"
-            style={{
-              fontFamily: "open sans",
-              color: "black",
-              textTransform: "capitalize",
-              fontWeight: "600",
-              border: "1px solid black",
-              marginRight: "15px",
-              borderRadius: "10px",
-              width: "90px",
-              fontSize: "13px",
-            }}
-          >
-            <GoBookmark style={{ fontSize: "16px", marginRight: "3px" }} /> Save
-          </Button>
-
-          <Button
-            variant="contained"
-            style={{
-              fontFamily: "open sans",
-              textTransform: "capitalize",
-              fontWeight: "600",
-              borderRadius: "10px",
-              width: "90px",
-              fontSize: "13px",
-            }}
-          >
-            Apply
-          </Button>
+          {isJobBookmarked ? (
+            <Button
+              variant="outlined"
+              style={{
+                fontFamily: "open sans",
+                color: "black",
+                textTransform: "capitalize",
+                fontWeight: "600",
+                border: "1px solid black",
+                marginRight: "15px",
+                borderRadius: "10px",
+                width: "90px",
+                fontSize: "13px",
+              }}
+              onClick={onClickSaveJobButton}
+            >
+              <GoBookmark style={{ fontSize: "16px", marginRight: "3px" }} />
+              Saved
+            </Button>
+          ) : (
+            <Button
+              variant="outlined"
+              style={{
+                fontFamily: "open sans",
+                color: "black",
+                textTransform: "capitalize",
+                fontWeight: "600",
+                border: "1px solid black",
+                marginRight: "15px",
+                borderRadius: "10px",
+                width: "90px",
+                fontSize: "13px",
+              }}
+              onClick={onClickSaveJobButton}
+            >
+              <GoBookmark style={{ fontSize: "16px", marginRight: "3px" }} />{" "}
+              Save
+            </Button>
+          )}
+          {isJobApplied ? (
+            <Button
+              variant="contained"
+              color="success"
+              style={{
+                fontFamily: "open sans",
+                textTransform: "capitalize",
+                fontWeight: "600",
+                borderRadius: "10px",
+                width: "90px",
+                fontSize: "13px",
+              }}
+            >
+              Applied
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              style={{
+                fontFamily: "open sans",
+                textTransform: "capitalize",
+                fontWeight: "600",
+                borderRadius: "10px",
+                width: "90px",
+                fontSize: "13px",
+              }}
+              onClick={onClickApplyButton}
+            >
+              Apply
+            </Button>
+          )}
           <ToastContainer />
         </div>
 
@@ -431,6 +544,8 @@ function MyJob() {
                 jobItem={jobItem}
                 setMyJobItemDetails={setMyJobItemDetails}
                 myJobItemDetails={myJobItemDetails}
+                setIsJobApplied={setIsJobApplied}
+                setIsJobBookmarked={setIsJobBookmarked}
               />
             ))}
           </div>

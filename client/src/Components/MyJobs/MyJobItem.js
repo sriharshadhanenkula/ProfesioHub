@@ -1,12 +1,51 @@
 import { Container } from "@mui/material";
 import React from "react";
 import { faker } from "@faker-js/faker";
+import { useCookies } from "react-cookie";
+import axios from "axios";
 
 function MyJobItem(props) {
-  const { jobItem, setMyJobItemDetails } = props;
+  const { jobItem, setMyJobItemDetails, setIsJobApplied, setIsJobBookmarked } =
+    props;
+
+  const [cookies] = useCookies(["userEmail"]);
+  const email = cookies.userEmail;
+
+  const isJobBookmarkedFunction = async () => {
+    const data = {
+      email: email,
+      jobId: jobItem._id,
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios
+      .post("http://localhost:5000/users/getIsJobBookmarked", data, config)
+      .then((res) => {
+        if (res.data) {
+          setIsJobBookmarked(true);
+        } else {
+          setIsJobBookmarked(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const onClickJobItem = () => {
     setMyJobItemDetails(jobItem);
+    isJobBookmarkedFunction();
+
+    if (jobItem.applicantsEmails.includes(email)) {
+      setIsJobApplied(true);
+    } else {
+      setIsJobApplied(false);
+    }
   };
 
   return (
