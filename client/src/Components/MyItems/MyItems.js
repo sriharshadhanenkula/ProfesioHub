@@ -7,16 +7,18 @@ import { useState } from "react";
 import UserPost from "../UserFeed/UserPost";
 import { useEffect } from "react";
 import "./MyItems.css";
+import { displayJobsApplied } from "./MyItemsFunctions";
 
 function MyItems() {
   const [cookies] = useCookies(["userEmail"]);
   const [myChosenItem, setMyChosenItem] = useState("My Posts");
   const [userPosts, setUserPosts] = useState([]);
+  const [myUserAdditionalData, setMyUserAdditionalData] = useState([]);
+  const [myBookmarkedPosts, setMyBookmarkedPosts] = useState([]);
 
   useEffect(() => {
-    if (myChosenItem === "My Posts" && userPosts.length === 0) {
-      getUserPosts();
-    }
+    getUserPosts();
+    getMyUserAdditionalData();
   }, [myChosenItem]);
 
   const onClickMyPosts = async (event) => {
@@ -43,6 +45,40 @@ function MyItems() {
           setUserPosts(res.data);
         }
       });
+  };
+
+  const getMyUserAdditionalData = async () => {
+    const userEmail = cookies.userEmail;
+    const data = {
+      email: userEmail,
+    };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios
+      .post("http://localhost:5000/users/getUserAdditionalData", data, config)
+      .then((res) => {
+        if (res.status === 200) {
+          setMyUserAdditionalData(res.data);
+        }
+      });
+  };
+
+  const onClickBookmarkPosts = async (event) => {
+    event.preventDefault();
+    setMyChosenItem("BookmarkPosts");
+
+    userPosts.forEach((post) => {
+      if (myUserAdditionalData.bookmarks.includes(post._id)) {
+        setMyBookmarkedPosts((myBookmarkedPosts) => [
+          ...myBookmarkedPosts,
+          post,
+        ]);
+      }
+    });
   };
 
   const myItemsFilter = () => {
@@ -76,9 +112,10 @@ function MyItems() {
                 fontWeight: "600",
                 fontSize: "14px",
                 fontFamily: "open sans",
-                color: "#4a4a4a",
+                color: myChosenItem === "My Posts" ? "white" : "#4a4a4a",
                 width: "100%",
                 justifyContent: "flex-start",
+                backgroundColor: myChosenItem === "My Posts" ? "#5ab4e6" : "",
               }}
               onClick={onClickMyPosts}
             >
@@ -90,9 +127,11 @@ function MyItems() {
                 fontWeight: "600",
                 fontSize: "14px",
                 fontFamily: "open sans",
-                color: "#4a4a4a",
+                color: myChosenItem === "Jobs Applied" ? "white" : "#4a4a4a",
                 width: "100%",
                 justifyContent: "flex-start",
+                backgroundColor:
+                  myChosenItem === "Jobs Applied" ? "#5ab4e6" : "",
               }}
               onClick={() => setMyChosenItem("Jobs Applied")}
             >
@@ -144,10 +183,13 @@ function MyItems() {
                 fontWeight: "600",
                 fontSize: "14px",
                 fontFamily: "open sans",
-                color: "#4a4a4a",
+                color: myChosenItem === "BookmarkPosts" ? "white" : "#4a4a4a",
                 width: "100%",
                 justifyContent: "flex-start",
+                backgroundColor:
+                  myChosenItem === "BookmarkPosts" ? "#5ab4e6" : "",
               }}
+              onClick={onClickBookmarkPosts}
             >
               Posts
             </Button>
@@ -229,7 +271,26 @@ function MyItems() {
               ))
             : null}
 
-          {myChosenItem === "Jobs Applied" ? <h1>Jobs Applied</h1> : null}
+          {myChosenItem === "Jobs Applied" ? displayJobsApplied() : null}
+          {myChosenItem === "BookmarkPosts"
+            ? myBookmarkedPosts.map((post) => (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "70%",
+                    }}
+                  >
+                    <UserPost key={post._id} postData={post} />
+                  </div>
+                </div>
+              ))
+            : null}
         </div>
       </Container>
     </div>

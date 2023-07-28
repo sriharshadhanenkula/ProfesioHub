@@ -4,21 +4,26 @@ import { Button, Container } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { GoBookmark } from "react-icons/go";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import MyJobItem from "./MyJobItem";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { faker } from "@faker-js/faker";
+import { useCookies } from "react-cookie";
 
 function MyJob() {
   const [myJobs, setMyJobs] = useState([]);
   const [myJobItemDetails, setMyJobItemDetails] = useState([{}]);
+  const [cookies] = useCookies(["userEmail"]);
+  const email = cookies.userEmail;
 
   useEffect(() => {
     axios.get("http://localhost:5000/jobs/getMyJobs").then((res) => {
       setMyJobs(res.data);
       setMyJobItemDetails(res.data[0]);
     });
-  }, []);
+  }, [email]);
 
   const jobDescriptionTab = () => {
     return (
@@ -231,6 +236,7 @@ function MyJob() {
           >
             Apply
           </Button>
+          <ToastContainer />
         </div>
 
         <h1

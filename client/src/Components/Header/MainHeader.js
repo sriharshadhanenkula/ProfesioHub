@@ -307,17 +307,18 @@ function MainHeader() {
                   </Button>
                 </Link>
               </Container>
-
-              <MenuItem
-                onClick={handleClose}
-                style={{
-                  fontSize: "14px",
-                  fontFamily: "open sans",
-                  fontWeight: "500",
-                }}
-              >
-                Resume
-              </MenuItem>
+              <Link to="/myResume" className="nav-Link-decoration">
+                <MenuItem
+                  onClick={handleClose}
+                  style={{
+                    fontSize: "14px",
+                    fontFamily: "open sans",
+                    fontWeight: "500",
+                  }}
+                >
+                  Resume
+                </MenuItem>
+              </Link>
 
               <Link to="/myItems" className="nav-Link-decoration">
                 <MenuItem

@@ -57,18 +57,20 @@ function ProfileBar(props) {
           </Row>
 
           <div className="mt-2">
-            <p
-              style={{
-                fontFamily: "open sans",
-                fontWeight: "600",
-                fontSize: "15.5px",
-                textAlign: "center",
-                marginBottom: "8px",
-                color: "#0f71a6",
-              }}
-            >
-              {userData.firstName} {userData.lastName}
-            </p>
+            <Link to="/userProfile" style={{ textDecoration: "none" }}>
+              <p
+                style={{
+                  fontFamily: "open sans",
+                  fontWeight: "600",
+                  fontSize: "15px",
+                  textAlign: "center",
+                  marginBottom: "8px",
+                  color: "#0f71a6",
+                }}
+              >
+                {userData.firstName} {userData.lastName}
+              </p>
+            </Link>
 
             <p
               style={{

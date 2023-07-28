@@ -254,4 +254,82 @@ router.post("/getIsBookmarked", async function (req, res, next) {
   }
 });
 
+router.post("/bookmarkJob", async function (req, res, next) {
+  const { email, jobId } = req.body;
+
+  const isBookmarkPresent = await userAdditionalDataSchema.findOne({
+    email: email,
+  });
+
+  if (isBookmarkPresent) {
+    const isJobPresent = isBookmarkPresent.jobBookmarks.find(
+      (bookmark) => bookmark === jobId
+    );
+
+    if (isJobPresent) {
+      const updatedBookmarks = isBookmarkPresent.jobBookmarks.filter(
+        (bookmark) => bookmark !== jobId
+      );
+
+      const updatedUser = await userAdditionalDataSchema.findOneAndUpdate(
+        { email: email },
+        { jobBookmarks: updatedBookmarks }
+      );
+
+      if (updatedUser) {
+        res.status(200).send("false");
+      } else {
+        res.status(203).send("Error in unbookmarking job");
+      }
+    } else {
+      const updatedBookmarks = [...isBookmarkPresent.jobBookmarks, jobId];
+
+      const updatedUser = await userAdditionalDataSchema.findOneAndUpdate(
+        { email: email },
+        { jobBookmarks: updatedBookmarks }
+      );
+
+      if (updatedUser) {
+        res.status(200).send("true");
+      } else {
+        res.status(203).send("Error in bookmarking job");
+      }
+    }
+  } else {
+    const user = await userAdditionalDataSchema.create({
+      id: new mongoose.Types.ObjectId(),
+      email: email,
+      jobBookmarks: [jobId],
+    });
+
+    if (user) {
+      res.status(200).send("Job bookmarked successfully");
+    } else {
+      res.status(203).send("Error in bookmarking job");
+    }
+  }
+});
+
+router.post("/getIsJobBookmarked", async function (req, res, next) {
+  const { email, jobId } = req.body;
+
+  const isBookmarkPresent = await userAdditionalDataSchema.findOne({
+    email: email,
+  });
+
+  if (isBookmarkPresent) {
+    const isJobPresent = isBookmarkPresent.jobBookmarks.find(
+      (bookmark) => bookmark === jobId
+    );
+
+    if (isJobPresent) {
+      res.status(200).send("true");
+    } else {
+      res.status(200).send("false");
+    }
+  } else {
+    res.status(200).send("false");
+  }
+});
+
 module.exports = router;

@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const mongoose = require("mongoose");
 const jobSchema = require("../models/jobs");
+const userAdditionalDataSchema = require("../models/userAdditionalData");
 const { use } = require("./posts");
 
 router.post("/addJob", async function (req, res, next) {
@@ -52,6 +53,44 @@ router.post("/addJob", async function (req, res, next) {
 router.get("/getMyJobs", async function (req, res, next) {
   const myJobs = await jobSchema.find({});
   res.status(200).send(myJobs);
+});
+
+router.post("/applyJob", async function (req, res, next) {
+  const { email, jobId } = req.body;
+
+  const userAdditionalData = await userAdditionalDataSchema.findOne({
+    email: email,
+  });
+  const appliedJobs = userAdditionalData.appliedJobs || [];
+
+  const isUpdated = await userAdditionalDataSchema.updateOne(
+    { email: email },
+    {
+      $set: {
+        appliedJobs: [...appliedJobs, jobId],
+      },
+    }
+  );
+
+  const job = await jobSchema.findOne({ _id: jobId });
+  const applicantsCount = job.applicantsCount || 0;
+  const applicantsEmails = job.applicantsEmails || [];
+
+  const isJobUpdated = await jobSchema.updateOne(
+    { _id: jobId },
+    {
+      $set: {
+        applicantsCount: applicantsCount + 1,
+        applicantsEmails: [...applicantsEmails, email],
+      },
+    }
+  );
+
+  if (isUpdated && isJobUpdated) {
+    res.status(200).send("Job applied successfully");
+  } else {
+    res.status(203).send("Error in applying job");
+  }
 });
 
 module.exports = router;

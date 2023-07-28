@@ -6,6 +6,11 @@ const userAdditionalDataSchema = mongoose.Schema(
     email: String,
     bookmarks: Array,
     about: String,
+    myResume: String,
+    jobBookmarks: Array,
+    appliedJobs: Array,
+    eventsBookmarks: Array,
+    appliedEvents: Array,
   },
   {
     timestamps: true,
