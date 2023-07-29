@@ -19,6 +19,7 @@ router.post("/addEvent", async function (req, res, next) {
   } = req.body;
   const newEvent = await eventSchema.create({
     _id: new mongoose.Types.ObjectId(),
+    email: email,
     EventTitle: eventName,
     EventDescription: eventDescription,
     EventLocation: eventLocation,

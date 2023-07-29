@@ -13,6 +13,7 @@ import {
   displayEventsRegistered,
   displayBookmarkEvents,
   displayJobsPosted,
+  displayEventsPosted,
 } from "./MyItemsFunctions";
 
 function MyItems() {
@@ -203,7 +204,10 @@ function MyItems() {
                 color: "#4a4a4a",
                 width: "100%",
                 justifyContent: "flex-start",
+                backgroundColor:
+                  myChosenItem === "Events Posted" ? "#5ab4e6" : "",
               }}
+              onClick={() => setMyChosenItem("Events Posted")}
             >
               Events Posted
             </Button>
@@ -316,6 +320,9 @@ function MyItems() {
             : null}
           {myChosenItem === "Jobs Posted"
             ? displayJobsPosted(allJobs, email)
+            : null}
+          {myChosenItem === "Events Posted"
+            ? displayEventsPosted(allEvents, email)
             : null}
           {myChosenItem === "BookmarkPosts"
             ? myBookmarkedPosts.map((post) => (

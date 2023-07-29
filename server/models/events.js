@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const eventSchema = mongoose.Schema(
   {
     id: mongoose.Schema.Types.ObjectId,
+    email: String,
     EventTitle: String,
     EventDescription: String,
     EventLocation: String,

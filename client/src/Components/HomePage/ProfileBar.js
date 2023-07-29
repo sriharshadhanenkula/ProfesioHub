@@ -85,24 +85,25 @@ function ProfileBar(props) {
             </p>
           </div>
           <Divider style={{ backgroundColor: "black" }} className="mb-2" />
-
-          <Button
-            style={{
-              border: "none",
-              fontSize: "13px",
-              fontFamily: "open sans",
-              color: "#3a3b3a",
-              width: "100%",
-              textAlign: "start",
-              backgroundColor: "transparent",
-            }}
-          >
-            <EventAvailableIcon
-              style={{ fontSize: "17px", color: "gray" }}
-              className="me-1"
-            />
-            Events registered
-          </Button>
+          <Link to="/myItems">
+            <Button
+              style={{
+                border: "none",
+                fontSize: "13px",
+                fontFamily: "open sans",
+                color: "#3a3b3a",
+                width: "100%",
+                textAlign: "start",
+                backgroundColor: "transparent",
+              }}
+            >
+              <EventAvailableIcon
+                style={{ fontSize: "17px", color: "gray" }}
+                className="me-1"
+              />
+              Events registered
+            </Button>
+          </Link>
           <Link to="/myItems">
             <Button
               style={{
