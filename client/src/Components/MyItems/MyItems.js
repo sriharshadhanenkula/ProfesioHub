@@ -7,19 +7,24 @@ import { useState } from "react";
 import UserPost from "../UserFeed/UserPost";
 import { useEffect } from "react";
 import "./MyItems.css";
-import { displayJobsApplied } from "./MyItemsFunctions";
+import { displayJobsApplied, displayBookmarkJobs } from "./MyItemsFunctions";
 
 function MyItems() {
   const [cookies] = useCookies(["userEmail"]);
   const [myChosenItem, setMyChosenItem] = useState("My Posts");
   const [userPosts, setUserPosts] = useState([]);
   const [myUserAdditionalData, setMyUserAdditionalData] = useState([]);
+  const [allJobs, setAllJobs] = useState([]);
   const [myBookmarkedPosts, setMyBookmarkedPosts] = useState([]);
+
+  const email = cookies.userEmail;
 
   useEffect(() => {
     getUserPosts();
     getMyUserAdditionalData();
-  }, [myChosenItem]);
+    getAllJobs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onClickMyPosts = async (event) => {
     event.preventDefault();
@@ -65,6 +70,12 @@ function MyItems() {
           setMyUserAdditionalData(res.data);
         }
       });
+  };
+
+  const getAllJobs = async () => {
+    axios.get("http://localhost:5000/jobs/getMyJobs").then((res) => {
+      setAllJobs(res.data);
+    });
   };
 
   const onClickBookmarkPosts = async (event) => {
@@ -203,6 +214,7 @@ function MyItems() {
                 width: "100%",
                 justifyContent: "flex-start",
               }}
+              onClick={() => setMyChosenItem("BookmarkJobs")}
             >
               Jobs
             </Button>
@@ -271,7 +283,9 @@ function MyItems() {
               ))
             : null}
 
-          {myChosenItem === "Jobs Applied" ? displayJobsApplied() : null}
+          {myChosenItem === "Jobs Applied"
+            ? displayJobsApplied(allJobs, email)
+            : null}
           {myChosenItem === "BookmarkPosts"
             ? myBookmarkedPosts.map((post) => (
                 <div
@@ -290,6 +304,9 @@ function MyItems() {
                   </div>
                 </div>
               ))
+            : null}
+          {myChosenItem === "BookmarkJobs"
+            ? displayBookmarkJobs(allJobs, email, myUserAdditionalData)
             : null}
         </div>
       </Container>

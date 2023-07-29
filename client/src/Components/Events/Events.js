@@ -31,7 +31,7 @@ function Events() {
         setIsEventRegistered(false);
       }
     });
-  }, []);
+  }, [email]);
 
   useEffect(() => {
     const data = {
