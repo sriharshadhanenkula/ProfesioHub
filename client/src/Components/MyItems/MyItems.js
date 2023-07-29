@@ -7,7 +7,12 @@ import { useState } from "react";
 import UserPost from "../UserFeed/UserPost";
 import { useEffect } from "react";
 import "./MyItems.css";
-import { displayJobsApplied, displayBookmarkJobs } from "./MyItemsFunctions";
+import {
+  displayJobsApplied,
+  displayBookmarkJobs,
+  displayEventsRegistered,
+  displayBookmarkEvents,
+} from "./MyItemsFunctions";
 
 function MyItems() {
   const [cookies] = useCookies(["userEmail"]);
@@ -15,6 +20,7 @@ function MyItems() {
   const [userPosts, setUserPosts] = useState([]);
   const [myUserAdditionalData, setMyUserAdditionalData] = useState([]);
   const [allJobs, setAllJobs] = useState([]);
+  const [allEvents, setAllEvents] = useState([]);
   const [myBookmarkedPosts, setMyBookmarkedPosts] = useState([]);
 
   const email = cookies.userEmail;
@@ -23,6 +29,7 @@ function MyItems() {
     getUserPosts();
     getMyUserAdditionalData();
     getAllJobs();
+    getAllEvents();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -75,6 +82,12 @@ function MyItems() {
   const getAllJobs = async () => {
     axios.get("http://localhost:5000/jobs/getMyJobs").then((res) => {
       setAllJobs(res.data);
+    });
+  };
+
+  const getAllEvents = async () => {
+    axios.get("http://localhost:5000/events/getAllEvents").then((res) => {
+      setAllEvents(res.data);
     });
   };
 
@@ -157,7 +170,10 @@ function MyItems() {
                 color: "#4a4a4a",
                 width: "100%",
                 justifyContent: "flex-start",
+                backgroundColor:
+                  myChosenItem === "Events Registered" ? "#5ab4e6" : "",
               }}
+              onClick={() => setMyChosenItem("Events Registered")}
             >
               Events Registered
             </Button>
@@ -213,6 +229,8 @@ function MyItems() {
                 color: "#4a4a4a",
                 width: "100%",
                 justifyContent: "flex-start",
+                backgroundColor:
+                  myChosenItem === "BookmarkJobs" ? "#5ab4e6" : "",
               }}
               onClick={() => setMyChosenItem("BookmarkJobs")}
             >
@@ -227,7 +245,10 @@ function MyItems() {
                 color: "#4a4a4a",
                 width: "100%",
                 justifyContent: "flex-start",
+                backgroundColor:
+                  myChosenItem === "BookmarkEvents" ? "#5ab4e6" : "",
               }}
+              onClick={() => setMyChosenItem("BookmarkEvents")}
             >
               Events
             </Button>
@@ -286,6 +307,9 @@ function MyItems() {
           {myChosenItem === "Jobs Applied"
             ? displayJobsApplied(allJobs, email)
             : null}
+          {myChosenItem === "Events Registered"
+            ? displayEventsRegistered(allEvents, email)
+            : null}
           {myChosenItem === "BookmarkPosts"
             ? myBookmarkedPosts.map((post) => (
                 <div
@@ -307,6 +331,9 @@ function MyItems() {
             : null}
           {myChosenItem === "BookmarkJobs"
             ? displayBookmarkJobs(allJobs, email, myUserAdditionalData)
+            : null}
+          {myChosenItem === "BookmarkEvents"
+            ? displayBookmarkEvents(allEvents, email, myUserAdditionalData)
             : null}
         </div>
       </Container>
