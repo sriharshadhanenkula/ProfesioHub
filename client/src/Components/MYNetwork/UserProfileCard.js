@@ -46,7 +46,7 @@ function UserProfileCard(props) {
             <img
               src={userData.profilePicture}
               alt="profile"
-              style={{ borderRadius: "50%", width: "50%" }}
+              style={{ borderRadius: "50%", width: "95px", height: "80px" }}
             />
           </Row>
 

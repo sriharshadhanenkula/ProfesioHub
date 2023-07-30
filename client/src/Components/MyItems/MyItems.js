@@ -24,6 +24,7 @@ function MyItems() {
   const [allJobs, setAllJobs] = useState([]);
   const [allEvents, setAllEvents] = useState([]);
   const [myBookmarkedPosts, setMyBookmarkedPosts] = useState([]);
+  const [allPosts, setAllPosts] = useState([]);
 
   const email = cookies.userEmail;
 
@@ -32,6 +33,7 @@ function MyItems() {
     getMyUserAdditionalData();
     getAllJobs();
     getAllEvents();
+    getAllPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -93,11 +95,17 @@ function MyItems() {
     });
   };
 
+  const getAllPosts = async () => {
+    axios.get("http://localhost:5000/getAllPosts").then((res) => {
+      setAllPosts(res.data);
+    });
+  };
+
   const onClickBookmarkPosts = async (event) => {
     event.preventDefault();
     setMyChosenItem("BookmarkPosts");
 
-    userPosts.forEach((post) => {
+    allPosts.forEach((post) => {
       if (myUserAdditionalData.bookmarks.includes(post._id)) {
         setMyBookmarkedPosts((myBookmarkedPosts) => [
           ...myBookmarkedPosts,

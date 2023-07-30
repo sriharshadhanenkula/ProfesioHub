@@ -11,6 +11,7 @@ const userAdditionalDataSchema = mongoose.Schema(
     appliedJobs: Array,
     eventsBookmarks: Array,
     appliedEvents: Array,
+    connections: Array,
   },
   {
     timestamps: true,

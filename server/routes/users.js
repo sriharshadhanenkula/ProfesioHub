@@ -53,7 +53,20 @@ router.post("/signup", async function (req, res, next) {
       endYear: endYear,
     });
 
-    if (user) {
+    const userAdditionalData = await userAdditionalDataSchema.create({
+      id: new mongoose.Types.ObjectId(),
+      email: email,
+      bookmarks: [],
+      about: "",
+      myResume: "",
+      jobBookmarks: [],
+      appliedJobs: [],
+      eventsBookmarks: [],
+      appliedEvents: [],
+      connections: [],
+    });
+
+    if (user && userAdditionalData) {
       res.status(201).send("Account created successfully");
     } else {
       res.status(500).send("Error in creating account");

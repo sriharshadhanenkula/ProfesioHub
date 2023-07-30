@@ -40,6 +40,7 @@ function MyNetwork() {
           style={{
             backgroundColor: "white",
             borderRadius: "10px",
+            minHeight: "85vh",
             height: "fit-content",
             width: "70%",
             marginTop: "30px",
@@ -51,42 +52,6 @@ function MyNetwork() {
             padding: "15px",
           }}
         >
-          {users.map((user) => {
-            return <UserProfileCard key={user._id} userData={user} />;
-          })}
-          {users.map((user) => {
-            return <UserProfileCard key={user._id} userData={user} />;
-          })}
-          {users.map((user) => {
-            return <UserProfileCard key={user._id} userData={user} />;
-          })}
-          {users.map((user) => {
-            return <UserProfileCard key={user._id} userData={user} />;
-          })}
-          {users.map((user) => {
-            return <UserProfileCard key={user._id} userData={user} />;
-          })}
-          {users.map((user) => {
-            return <UserProfileCard key={user._id} userData={user} />;
-          })}
-          {users.map((user) => {
-            return <UserProfileCard key={user._id} userData={user} />;
-          })}
-          {users.map((user) => {
-            return <UserProfileCard key={user._id} userData={user} />;
-          })}
-          {users.map((user) => {
-            return <UserProfileCard key={user._id} userData={user} />;
-          })}
-          {users.map((user) => {
-            return <UserProfileCard key={user._id} userData={user} />;
-          })}
-          {users.map((user) => {
-            return <UserProfileCard key={user._id} userData={user} />;
-          })}
-          {users.map((user) => {
-            return <UserProfileCard key={user._id} userData={user} />;
-          })}
           {users.map((user) => {
             return <UserProfileCard key={user._id} userData={user} />;
           })}

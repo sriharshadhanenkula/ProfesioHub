@@ -52,7 +52,7 @@ function ProfileBar(props) {
             <img
               src={userData.profilePicture}
               alt="profile"
-              style={{ borderRadius: "50%", width: "38%" }}
+              style={{ borderRadius: "50%", width: "38%", height: "80px" }}
             />
           </Row>
 
@@ -179,7 +179,7 @@ function ProfileBar(props) {
               style={{ fontSize: "17px", color: "gray" }}
               className="me-1"
             />
-            Number of Connections: 500
+            Connections: 500
           </Button>
         </Container>
       </Row>

@@ -19,14 +19,16 @@ import { useEffect } from "react";
 import axios from "axios";
 import { LiaTelegram } from "react-icons/lia";
 import { GoBookmark, GoBookmarkFill } from "react-icons/go";
+import { useCookies } from "react-cookie";
 
 export default function UserPost(props) {
   const postData = props.postData;
-
+  const [cookies] = useCookies(["userEmail"]);
   const [showFull, setShowFull] = useState(false);
   const [userPostDetails, setUserPostDetails] = useState({});
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
+  const email = cookies.userEmail;
 
   const maxWords = 20;
   const words = postData.content.split(" ");
@@ -53,7 +55,7 @@ export default function UserPost(props) {
   }, [postData.email]);
 
   useEffect(() => {
-    const userPostedEmail = postData.email;
+    const userPostedEmail = email;
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +73,7 @@ export default function UserPost(props) {
           setIsBookmarked(res.data);
         }
       });
-  }, [postData._id, postData.email]);
+  }, [email, postData._id]);
 
   const toggleShowFull = () => {
     setShowFull(!showFull);
@@ -86,7 +88,7 @@ export default function UserPost(props) {
     axios
       .post(
         "http://localhost:5000/users/bookmarkPost",
-        { email: userPostDetails.email, postId: postData._id },
+        { email: email, postId: postData._id },
         config
       )
       .then((res) => {
