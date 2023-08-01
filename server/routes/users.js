@@ -170,6 +170,78 @@ router.get("/getAllUsers", async function (req, res, next) {
   }
 });
 
+router.post("/sendConnectionRequest", async function (req, res, next) {
+  const { email, connectEmail } = req.body;
+
+  const senderDetails = await userAdditionalDataSchema.findOne({
+    email: email,
+  });
+  const receiverDetails = await userAdditionalDataSchema.findOne({
+    email: connectEmail,
+  });
+
+  const UpdatedSenderDetails = await userAdditionalDataSchema.findOneAndUpdate(
+    { email: email },
+    {
+      $set: {
+        connections: [...senderDetails.connections, connectEmail],
+      },
+    }
+  );
+
+  const UpdatedReceiverDetails =
+    await userAdditionalDataSchema.findOneAndUpdate(
+      { email: connectEmail },
+      {
+        $set: {
+          connections: [...receiverDetails.connections, email],
+        },
+      }
+    );
+
+  if (UpdatedSenderDetails && UpdatedReceiverDetails) {
+    const { email } = req.body;
+
+    const user = await userAdditionalDataSchema.findOne({ email: email });
+
+    const filteredUsers = await userSchema.find({
+      // email not in user.connections and email not equal to user.email
+
+      $and: [
+        { email: { $nin: user.connections } },
+        { email: { $ne: user.email } },
+      ],
+    });
+
+    if (filteredUsers) {
+      res.status(200).send(filteredUsers);
+    } else {
+      res.status(200).send([]);
+    }
+  }
+});
+
+router.post("/getAllConnections", async function (req, res, next) {
+  const { email } = req.body;
+
+  const user = await userAdditionalDataSchema.findOne({ email: email });
+
+  const filteredUsers = await userSchema.find({
+    // email not in user.connections and email not equal to user.email
+
+    $and: [
+      { email: { $nin: user.connections } },
+      { email: { $ne: user.email } },
+    ],
+  });
+
+  if (filteredUsers) {
+    res.status(200).send(filteredUsers);
+  } else {
+    res.status(200).send([]);
+  }
+});
+
 router.put("/updateUserAdditionalDataAbout", async function (req, res, next) {
   const { email, about } = req.body;
 

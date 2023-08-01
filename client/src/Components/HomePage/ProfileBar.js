@@ -1,7 +1,8 @@
-import React from "react";
-import { Button, Container } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Container } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import { Divider } from "@mui/material";
+import Button from "@mui/material/Button";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import PeopleIcon from "@mui/icons-material/People";
@@ -9,9 +10,32 @@ import WorkIcon from "@mui/icons-material/Work";
 import EventIcon from "@mui/icons-material/Event";
 import { faker } from "@faker-js/faker";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
 
 function ProfileBar(props) {
   const userData = props.userData;
+  const [myUserAdditionalData, setMyUserAdditionalData] = useState({});
+
+  useEffect(() => {
+    const userEmail = userData.email;
+    const data = {
+      email: userEmail,
+    };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios
+      .post("http://localhost:5000/users/getUserAdditionalData", data, config)
+      .then((res) => {
+        if (res.status === 200) {
+          setMyUserAdditionalData(res.data);
+        }
+      });
+  }, [userData.email]);
 
   return (
     <div
@@ -77,7 +101,7 @@ function ProfileBar(props) {
                 fontFamily: "open sans",
                 fontSize: "12px",
                 textAlign: "center",
-                color: "#747574",
+                color: "#3a3a3a",
                 marginBottom: "8px",
               }}
             >
@@ -85,16 +109,23 @@ function ProfileBar(props) {
             </p>
           </div>
           <Divider style={{ backgroundColor: "black" }} className="mb-2" />
-          <Link to="/myItems">
+          <Link to="/myItems" style={{ textDecoration: "none" }}>
             <Button
-              style={{
-                border: "none",
-                fontSize: "13px",
-                fontFamily: "open sans",
-                color: "#3a3b3a",
+              sx={{
                 width: "100%",
-                textAlign: "start",
-                backgroundColor: "transparent",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                textTransform: "capitalize",
+                fontSize: "12px",
+                fontWeight: "500",
+                fontFamily: "open sans",
+                color: "gray",
+                "&:hover": {
+                  backgroundColor: "#e4f0f7",
+                  color: "black",
+                  cursor: "pointer",
+                },
               }}
             >
               <EventAvailableIcon
@@ -104,16 +135,23 @@ function ProfileBar(props) {
               Events registered
             </Button>
           </Link>
-          <Link to="/myItems">
+          <Link to="/myItems" style={{ textDecoration: "none" }}>
             <Button
-              style={{
-                backgroundColor: "transparent",
-                border: "none",
-                fontSize: "13px",
-                fontFamily: "open sans",
-                color: "#3a3b3a",
+              sx={{
                 width: "100%",
-                textAlign: "start",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                textTransform: "capitalize",
+                fontSize: "12px",
+                fontWeight: "500",
+                fontFamily: "open sans",
+                color: "gray",
+                "&:hover": {
+                  backgroundColor: "#e4f0f7",
+                  color: "black",
+                  cursor: "pointer",
+                },
               }}
             >
               <BookmarkIcon
@@ -124,16 +162,23 @@ function ProfileBar(props) {
             </Button>
           </Link>
 
-          <Link to="/addJob">
+          <Link to="/addJob" style={{ textDecoration: "none" }}>
             <Button
-              style={{
-                backgroundColor: "transparent",
-                border: "none",
-                fontSize: "13px",
-                fontFamily: "open sans",
-                color: "#3a3b3a",
+              sx={{
                 width: "100%",
-                textAlign: "start",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                textTransform: "capitalize",
+                fontSize: "12px",
+                fontWeight: "500",
+                fontFamily: "open sans",
+                color: "gray",
+                "&:hover": {
+                  backgroundColor: "#e4f0f7",
+                  color: "black",
+                  cursor: "pointer",
+                },
               }}
             >
               <WorkIcon
@@ -144,16 +189,23 @@ function ProfileBar(props) {
             </Button>
           </Link>
 
-          <Link to="/addEvent">
+          <Link to="/addEvent" style={{ textDecoration: "none" }}>
             <Button
-              style={{
-                backgroundColor: "transparent",
-                border: "none",
-                fontSize: "13px",
-                fontFamily: "open sans",
-                color: "#3a3b3a",
+              sx={{
                 width: "100%",
-                textAlign: "start",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                textTransform: "capitalize",
+                fontSize: "12px",
+                fontWeight: "500",
+                fontFamily: "open sans",
+                color: "gray",
+                "&:hover": {
+                  backgroundColor: "#e4f0f7",
+                  color: "black",
+                  cursor: "pointer",
+                },
               }}
             >
               <EventIcon
@@ -163,24 +215,35 @@ function ProfileBar(props) {
               Add an Event
             </Button>
           </Link>
-
-          <Button
-            style={{
-              backgroundColor: "transparent",
-              border: "none",
-              fontSize: "13px",
-              fontFamily: "open sans",
-              color: "#3a3b3a",
-              textAlign: "start",
-              width: "100%",
-            }}
-          >
-            <PeopleIcon
-              style={{ fontSize: "17px", color: "gray" }}
-              className="me-1"
-            />
-            Connections: 500
-          </Button>
+          <Link to="/myNetwork" style={{ textDecoration: "none" }}>
+            <Button
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                textTransform: "capitalize",
+                fontSize: "12px",
+                fontWeight: "500",
+                fontFamily: "open sans",
+                color: "gray",
+                "&:hover": {
+                  backgroundColor: "#e4f0f7",
+                  color: "black",
+                  cursor: "pointer",
+                },
+              }}
+            >
+              <PeopleIcon
+                style={{ fontSize: "17px", color: "gray" }}
+                className="me-1"
+              />
+              Connections:{" "}
+              {myUserAdditionalData && myUserAdditionalData.connections
+                ? myUserAdditionalData.connections.length
+                : 0}
+            </Button>
+          </Link>
         </Container>
       </Row>
     </div>

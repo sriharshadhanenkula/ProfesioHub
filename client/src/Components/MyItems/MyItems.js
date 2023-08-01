@@ -297,6 +297,7 @@ function MyItems() {
             marginBottom: "5px",
             padding: "10px",
             paddingBottom: "20px",
+            minHeight: "85vh",
             height: "fit-content",
           }}
         >

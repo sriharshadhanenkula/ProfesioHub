@@ -5,23 +5,33 @@ import ManageNetworkBar from "./ManageNetworkBar";
 import UserProfileCard from "./UserProfileCard";
 import axios from "axios";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 
 function MyNetwork() {
-  const [users, setUsers] = useState([]);
+  const [connections, setConnections] = useState([]);
+  const [cookies] = useCookies(["userEmail"]);
+
+  const email = cookies.userEmail;
 
   useEffect(() => {
+    const data = {
+      email: email,
+    };
+
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
 
-    axios.get("http://localhost:5000/users/getAllUsers", config).then((res) => {
-      if (res.status === 200) {
-        setUsers(res.data);
-      }
-    });
-  }, []);
+    axios
+      .post("http://localhost:5000/users/getAllConnections", data, config)
+      .then((res) => {
+        if (res.status === 200) {
+          setConnections(res.data);
+        }
+      });
+  }, [email]);
 
   return (
     <div style={{ backgroundColor: "#ebeced" }}>
@@ -42,18 +52,24 @@ function MyNetwork() {
             borderRadius: "10px",
             minHeight: "85vh",
             height: "fit-content",
-            width: "70%",
+            width: "74%",
             marginTop: "30px",
             marginLeft: "30px",
             display: "flex",
             flexDirection: "row",
-            justifyContent: "space-between",
+            justifyContent: "flex-start",
             flexWrap: "wrap",
-            padding: "15px",
+            padding: "5px",
           }}
         >
-          {users.map((user) => {
-            return <UserProfileCard key={user._id} userData={user} />;
+          {connections.map((user) => {
+            return (
+              <UserProfileCard
+                key={user._id}
+                userData={user}
+                setConnections={setConnections}
+              />
+            );
           })}
         </div>
       </Container>

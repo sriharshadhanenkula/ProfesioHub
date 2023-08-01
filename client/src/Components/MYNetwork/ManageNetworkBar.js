@@ -17,7 +17,7 @@ function ManageNetworkBar() {
   return (
     <div
       style={{
-        width: "30%",
+        width: "26%",
         backgroundColor: "white",
         marginTop: "30px",
         borderRadius: "10px",

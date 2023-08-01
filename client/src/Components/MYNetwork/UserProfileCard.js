@@ -1,22 +1,51 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
-
+import axios from "axios";
 import { faker } from "@faker-js/faker";
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import { useCookies } from "react-cookie";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function UserProfileCard(props) {
-  const { userData } = props;
+  const { userData, setConnections } = props;
+  const [cookies] = useCookies(["userEmail"]);
+  const email = cookies.userEmail;
+
+  const onClickConnectButton = async () => {
+    const data = {
+      email: email,
+      connectEmail: userData.email,
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios
+      .post("http://localhost:5000/users/sendConnectionRequest", data, config)
+      .then((res) => {
+        if (res.status === 200) {
+          setConnections(res.data);
+          toast.success("Connected successfully!");
+        } else {
+          toast.error("Error sending connection request!");
+        }
+      });
+  };
 
   return (
     <div
       style={{
-        width: "24%",
+        width: "22%",
         borderRadius: "10px",
         border: "1px solid #e5e5e5",
         height: "fit-content",
-        marginBottom: "10px",
+        margin: "10px",
       }}
     >
       <Row>
@@ -50,7 +79,7 @@ function UserProfileCard(props) {
             />
           </Row>
 
-          <div style={{ paddingBottom: "10px" }}>
+          <div style={{ paddingBottom: "10px", paddingLeft: "2px" }}>
             <p
               style={{
                 fontFamily: "open sans",
@@ -83,9 +112,11 @@ function UserProfileCard(props) {
                   height: "30px",
                   width: "100px",
                 }}
+                onClick={onClickConnectButton}
               >
                 Connect
               </Button>
+              <ToastContainer />
             </Typography>
           </div>
         </Container>
